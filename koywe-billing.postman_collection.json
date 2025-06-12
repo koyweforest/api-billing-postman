@@ -1,0 +1,4856 @@
+{
+	"info": {
+		"_postman_id": "ab614058-8db2-48d2-8ab0-80bc64755b2c",
+		"name": "Koywe Billing",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "45578648",
+		"_collection_link": "https://marco-5248635.postman.co/workspace/Marco's-Workspace~07be5a84-304f-4443-8e91-513aaa4de7ef/collection/45578648-ab614058-8db2-48d2-8ab0-80bc64755b2c?action=share&source=collection_link&creator=45578648"
+	},
+	"item": [
+		{
+			"name": "Chile",
+			"item": [
+				{
+					"name": "Sandbox environment credentials",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.expect(pm.response.code).to.equal(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response contains required fields\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData).to.be.an('object');\r",
+									"    pm.expect(responseData).to.have.all.keys('access_token', 'expires_in', 'token_type', 'scope', 'refresh_token');\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Access token is a non-empty string\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData).to.be.an('object');\r",
+									"    pm.expect(responseData.access_token).to.exist.and.to.be.a('string').and.to.have.lengthOf.above(0, \"Access token should not be empty\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Expires_in is a positive integer\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData).to.be.an('object');\r",
+									"    pm.expect(responseData.expires_in).to.exist.and.to.be.a('number').and.to.be.above(0, \"Value should be a positive integer\");\r",
+									"});\r",
+									"\r",
+									"// ✅ Guarda el token para Chile\r",
+									"pm.environment.set(\"session_token_chile\", pm.response.json().access_token);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"grant_type\": \"password\",\r\n    \"client_id\": \"demo/001\",\r\n    \"client_secret\": \"ad258748356c5104df2bf4bdbabd3352\",\r\n    \"username\": \"1.111.111-1/demoapi\",\r\n    \"password\": \"76be37bcc4970d29e519fca46edead19\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api-billing.koywe.com/{{api_version}}/auth",
+							"protocol": "https",
+							"host": [
+								"api-billing",
+								"koywe",
+								"com"
+							],
+							"path": [
+								"{{api_version}}",
+								"auth"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a new account",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"country_id\": 253,\r\n    \"contact_name\": \"Bruce Wayne\",\r\n    \"contact_phone\": \"+56984105522\",\r\n    \"admin_email\": \"bruce@company.com\",\r\n    \"admin_password\": \"nuevaclave\",\r\n    \"registration_legal_name_company\": \"My company name\",\r\n    \"registration_tax_id_code\": \"16497607-6\",\r\n    \"registration_tax_id_type\": \"CL-RUT\",\r\n    \"registration_company_size\": \"1\",\r\n    \"registration_company_industry\": \"1\",\r\n    \"registration_type_use\": 1,\r\n    \"registration_terms_of_use\": 1,\r\n    \"registration_additional_data\": {\r\n        \"certificate_file\": \"MIIZhQIBAzCCGU8GCSqGSIb3DQE...\",\r\n        \"certificate_password\": \"7d800b3dc1eb5fcd6\",\r\n        \"company_logo\": \"SOIFsDCCA5igAwIBAgIUMzAwMDEw...\"\r\n    }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api-billing.koywe.com/{{api_version}}/accounts",
+							"protocol": "https",
+							"host": [
+								"api-billing",
+								"koywe",
+								"com"
+							],
+							"path": [
+								"{{api_version}}",
+								"accounts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create new documents - Invoice (Factura electrónica)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var template = `\r",
+									"<canvas id=\"myChart\" height=\"75\"></canvas>\r",
+									"\r",
+									"<script src=\"https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js\"></script> \r",
+									"\r",
+									"<script>\r",
+									"    var ctx = document.getElementById(\"myChart\");\r",
+									"\r",
+									"    var myChart = new Chart(ctx, {\r",
+									"        type: \"bar\",\r",
+									"        data: {\r",
+									"            labels: [\"Net Amount\", \"Taxes Amount\", \"Total Amount\"],\r",
+									"            datasets: [{\r",
+									"                data: [],\r",
+									"                // Change these colours to customize the chart\r",
+									"                backgroundColor: [\"#003f5c\", \"#58508d\", \"#bc5090\"],\r",
+									"            }]\r",
+									"        },\r",
+									"        options: {\r",
+									"            legend: { display: false },\r",
+									"            title: {\r",
+									"                display: true,\r",
+									"                text: 'Document Totals'\r",
+									"            },\r",
+									"            scales: {\r",
+									"                xAxes: [{\r",
+									"                    display: true,\r",
+									"                    scaleLabel: {\r",
+									"                        display: true,\r",
+									"                        labelString: 'Categories'\r",
+									"                    }\r",
+									"                }],\r",
+									"                yAxes: [{\r",
+									"                    display: true,\r",
+									"                    scaleLabel: {\r",
+									"                        display: true,\r",
+									"                        labelString: 'Amount'\r",
+									"                    }\r",
+									"                }]\r",
+									"            }\r",
+									"        }\r",
+									"\r",
+									"    });\r",
+									"\r",
+									"    // Access the data passed to pm.visualizer.set() from the JavaScript\r",
+									"    pm.getData(function (err, value) {\r",
+									"        myChart.data.datasets[0].data = [value.response.totals.net_amount, value.response.totals.taxes_amount, value.response.totals.total_amount];\r",
+									"        myChart.update();\r",
+									"    });\r",
+									"\r",
+									"</script>`;\r",
+									"\r",
+									"function constructVisualizerPayload() {\r",
+									"    var res = pm.response.json();\r",
+									"    \r",
+									"    var visualizerData = {\r",
+									"        totals: res.totals\r",
+									"    };\r",
+									"\r",
+									"    return {response: visualizerData};\r",
+									"}\r",
+									"\r",
+									"pm.visualizer.set(template, constructVisualizerPayload());"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{session_token_chile}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"header\": {\r\n    \"account_id\": 423,\r\n    \"document_type_id\": \"2\",\r\n\r\n    \"received_issued_flag\": 1,\r\n    \"issue_date\": \"2025-01-07\",\r\n    \"issuer_tax_id_code\": \"76399932-7\",\r\n    \"issuer_tax_id_type\": \"CL-RUT\",\r\n    \"issuer_legal_name\": \"Laura\",\r\n    \"issuer_address\": \"Gregorio\",\r\n    \"issuer_district\": \"Centro\",\r\n    \"issuer_city\": \"Santiadfo\",\r\n    \"issuer_country_id\": \"253\",\r\n    \"issuer_phone\": \"442020550\",\r\n    \"issuer_activity\": \"Venta\",\r\n    \"receiver_tax_id_code\": \"76399932-7\",\r\n    \"receiver_tax_id_type\": \"CL-RUT\",\r\n    \"receiver_legal_name\": \"ESCUELA KEMPER URGATE\",\r\n    \"receiver_address\": \"Camacho\",\r\n    \"receiver_district\": \"Superior\",\r\n    \"receiver_city\": \"Iquique\",\r\n    \"receiver_country_id\": \"253\",\r\n    \"receiver_phone\": \"442020551\",\r\n    \"receiver_activity\": \"Venta Mayor\",\r\n    \"payment_conditions\": \"0\",\r\n    \"currency_id\": 39\r\n\r\n  },\r\n  \"details\": [\r\n    {\r\n      \"quantity\": 1,\r\n      \"sku\": \"aa111\",\r\n      \"line_description\": \"Prueba Koywe\",\r\n      \"unit_measure\": \"UN\",\r\n      \"unit_price\": 1500,\r\n      \"long_description\": \"Esta es una linea de prueba\",\r\n      \"modifier_amount\": -100,\r\n      \"total_taxes\": 266,\r\n      \"modifier_percentage\": 0,\r\n      \"total_amount_line\": 1624,\r\n      \"taxes\": [\r\n        {\r\n          \"tax_type_id\": \"387\",\r\n          \"tax_percentage\": 19,\r\n          \"tax_amount\": 266\r\n        }\r\n      ]\r\n    }\r\n  ],\r\n  \"totals\": {\r\n    \"net_amount\": 1400,\r\n    \"taxes_amount\": 266,\r\n    \"total_amount\": 1666\r\n  }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api-billing.koywe.com/{{api_version}}/documents",
+							"protocol": "https",
+							"host": [
+								"api-billing",
+								"koywe",
+								"com"
+							],
+							"path": [
+								"{{api_version}}",
+								"documents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create new documents - Invoice VAT exempt (Factura electrónica exenta)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var template = `\r",
+									"<canvas id=\"myChart\" height=\"75\"></canvas>\r",
+									"\r",
+									"<script src=\"https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js\"></script> \r",
+									"\r",
+									"<script>\r",
+									"    var ctx = document.getElementById(\"myChart\");\r",
+									"\r",
+									"    var myChart = new Chart(ctx, {\r",
+									"        type: \"bar\",\r",
+									"        data: {\r",
+									"            labels: [\"Net Amount\", \"Taxes Amount\", \"Total Amount\"],\r",
+									"            datasets: [{\r",
+									"                data: [],\r",
+									"                // Change these colours to customize the chart\r",
+									"                backgroundColor: [\"#003f5c\", \"#58508d\", \"#bc5090\"],\r",
+									"            }]\r",
+									"        },\r",
+									"        options: {\r",
+									"            legend: { display: false },\r",
+									"            title: {\r",
+									"                display: true,\r",
+									"                text: 'Document Totals'\r",
+									"            },\r",
+									"            scales: {\r",
+									"                xAxes: [{\r",
+									"                    display: true,\r",
+									"                    scaleLabel: {\r",
+									"                        display: true,\r",
+									"                        labelString: 'Categories'\r",
+									"                    }\r",
+									"                }],\r",
+									"                yAxes: [{\r",
+									"                    display: true,\r",
+									"                    scaleLabel: {\r",
+									"                        display: true,\r",
+									"                        labelString: 'Amount'\r",
+									"                    }\r",
+									"                }]\r",
+									"            }\r",
+									"        }\r",
+									"\r",
+									"    });\r",
+									"\r",
+									"    // Access the data passed to pm.visualizer.set() from the JavaScript\r",
+									"    pm.getData(function (err, value) {\r",
+									"        myChart.data.datasets[0].data = [value.response.totals.net_amount, value.response.totals.taxes_amount, value.response.totals.total_amount];\r",
+									"        myChart.update();\r",
+									"    });\r",
+									"\r",
+									"</script>`;\r",
+									"\r",
+									"function constructVisualizerPayload() {\r",
+									"    var res = pm.response.json();\r",
+									"    \r",
+									"    var visualizerData = {\r",
+									"        totals: res.totals\r",
+									"    };\r",
+									"\r",
+									"    return {response: visualizerData};\r",
+									"}\r",
+									"\r",
+									"pm.visualizer.set(template, constructVisualizerPayload());"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{session_token_chile}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"header\": {\r\n    \"account_id\": 141,\r\n    \"document_type_id\": \"32\",\r\n\r\n    \"received_issued_flag\": 1,\r\n    \"issue_date\": \"2025-01-07\",\r\n    \"issuer_tax_id_code\": \"76399932-7\",\r\n    \"issuer_tax_id_type\": \"CL-RUT\",\r\n    \"issuer_legal_name\": \"Jorge\",\r\n    \"issuer_address\": \"ValParaiso\",\r\n    \"issuer_district\": \"Norte\",\r\n    \"issuer_city\": \"Iquique\",\r\n    \"issuer_country_id\": \"253\",\r\n    \"issuer_phone\": \"78451254\",\r\n    \"issuer_activity\": \"Freelancer\",\r\n    \"receiver_tax_id_code\": \"76399932-7\",\r\n    \"receiver_tax_id_type\": \"CL-RUT\",\r\n    \"receiver_legal_name\": \"ESCUELA KEMPER URGATE\",\r\n    \"receiver_address\": \"Centro\",\r\n    \"receiver_district\": \"Central\",\r\n    \"receiver_city\": \"Iquique\",\r\n    \"receiver_country_id\": \"253\",\r\n    \"receiver_phone\": \"789451236\",\r\n    \"receiver_activity\": \"Venta menor\",\r\n    \"payment_conditions\": \"0\",\r\n    \"currency_id\": 39\r\n\r\n  },\r\n  \"details\": [\r\n    {\r\n      \"quantity\": 1,\r\n      \"sku\": \"aa111\",\r\n      \"line_description\": \"Prueba Koywe\",\r\n      \"unit_measure\": \"UN\",\r\n      \"unit_price\": 1500,\r\n      \"long_description\": \"Esta es una linea de prueba\",\r\n      \"modifier_amount\": -100,\r\n      \"total_taxes\": 0,\r\n      \"modifier_percentage\": 0,\r\n      \"total_amount_line\": 1400\r\n    }\r\n  ],\r\n  \"totals\": {\r\n    \"net_amount\": 1400,\r\n    \"taxes_amount\": 0,\r\n    \"total_amount\": 1400\r\n  }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api-billing.koywe.com/{{api_version}}/documents",
+							"protocol": "https",
+							"host": [
+								"api-billing",
+								"koywe",
+								"com"
+							],
+							"path": [
+								"{{api_version}}",
+								"documents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create new documents - Receipt (Boleta electrónica)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var template = `\r",
+									"<canvas id=\"myChart\" height=\"75\"></canvas>\r",
+									"\r",
+									"<script src=\"https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js\"></script> \r",
+									"\r",
+									"<script>\r",
+									"    var ctx = document.getElementById(\"myChart\");\r",
+									"\r",
+									"    var myChart = new Chart(ctx, {\r",
+									"        type: \"bar\",\r",
+									"        data: {\r",
+									"            labels: [\"Net Amount\", \"Taxes Amount\", \"Total Amount\"],\r",
+									"            datasets: [{\r",
+									"                data: [],\r",
+									"                // Change these colours to customize the chart\r",
+									"                backgroundColor: [\"#003f5c\", \"#58508d\", \"#bc5090\"],\r",
+									"            }]\r",
+									"        },\r",
+									"        options: {\r",
+									"            legend: { display: false },\r",
+									"            title: {\r",
+									"                display: true,\r",
+									"                text: 'Document Totals'\r",
+									"            },\r",
+									"            scales: {\r",
+									"                xAxes: [{\r",
+									"                    display: true,\r",
+									"                    scaleLabel: {\r",
+									"                        display: true,\r",
+									"                        labelString: 'Categories'\r",
+									"                    }\r",
+									"                }],\r",
+									"                yAxes: [{\r",
+									"                    display: true,\r",
+									"                    scaleLabel: {\r",
+									"                        display: true,\r",
+									"                        labelString: 'Amount'\r",
+									"                    }\r",
+									"                }]\r",
+									"            }\r",
+									"        }\r",
+									"\r",
+									"    });\r",
+									"\r",
+									"    // Access the data passed to pm.visualizer.set() from the JavaScript\r",
+									"    pm.getData(function (err, value) {\r",
+									"        myChart.data.datasets[0].data = [value.response.totals.net_amount, value.response.totals.taxes_amount, value.response.totals.total_amount];\r",
+									"        myChart.update();\r",
+									"    });\r",
+									"\r",
+									"</script>`;\r",
+									"\r",
+									"function constructVisualizerPayload() {\r",
+									"    var res = pm.response.json();\r",
+									"    \r",
+									"    var visualizerData = {\r",
+									"        totals: res.totals\r",
+									"    };\r",
+									"\r",
+									"    return {response: visualizerData};\r",
+									"}\r",
+									"\r",
+									"pm.visualizer.set(template, constructVisualizerPayload());"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{session_token_chile}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"header\": {\r\n    \"account_id\": 423,\r\n    \"document_type_id\": \"37\",\r\n\r\n    \"received_issued_flag\": 1,\r\n    \"issue_date\": \"2025-01-07\",\r\n    \"issuer_tax_id_code\": \"76399932-7\",\r\n    \"issuer_tax_id_type\": \"CL-RUT\",\r\n    \"issuer_legal_name\": \"Amelia\",\r\n    \"issuer_address\": \"Prado\",\r\n    \"issuer_district\": \"Este\",\r\n    \"issuer_city\": \"Arica\",\r\n    \"issuer_country_id\": \"253\",\r\n    \"issuer_phone\": \"2487878\",\r\n    \"issuer_activity\": \"Deporte\",\r\n    \"receiver_tax_id_code\": \"76399932-7\",\r\n    \"receiver_tax_id_type\": \"CL-RUT\",\r\n    \"receiver_legal_name\": \"ESCUELA KEMPER URGATE\",\r\n    \"receiver_address\": \"Calamares\",\r\n    \"receiver_district\": \"Bajo\",\r\n    \"receiver_city\": \"Calama\",\r\n    \"receiver_country_id\": \"253\",\r\n    \"receiver_phone\": \"2485689\",\r\n    \"receiver_activity\": \"Deporte\",\r\n    \"payment_conditions\": \"0\",\r\n    \"currency_id\": 39\r\n\r\n  },\r\n  \"details\": [\r\n    {\r\n      \"quantity\": 1,\r\n      \"sku\": \"aa111\",\r\n      \"line_description\": \"Prueba Koywe\",\r\n      \"unit_measure\": \"UN\",\r\n      \"unit_price\": 1500,\r\n      \"long_description\": \"Esta es una linea de prueba\",\r\n      \"modifier_amount\": -100,\r\n      \"total_taxes\": 266,\r\n      \"modifier_percentage\": 0,\r\n      \"total_amount_line\": 1666,\r\n      \"taxes\": [\r\n        {\r\n          \"tax_type_id\": \"387\",\r\n          \"tax_percentage\": 19,\r\n          \"tax_amount\": 266\r\n        }\r\n      ]\r\n    }\r\n  ],\r\n  \"totals\": {\r\n    \"net_amount\": 1400,\r\n    \"taxes_amount\": 266,\r\n    \"total_amount\": 1666\r\n  }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api-billing.koywe.com/{{api_version}}/documents",
+							"protocol": "https",
+							"host": [
+								"api-billing",
+								"koywe",
+								"com"
+							],
+							"path": [
+								"{{api_version}}",
+								"documents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create new documents - Receipt VAT exempt (Boleta electrónica exenta)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var template = `\r",
+									"<canvas id=\"myChart\" height=\"75\"></canvas>\r",
+									"\r",
+									"<script src=\"https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js\"></script> \r",
+									"\r",
+									"<script>\r",
+									"    var ctx = document.getElementById(\"myChart\");\r",
+									"\r",
+									"    var myChart = new Chart(ctx, {\r",
+									"        type: \"bar\",\r",
+									"        data: {\r",
+									"            labels: [\"Net Amount\", \"Taxes Amount\", \"Total Amount\"],\r",
+									"            datasets: [{\r",
+									"                data: [],\r",
+									"                // Change these colours to customize the chart\r",
+									"                backgroundColor: [\"#003f5c\", \"#58508d\", \"#bc5090\"],\r",
+									"            }]\r",
+									"        },\r",
+									"        options: {\r",
+									"            legend: { display: false },\r",
+									"            title: {\r",
+									"                display: true,\r",
+									"                text: 'Document Totals'\r",
+									"            },\r",
+									"            scales: {\r",
+									"                xAxes: [{\r",
+									"                    display: true,\r",
+									"                    scaleLabel: {\r",
+									"                        display: true,\r",
+									"                        labelString: 'Categories'\r",
+									"                    }\r",
+									"                }],\r",
+									"                yAxes: [{\r",
+									"                    display: true,\r",
+									"                    scaleLabel: {\r",
+									"                        display: true,\r",
+									"                        labelString: 'Amount'\r",
+									"                    }\r",
+									"                }]\r",
+									"            }\r",
+									"        }\r",
+									"\r",
+									"    });\r",
+									"\r",
+									"    // Access the data passed to pm.visualizer.set() from the JavaScript\r",
+									"    pm.getData(function (err, value) {\r",
+									"        myChart.data.datasets[0].data = [value.response.totals.net_amount, value.response.totals.taxes_amount, value.response.totals.total_amount];\r",
+									"        myChart.update();\r",
+									"    });\r",
+									"\r",
+									"</script>`;\r",
+									"\r",
+									"function constructVisualizerPayload() {\r",
+									"    var res = pm.response.json();\r",
+									"    \r",
+									"    var visualizerData = {\r",
+									"        totals: res.totals\r",
+									"    };\r",
+									"\r",
+									"    return {response: visualizerData};\r",
+									"}\r",
+									"\r",
+									"pm.visualizer.set(template, constructVisualizerPayload());"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{session_token_chile}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"header\": {\r\n    \"account_id\": 141,\r\n    \"document_type_id\": \"41\",\r\n\r\n    \"received_issued_flag\": 1,\r\n    \"issue_date\": \"2025-01-07\",\r\n    \"issuer_tax_id_code\": \"76399932-7\",\r\n    \"issuer_tax_id_type\": \"CL-RUT\",\r\n    \"issuer_legal_name\": \"Fidel\",\r\n    \"issuer_address\": \"Baracas\",\r\n    \"issuer_district\": \"Alto\",\r\n    \"issuer_city\": \"Temuco\",\r\n    \"issuer_country_id\": \"253\",\r\n    \"issuer_phone\": \"68795945\",\r\n    \"issuer_activity\": \"Artesano\",\r\n    \"receiver_tax_id_code\": \"76399932-7\",\r\n    \"receiver_tax_id_type\": \"CL-RUT\",\r\n    \"receiver_legal_name\": \"ESCUELA KEMPER URGATE\",\r\n    \"receiver_address\": \"Cuencas\",\r\n    \"receiver_district\": \"Medio\",\r\n    \"receiver_city\": \"Temuco\",\r\n    \"receiver_country_id\": \"253\",\r\n    \"receiver_phone\": \"6878455\",\r\n    \"receiver_activity\": \"Artesano\",\r\n    \"payment_conditions\": \"0\",\r\n    \"currency_id\": 39\r\n\r\n  },\r\n  \"details\": [\r\n    {\r\n      \"quantity\": 1,\r\n      \"sku\": \"aa111\",\r\n      \"line_description\": \"Prueba Koywe\",\r\n      \"unit_measure\": \"UN\",\r\n      \"unit_price\": 1500,\r\n      \"long_description\": \"Esta es una linea de prueba\",\r\n      \"modifier_amount\": -100,\r\n      \"total_taxes\": 0,\r\n      \"modifier_percentage\": 0,\r\n      \"total_amount_line\": 1400\r\n    }\r\n  ],\r\n  \"totals\": {\r\n    \"net_amount\": 1400,\r\n    \"taxes_amount\": 0,\r\n    \"total_amount\": 1400\r\n  }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api-billing.koywe.com/{{api_version}}/documents",
+							"protocol": "https",
+							"host": [
+								"api-billing",
+								"koywe",
+								"com"
+							],
+							"path": [
+								"{{api_version}}",
+								"documents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create new documents - Bill of Lading (Guía de despacho)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{session_token_chile}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"header\": {\r\n    \"account_id\": 423,\r\n    \"document_type_id\": \"54\",\r\n    \"received_issued_flag\": 1,\r\n    \"issue_date\": \"2025-03-04\",\r\n    \"receiver_tax_id_code\": \"76399932-7\",\r\n    \"receiver_tax_id_type\": \"CL-RUT\",\r\n    \"receiver_legal_name\": \"ESCUELA KEMPER URGATE\",\r\n    \"receiver_address\": \"Av providencia 1456\",\r\n    \"receiver_district\": \"Providencia\",\r\n    \"receiver_city\": \"Santiago\",\r\n    \"receiver_country_id\": \"253\",\r\n    \"receiver_phone\": \"<string>\",\r\n    \"receiver_activity\": \"Venta insumos\",\r\n    \"payment_conditions\": \"0\",\r\n    \"currency_id\": 39,\r\n    \"guide_type\": 1,\r\n    \"transfer_type\": 1\r\n\r\n  },\r\n  \"details\": [\r\n    {\r\n      \"quantity\": 1,\r\n      \"sku\": \"aa111\",\r\n      \"line_description\": \"Prueba Koywe\",\r\n      \"unit_measure\": \"UN\",\r\n      \"unit_price\": 1500,\r\n      \"long_description\": \"Esta es una linea de prueba\",\r\n      \"modifier_amount\": -100,\r\n      \"total_taxes\": 266,\r\n      \"modifier_percentage\": 0,\r\n      \"total_amount_line\": 1624,\r\n      \"taxes\": [\r\n        {\r\n          \"tax_type_id\": \"387\",\r\n          \"tax_percentage\": 19,\r\n          \"tax_amount\": 266\r\n        }\r\n      ]\r\n    }\r\n  ],\r\n  \"totals\": {\r\n    \"net_amount\": 1400,\r\n    \"taxes_amount\": 266,\r\n    \"total_amount\": 1666\r\n  }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api-billing.koywe.com/V1/documents",
+							"protocol": "https",
+							"host": [
+								"api-billing",
+								"koywe",
+								"com"
+							],
+							"path": [
+								"V1",
+								"documents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create new documents - Exports Invoice (Factura de exportación)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{session_token_chile}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"header\": {\r\n    \"account_id\": 423,\r\n    \"document_type_id\": \"46\",\r\n    \"received_issued_flag\": 1,\r\n    \"issue_date\": \"2025-03-04\",\r\n    \"receiver_tax_id_code\": \"222333444\",\r\n    \"receiver_tax_id_type\": \"MX-RFC\",\r\n    \"receiver_legal_name\": \"ESCUELA KEMPER URGATE\",\r\n    \"receiver_address\": \"Av providencia 1456\",\r\n    \"receiver_district\": \"Providencia\",\r\n    \"receiver_city\": \"Santiago\",\r\n    \"receiver_country_id\": \"80\",\r\n    \"receiver_phone\": \"<string>\",\r\n    \"receiver_activity\": \"Venta insumos\",\r\n    \"payment_conditions\": \"0\",\r\n    \"exchange_rate_value\": 934.58,\r\n    \"currency_id\": 5,\r\n    \"sale_modality\": 1,\r\n    \"sale_clause\": 1\r\n  },\r\n  \"details\": [\r\n    {\r\n      \"quantity\": 1,\r\n      \"sku\": \"aa111\",\r\n      \"line_description\": \"Prueba Koywe\",\r\n      \"unit_measure\": \"UN\",\r\n      \"unit_price\": 1500,\r\n      \"long_description\": \"Esta es una linea de prueba\",\r\n      \"modifier_amount\": -100,\r\n      \"total_taxes\": 0,\r\n      \"modifier_percentage\": 0,\r\n      \"total_amount_line\": 1400,\r\n      \"taxes\": [\r\n      ]\r\n    }\r\n  ],\r\n  \"totals\": {\r\n    \"net_amount\": 1400,\r\n    \"taxes_amount\": 0,\r\n    \"total_amount\": 1400\r\n  }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api-billing.koywe.com/V1/documents",
+							"protocol": "https",
+							"host": [
+								"api-billing",
+								"koywe",
+								"com"
+							],
+							"path": [
+								"V1",
+								"documents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create new documents - Exports Credit note (Nota de crédito de exportación)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{session_token_chile}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"header\": {\r\n    \"account_id\": 423,\r\n    \"document_type_id\": \"48\",\r\n    \"received_issued_flag\": 1,\r\n    \"issue_date\": \"2025-03-04\",\r\n    \"receiver_tax_id_code\": \"222333444\",\r\n    \"receiver_tax_id_type\": \"MX-RFC\",\r\n    \"receiver_legal_name\": \"ESCUELA KEMPER URGATE\",\r\n    \"receiver_address\": \"Av providencia 1456\",\r\n    \"receiver_district\": \"Providencia\",\r\n    \"receiver_city\": \"Santiago\",\r\n    \"receiver_country_id\": \"80\",\r\n    \"receiver_phone\": \"<string>\",\r\n    \"receiver_activity\": \"Venta insumos\",\r\n    \"payment_conditions\": \"0\",\r\n    \"exchange_rate_value\": 934.58,\r\n    \"currency_id\": 5,\r\n    \"sale_modality\": 1,\r\n    \"sale_clause\": 1\r\n  },\r\n  \"details\": [\r\n    {\r\n      \"quantity\": 1,\r\n      \"sku\": \"aa111\",\r\n      \"line_description\": \"Prueba Koywe\",\r\n      \"unit_measure\": \"UN\",\r\n      \"unit_price\": 1500,\r\n      \"long_description\": \"Esta es una linea de prueba\",\r\n      \"modifier_amount\": -100,\r\n      \"total_taxes\": 0,\r\n      \"modifier_percentage\": 0,\r\n      \"total_amount_line\": 1400,\r\n      \"taxes\": [\r\n      ]\r\n    }\r\n  ],\r\n  \"references\": [\r\n    {\r\n        \"document_type_id\": 46,\r\n        \"reference_number\": \"139\",\r\n        \"reference_code\": 1,\r\n        \"description\": \"Anulacion\",\r\n        \"reference_date\": \"2025-03-04\"\r\n    }\r\n  ],\r\n  \"totals\": {\r\n    \"net_amount\": 1400,\r\n    \"taxes_amount\": 0,\r\n    \"total_amount\": 1400\r\n  }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api-billing.koywe.com/V1/documents",
+							"protocol": "https",
+							"host": [
+								"api-billing",
+								"koywe",
+								"com"
+							],
+							"path": [
+								"V1",
+								"documents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create new documents - Exports Debit note (Nota de débito de exportación)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{session_token_chile}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"header\": {\r\n    \"account_id\": 423,\r\n    \"document_type_id\": \"47\",\r\n    \"received_issued_flag\": 1,\r\n    \"issue_date\": \"2025-03-04\",\r\n    \"receiver_tax_id_code\": \"222333444\",\r\n    \"receiver_tax_id_type\": \"MX-RFC\",\r\n    \"receiver_legal_name\": \"ESCUELA KEMPER URGATE\",\r\n    \"receiver_address\": \"Av providencia 1456\",\r\n    \"receiver_district\": \"Providencia\",\r\n    \"receiver_city\": \"Santiago\",\r\n    \"receiver_country_id\": \"80\",\r\n    \"receiver_phone\": \"<string>\",\r\n    \"receiver_activity\": \"Venta insumos\",\r\n    \"payment_conditions\": \"0\",\r\n    \"exchange_rate_value\": 934.58,\r\n    \"currency_id\": 5,\r\n    \"sale_modality\": 1,\r\n    \"sale_clause\": 1\r\n  },\r\n  \"details\": [\r\n    {\r\n      \"quantity\": 1,\r\n      \"sku\": \"aa111\",\r\n      \"line_description\": \"Prueba Koywe\",\r\n      \"unit_measure\": \"UN\",\r\n      \"unit_price\": 1500,\r\n      \"long_description\": \"Esta es una linea de prueba\",\r\n      \"modifier_amount\": -100,\r\n      \"total_taxes\": 0,\r\n      \"modifier_percentage\": 0,\r\n      \"total_amount_line\": 1400,\r\n      \"taxes\": [\r\n      ]\r\n    }\r\n  ],\r\n  \"references\": [\r\n    {\r\n        \"document_type_id\": 46,\r\n        \"reference_number\": \"139\",\r\n        \"reference_code\": 1,\r\n        \"description\": \"csmbio vslor\",\r\n        \"reference_date\": \"2025-03-04\"\r\n    }\r\n  ],\r\n  \"totals\": {\r\n    \"net_amount\": 1400,\r\n    \"taxes_amount\": 0,\r\n    \"total_amount\": 1400\r\n  }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api-billing.koywe.com/V1/documents",
+							"protocol": "https",
+							"host": [
+								"api-billing",
+								"koywe",
+								"com"
+							],
+							"path": [
+								"V1",
+								"documents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create new documents - Response status in result the API Rest",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{session_token_chile}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"document_id\": 377,\r\n   \"header\":    {\r\n      \"account_id\": 14540,\r\n      \"document_type_id\": 82,\r\n      \"document_type_taxbureau\": \"01\",\r\n      \"document_number\": 1040447,\r\n      \"received_issued_flag\": 1,\r\n      \"taxbureau_validation_status\": null,\r\n      \"issue_date\": \"2025-04-15\",\r\n      \"issuer_tax_id_code\": \"860517022-2\",\r\n      \"issuer_tax_id_type\": \"CO-NIT\",\r\n      \"issuer_legal_name\": \"Demo Colombia\",\r\n      \"issuer_address\": \"\",\r\n      \"issuer_district\": \"\",\r\n      \"issuer_city\": \"\",\r\n      \"issuer_country_id\": 253,\r\n      \"issuer_phone\": \"442020550\",\r\n      \"issuer_activity\": \"\",\r\n      \"receiver_tax_id_code\": \"1097491385-1\",\r\n      \"receiver_tax_id_type\": \"CO-NIT\",\r\n      \"receiver_legal_name\": \"ESCUELAa KEMPER URGATE\",\r\n      \"receiver_address\": \"\",\r\n      \"receiver_district\": \"\",\r\n      \"receiver_city\": \"\",\r\n      \"receiver_country_id\": 66,\r\n      \"receiver_phone\": \"<string>\",\r\n      \"receiver_activity\": \"<string>\",\r\n      \"document_status\": 1,\r\n      \"payment_conditions\": \"0\",\r\n      \"currency_id\": 28\r\n   },\r\n   \"details\": [   {\r\n      \"quantity\": \"1.000000\",\r\n      \"line_description\": \"Prueba Koywe\",\r\n      \"long_description\": \"Esta es una linea de prueba\",\r\n      \"unit_measure\": \"70\",\r\n      \"unit_price\": \"3660.000000\",\r\n      \"vat_status\": \"0\"\r\n   }],\r\n   \"references\": null,\r\n   \"global_modifiers\": null,\r\n   \"totals\":    {\r\n      \"net_amount\": 3660,\r\n      \"taxes_amount\": 695.4,\r\n      \"total_amount\": \"4355.40\"\r\n   },\r\n   \"electronic_document\":    {\r\n      \"document_xml\": \"PD94bWwgdmVyc2lvbj0iMS4wIiB...\",\r\n      \"document_pdf\": \"JVBERi0xLjMKMyAwIG9iago8PC9...\"\r\n   },\r\n   \"payment_link\": null,\r\n   \"result\":    {\r\n      \"status\": 0,\r\n      \"error_message\": \"\"\r\n   },\r\n   \"_links\": {\"self\": {\"href\": \"https://api-billing.koywe.com/V1/documents\"}}\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api-billing.koywe.com/V1/documents",
+							"protocol": "https",
+							"host": [
+								"api-billing",
+								"koywe",
+								"com"
+							],
+							"path": [
+								"V1",
+								"documents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Invoice issuance lifecycle",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{session_token_chile}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api-billing.koywe.com/V1/documents/{document_id}",
+							"protocol": "https",
+							"host": [
+								"api-billing",
+								"koywe",
+								"com"
+							],
+							"path": [
+								"V1",
+								"documents",
+								"{document_id}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deleting a draft",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{session_token_chile}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://api-billing.koywe.com/V1/documents/{document_id}",
+							"protocol": "https",
+							"host": [
+								"api-billing",
+								"koywe",
+								"com"
+							],
+							"path": [
+								"V1",
+								"documents",
+								"{document_id}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create new products",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{session_token_chile}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"name\": \"papas fritas lays\",\r\n   \"invoicing_details\": \"\",\r\n   \"additional_details\": \"\",\r\n   \"model\": \"\",\r\n   \"brand\": \"\",\r\n   \"status\": \"1\",\r\n   \"sku\": \"33\",\r\n   \"measure_unit\": null,\r\n   \"type\": \"1\",\r\n   \"embedded_quantity_barcode\": null,\r\n   \"embedded_quantity_barcode_decimals\": null,\r\n   \"additional_data_1\": \"aaa\",\r\n   \"additional_data_2\": \"bbb\",\r\n   \"additional_data_3\": \"ccc\",\r\n   \"favorite\": 1,\r\n   \"product_category_id\": null,\r\n   \"cost\":    {\r\n      \"currency_id\": 39,\r\n      \"value\": 2344\r\n   },\r\n   \"price\": [\r\n    {\r\n          \"price_list_id\": \"1\",\r\n          \"unit_net\": 1680.672269,\r\n          \"unit_tax\": 319.327731,\r\n          \"unit_total\": 2000,\r\n          \"currency_id\": \"39\",\r\n          \"sales_commission_percentage\": null,\r\n          \"taxes\": [\r\n                {\r\n                  \"tax_type_id\": \"387\",\r\n                  \"tax_percentage\": 19,\r\n                  \"tax_amount\": 319.327731\r\n                }\r\n\r\n          ]\r\n       }\r\n    ],\r\n   \"inventories\":    {\r\n   \t\"details\": [\r\n   \t\t\t{\r\n   \t\t\t\t\"product_location_id\": 1,\r\n   \t\t\t\t\"available_quantity\": 25\r\n   \t\t\t}\r\n   \t],\r\n      \"total_available\": 25,\r\n      \"total_reserved\": 0\r\n   }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api-billing.koywe.com/V1/products",
+							"protocol": "https",
+							"host": [
+								"api-billing",
+								"koywe",
+								"com"
+							],
+							"path": [
+								"V1",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create new product categories",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{session_token_chile}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"account_id\": 39,\r\n\t\"name\": \"categoria ejemplo API 3\",\r\n\t\"parent_product_category_id\": null\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api-billing.koywe.com/V1/product_categories",
+							"protocol": "https",
+							"host": [
+								"api-billing",
+								"koywe",
+								"com"
+							],
+							"path": [
+								"V1",
+								"product_categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create new product locations",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{session_token_chile}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"account_id\": 39,\r\n\t\"name\": \"bodega pruebas\",\r\n\t\"status\": 1,\r\n\t\"company_branch_id\": 1\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api-billing.koywe.com/V1/product_locations",
+							"protocol": "https",
+							"host": [
+								"api-billing",
+								"koywe",
+								"com"
+							],
+							"path": [
+								"V1",
+								"product_locations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create new product price list",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{session_token_chile}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"account_id\": 39,\r\n\t\"name\": \"new product price list\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api-billing.koywe.com/V1/product_price_lists",
+							"protocol": "https",
+							"host": [
+								"api-billing",
+								"koywe",
+								"com"
+							],
+							"path": [
+								"V1",
+								"product_price_lists"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a new digital certificate link",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{session_token_chile}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"certificate_duration\": 3,\r\n    \"parent_account_id\": \"1560\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api-billing.koywe.com/V1/digital_certificate_issuance",
+							"protocol": "https",
+							"host": [
+								"api-billing",
+								"koywe",
+								"com"
+							],
+							"path": [
+								"V1",
+								"digital_certificate_issuance"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Transfer documents",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{session_token_chile}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"account_id\": 141,\r\n  \"document\": {\r\n    \"document_id\": 2563\r\n  },\r\n  \"transfer_information\": {\r\n    \"date\": \"2025-04-15T10:00:00Z\",\r\n    \"transfered_amount\": 5000.00,\r\n    \"additional_conditions\": \"Payment due in 30 days after acceptance\",\r\n    \"digital_certificate_id\": \"5\"\r\n  },\r\n  \"transfer_origin\": {\r\n    \"company_name\": \"Origin Company\",\r\n    \"tax_id_code\": \"12345678-9\",\r\n    \"tax_id_type\": \"CL-RUT\",\r\n    \"address\": \"Calle ejemplo 123\",\r\n    \"city\": \"Santiago\",\r\n    \"district\": \"Providencia\",\r\n    \"country_id\": \"253\",\r\n    \"authorized_agent\": {\r\n      \"first_name\": \"John\",\r\n      \"last_name\": \"Doe\",\r\n      \"person_tax_id_code\": \"98765432-1\",\r\n      \"person_tax_id_type\": \"CL-RUT\",\r\n      \"certificate_id\": \"123\"\r\n    }\r\n  },\r\n  \"transfer_destination\": {\r\n    \"company_name\": \"Factoring AAA\",\r\n    \"tax_id_code\": \"87654321-0\",\r\n    \"tax_id_type\": \"CL-RUT\",\r\n    \"address\": \"Avenida Ejemplo 567\",\r\n    \"city\": \"Valparaíso\",\r\n    \"district\": \"Valparaíso\",\r\n    \"country_id\": \"253\"\r\n  }\r\n}\r\n\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api-billing.koywe.com/V1/document_transfers",
+							"protocol": "https",
+							"host": [
+								"api-billing",
+								"koywe",
+								"com"
+							],
+							"path": [
+								"V1",
+								"document_transfers"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Colombia",
+			"item": [
+				{
+					"name": "Sandbox environment credentials",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.expect(pm.response.code).to.equal(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response contains required fields\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData).to.be.an('object');\r",
+									"    pm.expect(responseData).to.have.all.keys('access_token', 'expires_in', 'token_type', 'scope', 'refresh_token');\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Access token is a non-empty string\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData).to.be.an('object');\r",
+									"    pm.expect(responseData.access_token).to.exist.and.to.be.a('string').and.to.have.lengthOf.above(0, \"Access token should not be empty\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Expires_in is a positive integer\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData).to.be.an('object');\r",
+									"    pm.expect(responseData.expires_in).to.exist.and.to.be.a('number').and.to.be.above(0, \"Value should be a positive integer\");\r",
+									"});\r",
+									"\r",
+									"// ✅ Guarda el token para Colombia\r",
+									"pm.environment.set(\"session_token_colombia\", pm.response.json().access_token);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"grant_type\": \"password\",\r\n    \"client_id\": \"demo/001\",\r\n    \"client_secret\": \"ad258748356c5104df2bf4bdbabd3352\",\r\n    \"username\": \"1.111.111-1/demoapi\",\r\n    \"password\": \"76be37bcc4970d29e519fca46edead19\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api-billing.koywe.com/{{api_version}}/auth",
+							"protocol": "https",
+							"host": [
+								"api-billing",
+								"koywe",
+								"com"
+							],
+							"path": [
+								"{{api_version}}",
+								"auth"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a new account",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{session_token_colombia}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"country_id\": 66,\r\n    \"contact_name\": \"fernando rojas\",\r\n    \"contact_phone\": \"+579841055220\",\r\n    \"admin_email\": \"test@company.com\",\r\n    \"admin_password\": \"nuevaclave\",\r\n    \"registration_legal_name_company\": \"my company\",\r\n    \"registration_tax_id_code\": \"1707975798-1\",\r\n    \"registration_tax_id_type\": \"CO-NIT\",\r\n    \"registration_company_size\": 1,\r\n    \"registration_company_industry_sector\": \"1\",\r\n    \"registration_type_use\": 1,\r\n    \"registration_terms_of_use\": 1,\r\n    \"registration_additional_data\": {\r\n        \"registration_test_set_id\": \"AFAFDDSDFSFSAFADSFDSFDFSDA\",\r\n        \"registration_form_rut\": \"BRTR/V4fOjwxdWDl8YHT7/tP/4sua29LHlU86L9PcdPlrmoR/6YAF/0YkERyCg...\",\r\n        \"company_logo\": \"SOIFsDCCA5igAwIBAgIUMzAwMDEw...\"\r\n    }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api-billing.koywe.com/V1/accounts",
+							"protocol": "https",
+							"host": [
+								"api-billing",
+								"koywe",
+								"com"
+							],
+							"path": [
+								"V1",
+								"accounts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create new documents - Invoice (Factura)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{session_token_colombia}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"header\": {\r\n    \"account_id\": 14540,\r\n    \"document_type_id\": \"82\",\r\n    \"received_issued_flag\": 0,\r\n    \"issue_date\": \"2025-06-03\",\r\n    \"issuer_tax_id_code\": \"860517022-2\",\r\n    \"issuer_tax_id_type\": \"CO-NIT\",\r\n    \"issuer_legal_name\": \"Lorgio\",\r\n    \"issuer_address\": \"San Pedro\",\r\n    \"issuer_district\": \"Norte\",\r\n    \"issuer_city\": \"Barranquilla\",\r\n    \"issuer_country_id\": \"66\",\r\n    \"issuer_phone\": \"45789455\",\r\n    \"issuer_activity\": \"TIC\",\r\n    \"receiver_tax_id_code\": \"860517022-2\",\r\n    \"receiver_tax_id_type\": \"CO-NIT\",\r\n    \"receiver_legal_name\": \"ESCUELA KEMPER URGATE\",\r\n    \"receiver_address\": \"Central\",\r\n    \"receiver_county_id\": \"496\",\r\n    \"receiver_country_id\": \"66\",\r\n    \"receiver_phone\": \"487878878\",\r\n    \"receiver_activity\": \"Mayoreo\",\r\n    \"payment_conditions\": \"0\",\r\n    \"currency_id\": 28\r\n  },\r\n  \"details\": [\r\n    {\r\n      \"quantity\": 1,\r\n      \"line_description\": \"Prueba Koywe Marco\",\r\n      \"unit_measure\": \"UN\",\r\n      \"unit_price\": 1500,\r\n      \"long_description\": \"Esta es una linea de prueba\",\r\n      \"modifier_amount\": -100,\r\n      \"total_taxes\": 266,\r\n      \"modifier_percentage\": 0,\r\n      \"total_amount_line\": 1666,\r\n      \"taxes\": [\r\n        {\r\n          \"tax_type_id\": \"388\",\r\n          \"tax_percentage\": 19,\r\n          \"tax_amount\": 266\r\n        }\r\n      ]\r\n    }\r\n  ],\r\n  \"totals\": {\r\n    \"net_amount\": 1400,\r\n    \"taxes_amount\": 266,\r\n    \"total_amount\": 1666\r\n  }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api-billing.koywe.com/V1/documents",
+							"protocol": "https",
+							"host": [
+								"api-billing",
+								"koywe",
+								"com"
+							],
+							"path": [
+								"V1",
+								"documents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create new documents - Invoice with a foreign receiver (Factura con receptor extranjero)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{session_token_colombia}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"header\": {\r\n    \"account_id\": 14540,\r\n    \"document_type_id\": \"82\",\r\n    \"received_issued_flag\": 0,\r\n    \"issue_date\": \"2025-01-14\",\r\n    \"issuer_tax_id_code\": \"860517022-2\",\r\n    \"issuer_tax_id_type\": \"CO-NIT\",\r\n    \"issuer_legal_name\": \"<string>\",\r\n    \"issuer_address\": \"<string>\",\r\n    \"issuer_district\": \"<string>\",\r\n    \"issuer_city\": \"<string>\",\r\n    \"issuer_country_id\": \"66\",\r\n    \"issuer_phone\": \"<string>\",\r\n    \"issuer_activity\": \"<string>\",\r\n    \"receiver_tax_id_code\": \"872055616\",\r\n    \"receiver_tax_id_type\": \"CO-NOP\",\r\n    \"receiver_legal_name\": \"ESCUELA KEMPER URGATE\",\r\n    \"receiver_address\": \"Street #4564, zip 94114, San Francisco,\",\r\n    \"receiver_country_id\": \"89\",\r\n    \"receiver_phone\": \"<string>\",\r\n    \"receiver_activity\": \"<string>\",\r\n    \"payment_conditions\": \"0\",\r\n    \"currency_id\": 28\r\n\r\n  },\r\n  \"details\": [\r\n    {\r\n      \"quantity\": 1,\r\n      \"line_description\": \"Prueba Koywe\",\r\n      \"unit_measure\": \"UN\",\r\n      \"unit_price\": 1500,\r\n      \"long_description\": \"Esta es una linea de prueba\",\r\n      \"modifier_amount\": -100,\r\n      \"total_taxes\": 266,\r\n      \"modifier_percentage\": 0,\r\n      \"total_amount_line\": 1666,\r\n      \"taxes\": [\r\n        {\r\n          \"tax_type_id\": \"388\",\r\n          \"tax_percentage\": 19,\r\n          \"tax_amount\": 266\r\n        }\r\n      ]\r\n    }\r\n  ],\r\n  \"totals\": {\r\n    \"net_amount\": 1400,\r\n    \"taxes_amount\": 266,\r\n    \"total_amount\": 1666\r\n  }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api-billing.koywe.com/V1/documents",
+							"protocol": "https",
+							"host": [
+								"api-billing",
+								"koywe",
+								"com"
+							],
+							"path": [
+								"V1",
+								"documents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create new documents - Credit note (Nota de crédito)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{session_token_colombia}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"header\": {\r\n    \"account_id\": 14540,\r\n    \"document_type_id\": \"83\",\r\n    \"received_issued_flag\": 0,\r\n    \"issue_date\": \"2025-01-14\",\r\n    \"issuer_tax_id_code\": \"860517022-2\",\r\n    \"issuer_tax_id_type\": \"CO-NIT\",\r\n    \"issuer_legal_name\": \"<string>\",\r\n    \"issuer_address\": \"<string>\",\r\n    \"issuer_district\": \"<string>\",\r\n    \"issuer_city\": \"<string>\",\r\n    \"issuer_country_id\": \"66\",\r\n    \"issuer_phone\": \"<string>\",\r\n    \"issuer_activity\": \"<string>\",\r\n    \"receiver_tax_id_code\": \"860517022-2\",\r\n    \"receiver_tax_id_type\": \"CO-NIT\",\r\n    \"receiver_legal_name\": \"ESCUELA KEMPER URGATE\",\r\n    \"receiver_address\": \"<string>\",\r\n    \"receiver_county_id\": \"496\",\r\n    \"receiver_country_id\": \"66\",\r\n    \"receiver_phone\": \"<string>\",\r\n    \"receiver_activity\": \"<string>\",\r\n    \"payment_conditions\": \"0\",\r\n    \"currency_id\": 28\r\n  },\r\n  \"details\": [\r\n    {\r\n      \"quantity\": 1,\r\n      \"line_description\": \"Prueba Koywe\",\r\n      \"unit_measure\": \"UN\",\r\n      \"unit_price\": 1500,\r\n      \"long_description\": \"Esta es una linea de prueba\",\r\n      \"modifier_amount\": -100,\r\n      \"total_taxes\": 266,\r\n      \"modifier_percentage\": 0,\r\n      \"total_amount_line\": 1666,\r\n      \"taxes\": [\r\n        {\r\n          \"tax_type_id\": \"388\",\r\n          \"tax_percentage\": 19,\r\n          \"tax_amount\": 266\r\n        }\r\n      ]\r\n    }\r\n  ],\r\n  \"references\": [\r\n    {\r\n        \"document_type_id\": \"82\",\r\n        \"reference_number\": \"SETT1040108\",\r\n        \"reference_code\": 1,\r\n        \"description\": \"Anulacion solicitada por el emisor\",\r\n        \"reference_date\": \"2025-01-14\"\r\n    }\r\n  ],\r\n  \"totals\": {\r\n    \"net_amount\": 1400,\r\n    \"taxes_amount\": 266,\r\n    \"total_amount\": 1666\r\n  }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api-billing.koywe.com/V1/documents",
+							"protocol": "https",
+							"host": [
+								"api-billing",
+								"koywe",
+								"com"
+							],
+							"path": [
+								"V1",
+								"documents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create new documents - Debit note (Nota de débito)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{session_token_colombia}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"header\": {\r\n    \"account_id\": 14540,\r\n    \"document_type_id\": \"84\",\r\n    \"received_issued_flag\": 0,\r\n    \"issue_date\": \"2025-01-14\",\r\n    \"issuer_tax_id_code\": \"860517022-2\",\r\n    \"issuer_tax_id_type\": \"CO-NIT\",\r\n    \"issuer_legal_name\": \"<string>\",\r\n    \"issuer_address\": \"<string>\",\r\n    \"issuer_district\": \"<string>\",\r\n    \"issuer_city\": \"<string>\",\r\n    \"issuer_country_id\": \"66\",\r\n    \"issuer_phone\": \"<string>\",\r\n    \"issuer_activity\": \"<string>\",\r\n    \"receiver_tax_id_code\": \"860517022-2\",\r\n    \"receiver_tax_id_type\": \"CO-NIT\",\r\n    \"receiver_legal_name\": \"ESCUELA KEMPER URGATE\",\r\n    \"receiver_address\": \"<string>\",\r\n    \"receiver_county_id\": \"496\",\r\n    \"receiver_country_id\": \"66\",\r\n    \"receiver_phone\": \"<string>\",\r\n    \"receiver_activity\": \"<string>\",\r\n    \"payment_conditions\": \"0\",\r\n    \"currency_id\": 28\r\n  },\r\n  \"details\": [\r\n    {\r\n      \"quantity\": 1,\r\n      \"line_description\": \"Prueba Koywe\",\r\n      \"unit_measure\": \"UN\",\r\n      \"unit_price\": 1500,\r\n      \"long_description\": \"Esta es una linea de prueba\",\r\n      \"modifier_amount\": -100,\r\n      \"total_taxes\": 266,\r\n      \"modifier_percentage\": 0,\r\n      \"total_amount_line\": 1666,\r\n      \"taxes\": [\r\n        {\r\n          \"tax_type_id\": \"388\",\r\n          \"tax_percentage\": 19,\r\n          \"tax_amount\": 266\r\n        }\r\n      ]\r\n    }\r\n  ],\r\n  \"references\": [\r\n    {\r\n        \"document_type_id\": \"82\",\r\n        \"reference_number\": \"SETT1040108\",\r\n        \"reference_code\": 3,\r\n        \"description\": \"Cambio de valor\",\r\n        \"reference_date\": \"2025-01-14\"\r\n    }\r\n  ],\r\n  \"totals\": {\r\n    \"net_amount\": 1400,\r\n    \"taxes_amount\": 266,\r\n    \"total_amount\": 1666\r\n  }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api-billing.koywe.com/V1/documents",
+							"protocol": "https",
+							"host": [
+								"api-billing",
+								"koywe",
+								"com"
+							],
+							"path": [
+								"V1",
+								"documents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create new documents - POS equivalent document (Documento equivalente POS)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{session_token_colombia}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"header\": {\r\n    \"account_id\": 14540,\r\n    \"document_type_id\": \"87\",\r\n    \"received_issued_flag\": 0,\r\n    \"issue_date\": \"2025-01-31\",\r\n    \"issuer_tax_id_code\": \"860517022-2\",\r\n    \"issuer_tax_id_type\": \"CO-NIT\",\r\n    \"issuer_legal_name\": \"<string>\",\r\n    \"issuer_address\": \"<string>\",\r\n    \"issuer_district\": \"<string>\",\r\n    \"issuer_city\": \"<string>\",\r\n    \"issuer_country_id\": \"66\",\r\n    \"issuer_phone\": \"<string>\",\r\n    \"issuer_activity\": \"<string>\",\r\n    \"receiver_tax_id_code\": \"860517022-2\",\r\n    \"receiver_tax_id_type\": \"CO-NIT\",\r\n    \"receiver_legal_name\": \"ESCUELA KEMPER URGATE\",\r\n    \"receiver_address\": \"<string>\",\r\n    \"receiver_county_id\": \"496\",\r\n    \"receiver_country_id\": \"66\",\r\n    \"receiver_phone\": \"<string>\",\r\n    \"receiver_activity\": \"<string>\",\r\n    \"payment_conditions\": \"0\",\r\n    \"currency_id\": 28,\r\n    \"postal_code\": \"11001\",\r\n    \"receiver_email\": \"miemail@email.com\"\r\n  },\r\n  \"details\": [\r\n    {\r\n      \"quantity\": 1,\r\n      \"line_description\": \"Prueba Koywe\",\r\n      \"unit_measure\": \"UN\",\r\n      \"unit_price\": 1500,\r\n      \"long_description\": \"Esta es una linea de prueba\",\r\n      \"modifier_amount\": -100,\r\n      \"total_taxes\": 266,\r\n      \"modifier_percentage\": 0,\r\n      \"total_amount_line\": 1666,\r\n      \"taxes\": [\r\n        {\r\n          \"tax_type_id\": \"388\",\r\n          \"tax_percentage\": 19,\r\n          \"tax_amount\": 266\r\n        }\r\n      ]\r\n    }\r\n  ],\r\n  \"totals\": {\r\n    \"net_amount\": 1400,\r\n    \"taxes_amount\": 266,\r\n    \"total_amount\": 1666\r\n  }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api-billing.koywe.com/V1/documents",
+							"protocol": "https",
+							"host": [
+								"api-billing",
+								"koywe",
+								"com"
+							],
+							"path": [
+								"V1",
+								"documents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create new documents - POS equivalent credit note (Nota de crédito para documento equivalente POS)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{session_token_colombia}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"header\": {\r\n    \"account_id\": 14540,\r\n    \"document_type_id\": \"88\",\r\n    \"received_issued_flag\": 0,\r\n    \"issue_date\": \"2025-01-31\",\r\n    \"issuer_tax_id_code\": \"860517022-2\",\r\n    \"issuer_tax_id_type\": \"CO-NIT\",\r\n    \"issuer_legal_name\": \"<string>\",\r\n    \"issuer_address\": \"<string>\",\r\n    \"issuer_district\": \"<string>\",\r\n    \"issuer_city\": \"<string>\",\r\n    \"issuer_country_id\": \"66\",\r\n    \"issuer_phone\": \"<string>\",\r\n    \"issuer_activity\": \"<string>\",\r\n    \"receiver_tax_id_code\": \"860517022-2\",\r\n    \"receiver_tax_id_type\": \"CO-NIT\",\r\n    \"receiver_legal_name\": \"ESCUELA KEMPER URGATE\",\r\n    \"receiver_address\": \"<string>\",\r\n    \"receiver_county_id\": \"496\",\r\n    \"receiver_country_id\": \"66\",\r\n    \"receiver_phone\": \"<string>\",\r\n    \"receiver_activity\": \"<string>\",\r\n    \"payment_conditions\": \"0\",\r\n    \"currency_id\": 28,\r\n    \"postal_code\": \"11001\",\r\n    \"receiver_email\": \"miemail@email.com\"\r\n  },\r\n  \"details\": [\r\n    {\r\n      \"quantity\": 1,\r\n      \"line_description\": \"Prueba Koywe\",\r\n      \"unit_measure\": \"UN\",\r\n      \"unit_price\": 1500,\r\n      \"long_description\": \"Esta es una linea de prueba\",\r\n      \"modifier_amount\": -100,\r\n      \"total_taxes\": 266,\r\n      \"modifier_percentage\": 0,\r\n      \"total_amount_line\": 1666,\r\n      \"taxes\": [\r\n        {\r\n          \"tax_type_id\": \"388\",\r\n          \"tax_percentage\": 19,\r\n          \"tax_amount\": 266\r\n        }\r\n      ]\r\n    }\r\n  ],\r\n  \"references\": [\r\n    {\r\n        \"document_type_id\": 87,\r\n        \"reference_number\": \"EPOS217\",\r\n        \"reference_code\": 1,\r\n        \"description\": \"Anulacion solicitada por el emisor\",\r\n        \"reference_date\": \"2025-01-31\"\r\n    }\r\n  ],\r\n  \"totals\": {\r\n    \"net_amount\": 1400,\r\n    \"taxes_amount\": 266,\r\n    \"total_amount\": 1666\r\n  }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api-billing.koywe.com/V1/documents",
+							"protocol": "https",
+							"host": [
+								"api-billing",
+								"koywe",
+								"com"
+							],
+							"path": [
+								"V1",
+								"documents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Invoice issuance lifecycle",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{session_token_colombia}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api-billing.koywe.com/V1/documents/{document_id}",
+							"protocol": "https",
+							"host": [
+								"api-billing",
+								"koywe",
+								"com"
+							],
+							"path": [
+								"V1",
+								"documents",
+								"{document_id}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deleting a draft Copy",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{session_token_colombia}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://api-billing.koywe.com/V1/documents/{document_id}",
+							"protocol": "https",
+							"host": [
+								"api-billing",
+								"koywe",
+								"com"
+							],
+							"path": [
+								"V1",
+								"documents",
+								"{document_id}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "México",
+			"item": [
+				{
+					"name": "Sandbox environment credentials",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.expect(pm.response.code).to.equal(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response contains required fields\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData).to.be.an('object');\r",
+									"    pm.expect(responseData).to.have.all.keys('access_token', 'expires_in', 'token_type', 'scope', 'refresh_token');\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Access token is a non-empty string\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData).to.be.an('object');\r",
+									"    pm.expect(responseData.access_token).to.exist.and.to.be.a('string').and.to.have.lengthOf.above(0, \"Access token should not be empty\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Expires_in is a positive integer\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData).to.be.an('object');\r",
+									"    pm.expect(responseData.expires_in).to.exist.and.to.be.a('number').and.to.be.above(0, \"Value should be a positive integer\");\r",
+									"});\r",
+									"\r",
+									"// ✅ Guarda el token para México\r",
+									"pm.environment.set(\"session_token_mexico\", pm.response.json().access_token);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"grant_type\": \"password\",\r\n    \"client_id\": \"demo/001\",\r\n    \"client_secret\": \"ad258748356c5104df2bf4bdbabd3352\",\r\n    \"username\": \"1.111.111-1/demoapi\",\r\n    \"password\": \"76be37bcc4970d29e519fca46edead19\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api-billing.koywe.com/{{api_version}}/auth",
+							"protocol": "https",
+							"host": [
+								"api-billing",
+								"koywe",
+								"com"
+							],
+							"path": [
+								"{{api_version}}",
+								"auth"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a new account",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{session_token_mexico}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"country_id\": 80,\r\n    \"contact_name\": \"fernando rojas\",\r\n    \"contact_phone\": \"+529841055220\",\r\n    \"admin_email\": \"test@company.com\",\r\n    \"admin_password\": \"enternewpassword\",\r\n    \"registration_legal_name_company\": \"my company\",\r\n    \"registration_tax_id_code\": \"EKU9003199C1\",\r\n    \"registration_tax_id_type\": \"MX-RFC\",\r\n    \"registration_company_size\": 1,\r\n    \"registration_company_industry_sector\": \"1\",\r\n    \"registration_type_use\": 1,\r\n    \"registration_terms_of_use\": 1,\r\n    \"registration_additional_data\": {\r\n        \"certificate_key\": \"MIIFDjBABgkqhkiG9w0BBQ0wMzAb...\",\r\n        \"certificate_cer\": \"MIIFsDCCA5igAwIBAgIUMzAwMDEw...\",\r\n        \"certificate_password\": \"12345678a\",\r\n        \"company_logo\": \"SOIFsDCCA5igAwIBAgIUMzAwMDEw...\"\r\n    }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api-billing.koywe.com/V1/accounts",
+							"protocol": "https",
+							"host": [
+								"api-billing",
+								"koywe",
+								"com"
+							],
+							"path": [
+								"V1",
+								"accounts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create new documents - Invoice I (Factura I - Factura Ingreso)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{session_token_mexico}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"header\": {\r\n    \"account_id\": 11857,\r\n    \"document_type_id\": \"76\",\r\n    \"issue_date\": \"2025-01-07\",\r\n    \"issuer_tax_id_code\": \"EKU9003173C9\",\r\n    \"issuer_tax_id_type\": \"MX-RFC\",\r\n    \"issuer_legal_name\": \"ESCUELA KEMPER URGATE\",\r\n    \"issuer_address\": \"Calle roja 234\",\r\n    \"issuer_city\": \"Ciudad de méxico\",\r\n    \"issuer_country_id\": \"80\",\r\n    \"issuer_phone\": \"2223334444\",\r\n    \"issuer_activity\": \"601\",\r\n    \"issuer_postalcode\": \"42501\",\r\n    \"receiver_tax_id_code\": \"EKU9003173C9\",\r\n    \"receiver_tax_id_type\": \"MX-RFC\",\r\n    \"receiver_legal_name\": \"ESCUELA KEMPER URGATE\",\r\n    \"receiver_address\": \"Calle naranja 123\",\r\n    \"receiver_city\": \"Cancún\",\r\n    \"receiver_country_id\": \"80\",\r\n    \"receiver_phone\": \"2223334444\",\r\n    \"receiver_activity\": \"601\",\r\n    \"receiver_postalcode\": \"42501\",\r\n    \"payment_conditions\": \"0\",\r\n    \"currency_id\": 31\r\n  },\r\n  \"details\": [\r\n    {\r\n      \"quantity\": 1,\r\n      \"sku\": \"aa111\",\r\n      \"line_description\": \"Prueba Koywe\",\r\n      \"unit_measure\": \"UN\",\r\n      \"unit_price\": 1500,\r\n      \"long_description\": \"Esta es una linea de prueba\",\r\n      \"modifier_amount\": -100,\r\n      \"total_taxes\": 224,\r\n      \"modifier_percentage\": 0,\r\n      \"total_amount_line\": 1624,\r\n      \"taxes\": [\r\n        {\r\n          \"tax_type_id\": \"362\",\r\n          \"tax_percentage\": 16,\r\n          \"tax_amount\": 224\r\n        }\r\n      ]\r\n    }\r\n  ],\r\n  \"totals\": {\r\n    \"net_amount\": 1400,\r\n    \"taxes_amount\": 224,\r\n    \"total_amount\": 1624\r\n  }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api-billing.koywe.com/V1/documents",
+							"protocol": "https",
+							"host": [
+								"api-billing",
+								"koywe",
+								"com"
+							],
+							"path": [
+								"V1",
+								"documents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create new documents - Invoice E (Factura E - Factura Egreso)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{session_token_mexico}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"header\": {\r\n    \"account_id\": 11857,\r\n    \"document_type_id\": \"77\",\r\n    \"issue_date\": \"2025-01-07\",\r\n    \"issuer_tax_id_code\": \"EKU9003173C9\",\r\n    \"issuer_tax_id_type\": \"MX-RFC\",\r\n    \"issuer_legal_name\": \"ESCUELA KEMPER URGATE\",\r\n    \"issuer_address\": \"Calle roja 234\",\r\n    \"issuer_city\": \"Ciudad de méxico\",\r\n    \"issuer_country_id\": \"80\",\r\n    \"issuer_phone\": \"2223334444\",\r\n    \"issuer_activity\": \"601\",\r\n    \"issuer_postalcode\": \"42501\",\r\n    \"receiver_tax_id_code\": \"EKU9003173C9\",\r\n    \"receiver_tax_id_type\": \"MX-RFC\",\r\n    \"receiver_legal_name\": \"ESCUELA KEMPER URGATE\",\r\n    \"receiver_address\": \"Calle naranja 123\",\r\n    \"receiver_city\": \"Cancún\",\r\n    \"receiver_country_id\": \"80\",\r\n    \"receiver_phone\": \"2223334444\",\r\n    \"receiver_activity\": \"601\",\r\n    \"receiver_postalcode\": \"42501\",\r\n    \"payment_conditions\": \"0\",\r\n    \"currency_id\": 31\r\n  },\r\n  \"details\": [\r\n    {\r\n      \"quantity\": 1,\r\n      \"sku\": \"aa111\",\r\n      \"line_description\": \"Prueba Koywe\",\r\n      \"unit_measure\": \"UN\",\r\n      \"unit_price\": 1500,\r\n      \"long_description\": \"Esta es una linea de prueba\",\r\n      \"modifier_amount\": -100,\r\n      \"total_taxes\": 224,\r\n      \"modifier_percentage\": 0,\r\n      \"total_amount_line\": 1624,\r\n      \"taxes\": [\r\n        {\r\n          \"tax_type_id\": \"362\",\r\n          \"tax_percentage\": 16,\r\n          \"tax_amount\": 224\r\n        }\r\n      ]\r\n    }\r\n  ],\r\n  \"totals\": {\r\n    \"net_amount\": 1400,\r\n    \"taxes_amount\": 224,\r\n    \"total_amount\": 1624\r\n  }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api-billing.koywe.com/V1/documents",
+							"protocol": "https",
+							"host": [
+								"api-billing",
+								"koywe",
+								"com"
+							],
+							"path": [
+								"V1",
+								"documents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create new documents - Invoice T (Factura T - Factura Traslado)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{session_token_mexico}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"header\": {\r\n    \"account_id\": 11857,\r\n    \"document_type_id\": \"78\",\r\n    \"issue_date\": \"2025-01-07\",\r\n    \"issuer_tax_id_code\": \"EKU9003173C9\",\r\n    \"issuer_tax_id_type\": \"MX-RFC\",\r\n    \"issuer_legal_name\": \"ESCUELA KEMPER URGATE\",\r\n    \"issuer_address\": \"Calle roja 234\",\r\n    \"issuer_city\": \"Ciudad de méxico\",\r\n    \"issuer_country_id\": \"80\",\r\n    \"issuer_phone\": \"2223334444\",\r\n    \"issuer_activity\": \"601\",\r\n    \"issuer_postalcode\": \"42501\",\r\n    \"receiver_tax_id_code\": \"EKU9003173C9\",\r\n    \"receiver_tax_id_type\": \"MX-RFC\",\r\n    \"receiver_legal_name\": \"ESCUELA KEMPER URGATE\",\r\n    \"receiver_address\": \"Calle naranja 123\",\r\n    \"receiver_city\": \"Cancún\",\r\n    \"receiver_country_id\": \"80\",\r\n    \"receiver_phone\": \"2223334444\",\r\n    \"receiver_activity\": \"601\",\r\n    \"receiver_postalcode\": \"42501\",\r\n    \"payment_conditions\": \"0\",\r\n    \"currency_id\": 31\r\n  },\r\n  \"details\": [\r\n    {\r\n      \"quantity\": 1,\r\n      \"sku\": \"aa111\",\r\n      \"line_description\": \"Prueba Koywe\",\r\n      \"unit_measure\": \"UN\",\r\n      \"unit_price\": 1500,\r\n      \"long_description\": \"Esta es una linea de prueba\",\r\n      \"modifier_amount\": -100,\r\n      \"total_taxes\": 224,\r\n      \"modifier_percentage\": 0,\r\n      \"total_amount_line\": 1624,\r\n      \"taxes\": [\r\n        {\r\n          \"tax_type_id\": \"362\",\r\n          \"tax_percentage\": 16,\r\n          \"tax_amount\": 224\r\n        }\r\n      ]\r\n    }\r\n  ],\r\n  \"totals\": {\r\n    \"net_amount\": 1400,\r\n    \"taxes_amount\": 224,\r\n    \"total_amount\": 1624\r\n  }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api-billing.koywe.com/V1/documents",
+							"protocol": "https",
+							"host": [
+								"api-billing",
+								"koywe",
+								"com"
+							],
+							"path": [
+								"V1",
+								"documents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create new documents - Invoice T with bill of lading complement (Factura T con Complemento de Carta Porte)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{session_token_mexico}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"header\": {\r\n    \"account_id\": 11857,\r\n    \"document_type_id\": \"78\",\r\n    \"issue_date\": \"2025-01-07\",\r\n    \"issuer_tax_id_code\": \"EKU9003173C9\",\r\n    \"issuer_tax_id_type\": \"MX-RFC\",\r\n    \"issuer_legal_name\": \"ESCUELA KEMPER URGATE\",\r\n    \"issuer_address\": \"Calle roja 234\",\r\n    \"issuer_city\": \"Ciudad de méxico\",\r\n    \"issuer_country_id\": \"80\",\r\n    \"issuer_phone\": \"2223334444\",\r\n    \"issuer_activity\": \"601\",\r\n    \"issuer_postalcode\": \"42501\",\r\n    \"receiver_tax_id_code\": \"EKU9003173C9\",\r\n    \"receiver_tax_id_type\": \"MX-RFC\",\r\n    \"receiver_legal_name\": \"ESCUELA KEMPER URGATE\",\r\n    \"receiver_address\": \"Calle naranja 123\",\r\n    \"receiver_city\": \"Cancún\",\r\n    \"receiver_country_id\": \"80\",\r\n    \"receiver_phone\": \"2223334444\",\r\n    \"receiver_activity\": \"601\",\r\n    \"receiver_postalcode\": \"42501\",\r\n    \"payment_conditions\": \"0\",\r\n    \"currency_id\": 31,\r\n    \"additional\": {\r\n        \"mx_shipping\": {\r\n            \"distance\": \"100\",\r\n            \"transport_code\": \"01\",\r\n            \"transport_method_name\": \"Autotransporte\",\r\n            \"transport_tax_id_type\": \"MX-RFC\",\r\n            \"transport_tax_id_code\": \"EKU9003173C9\",\r\n            \"transport_license\": \"a234567890\",\r\n            \"origin\": {\r\n                \"tax_id_type\" : \"MX-RFC\",\r\n                \"tax_id_code\": \"EKU9003173C9\",\r\n                \"date_time\": \"2025-01-07T00:00:00\",\r\n                \"address_state_id\": \"31\",\r\n                \"address_country_id\": \"80\",\r\n                \"address_postalcode\": \"13250\"\r\n            },\r\n            \"destination\": {\r\n                \"tax_id_type\" : \"MX-RFC\",\r\n                \"tax_id_code\": \"EKU9003173C9\",\r\n                \"date_time\": \"2025-01-07T00:00:00\",\r\n                \"address_state_id\": \"31\",\r\n                \"address_country_id\": \"80\",\r\n                \"address_postalcode\": \"13250\"\r\n            },\r\n            \"merchandise\": {\r\n                \"total_weight\": \"10\",\r\n                \"sct_permission_code\": \"TPAF01\",\r\n                \"sct_permission_number\": \"222333444\",\r\n                \"vehicle_configuration\": \"VL\",\r\n                \"vehicle_weight\": \"1\",\r\n                \"vehicle_license_plate\": \"AA22333\",\r\n                \"vehicle_year\":\"2020\",\r\n                \"insurance_company\": \"PRUEBA SEGUROS\",\r\n                \"insurance_identifier\": \"123456\",\r\n                \"details\": [\r\n                    {\r\n                        \"product_code\": \"11121900\",\r\n                        \"description\" : \"Accesorios telefono\",\r\n                        \"quantity\" : \"1\",\r\n                        \"weight\": \"10\"\r\n                    }\r\n                ]\r\n            }\r\n        }\r\n\r\n      }\r\n\r\n  },\r\n\r\n  \"details\": [\r\n    {\r\n      \"quantity\": 1,\r\n      \"line_description\": \"Prueba Koywe\",\r\n      \"unit_measure\": \"UN\",\r\n      \"unit_price\": 1500,\r\n      \"long_description\": \"Esta es una linea de prueba\",\r\n      \"modifier_amount\": -100,\r\n      \"total_taxes\": 224,\r\n      \"modifier_percentage\": 0,\r\n      \"total_amount_line\": 1624,\r\n      \"taxes\": [\r\n        {\r\n          \"tax_type_id\": \"362\",\r\n          \"tax_percentage\": 16,\r\n          \"tax_amount\": 224\r\n        }\r\n      ]\r\n    }\r\n  ],\r\n  \"totals\": {\r\n    \"net_amount\": 1400,\r\n    \"taxes_amount\": 224,\r\n    \"total_amount\": 1624\r\n  }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api-billing.koywe.com/V1/documents",
+							"protocol": "https",
+							"host": [
+								"api-billing",
+								"koywe",
+								"com"
+							],
+							"path": [
+								"V1",
+								"documents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create new documents - Invoice I with exports complement (Factura I con Complemento de Exportación)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{session_token_mexico}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"header\": {\r\n    \"account_id\": 11857,\r\n    \"document_type_id\": \"76\",\r\n    \"issue_date\": \"2025-01-07\",\r\n    \"issuer_tax_id_code\": \"EKU9003173C9\",\r\n    \"issuer_tax_id_type\": \"MX-RFC\",\r\n    \"issuer_legal_name\": \"ESCUELA KEMPER URGATE\",\r\n    \"issuer_address\": \"Calle roja 234\",\r\n    \"issuer_city\": \"Ciudad de méxico\",\r\n    \"issuer_country_id\": \"80\",\r\n    \"issuer_phone\": \"2223334444\",\r\n    \"issuer_activity\": \"601\",\r\n    \"issuer_postalcode\": \"42501\",\r\n    \"receiver_tax_id_code\": \"EKU9003173C9\",\r\n    \"receiver_tax_id_type\": \"MX-RFC\",\r\n    \"receiver_legal_name\": \"ESCUELA KEMPER URGATE\",\r\n    \"receiver_address\": \"Calle naranja 123\",\r\n    \"receiver_city\": \"Cancún\",\r\n    \"receiver_country_id\": \"80\",\r\n    \"receiver_phone\": \"2223334444\",\r\n    \"receiver_activity\": \"601\",\r\n    \"receiver_postalcode\": \"42501\",\r\n    \"payment_conditions\": \"0\",\r\n    \"currency_id\": 31,\r\n    \"additional\": {\r\n        \"mx_exports\": {\r\n            \"terms\": \"FOB\",\r\n            \"exchange_rate\": 20.6708,\r\n            \"total\": 1624,\r\n            \"origin\": {\r\n                \"address_street\": \"CALLE DEL PAPEL\",\r\n                \"address_city_id\": \"01\",\r\n                \"address_county_id\": \"1961\",\r\n                \"address_state_id\": \"45\",\r\n                \"address_country_id\": \"80\",\r\n                \"address_postalcode\": \"76199\"\r\n            },\r\n            \"destination\": {\r\n                \"tax_id_type\" : \"US-EIN\",\r\n                \"tax_id_code\": \"222333444\",\r\n                \"address_street\": \"2470 SW 19th\",\r\n                \"address_state_id\": \"61\",\r\n                \"address_country_id\": \"89\",\r\n                \"address_postalcode\": \"00000\"\r\n            },\r\n            \"merchandise\": {\r\n                \"details\": [\r\n                    {\r\n                        \"customs_code\": \"2402200100\",\r\n                        \"customs_quantity\" : \"117.64\",\r\n                        \"sku\" : \"aa111\",\r\n                        \"customs_measure_unit\": \"01\",\r\n                        \"customs_unit_value\": \"13.81\",\r\n                        \"customs_total_value\": \"1624.00\"\r\n                    }\r\n                ]\r\n            }\r\n        }\r\n\r\n      }\r\n  },\r\n\r\n  \"details\": [\r\n    {\r\n      \"quantity\": 1,\r\n      \"sku\": \"aa111\",\r\n      \"line_description\": \"Prueba Koywe\",\r\n      \"unit_measure\": \"UN\",\r\n      \"unit_price\": 1500,\r\n      \"long_description\": \"Esta es una linea de prueba\",\r\n      \"modifier_amount\": -100,\r\n      \"total_taxes\": 224,\r\n      \"modifier_percentage\": 0,\r\n      \"total_amount_line\": 1624,\r\n      \"taxes\": [\r\n        {\r\n          \"tax_type_id\": \"362\",\r\n          \"tax_percentage\": 16,\r\n          \"tax_amount\": 224\r\n        }\r\n      ]\r\n    }\r\n  ],\r\n  \"totals\": {\r\n    \"net_amount\": 1400,\r\n    \"taxes_amount\": 224,\r\n    \"total_amount\": 1624\r\n  }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api-billing.koywe.com/V1/documents",
+							"protocol": "https",
+							"host": [
+								"api-billing",
+								"koywe",
+								"com"
+							],
+							"path": [
+								"V1",
+								"documents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create new documents - Invoice I Foreigner without RFC (Factura I - Factura Ingreso Extranjero sin RFC)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{session_token_mexico}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"header\": {\r\n    \"account_id\": 11857,\r\n    \"document_type_id\": \"76\",\r\n    \"issue_date\": \"2025-05-27\",\r\n    \"issuer_tax_id_code\": \"EKU9003173C9\",\r\n    \"issuer_tax_id_type\": \"MX-RFC\",\r\n    \"issuer_legal_name\": \"ESCUELA KEMPER URGATE\",\r\n    \"issuer_address\": \"Calle roja 234\",\r\n    \"issuer_city\": \"Ciudad de méxico\",\r\n    \"issuer_country_id\": \"80\",\r\n    \"issuer_phone\": \"2223334444\",\r\n    \"issuer_activity\": \"601\",\r\n    \"issuer_postalcode\": \"42501\",\r\n    \"receiver_tax_id_code\": \"XEXX010101000\",\r\n    \"receiver_tax_id_type\": \"US-EIN\",\r\n    \"receiver_legal_name\": \"ESCUELA KEMPER URGATE\",\r\n    \"receiver_address\": \"<string>\",\r\n    \"receiver_district\": \"<string>\",\r\n    \"receiver_city\": \"<string>\",\r\n    \"receiver_country_id\": \"89\",\r\n    \"receiver_phone\": \"<string>\",\r\n    \"receiver_activity\": \"<string>\",\r\n    \"payment_conditions\": \"0\",\r\n    \"currency_id\": 31\r\n  },\r\n  \"details\": [\r\n    {\r\n      \"quantity\": 1,\r\n      \"sku\": \"aa111\",\r\n      \"line_description\": \"Prueba Koywe\",\r\n      \"unit_measure\": \"UN\",\r\n      \"unit_price\": 1500,\r\n      \"long_description\": \"Esta es una linea de prueba\",\r\n      \"modifier_amount\": -100,\r\n      \"total_taxes\": 224,\r\n      \"modifier_percentage\": 0,\r\n      \"total_amount_line\": 1624,\r\n      \"taxes\": [\r\n        {\r\n          \"tax_type_id\": \"362\",\r\n          \"tax_percentage\": 16,\r\n          \"tax_amount\": 224\r\n        }\r\n      ]\r\n    }\r\n  ],\r\n  \"totals\": {\r\n    \"net_amount\": 1400,\r\n    \"taxes_amount\": 224,\r\n    \"total_amount\": 1624\r\n  }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api-billing.koywe.com/V1/documents",
+							"protocol": "https",
+							"host": [
+								"api-billing",
+								"koywe",
+								"com"
+							],
+							"path": [
+								"V1",
+								"documents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create new documents - Invoice I National without RFC (Factura I - Factura Ingreso Nacional sin RFC)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{session_token_mexico}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"header\": {\r\n    \"account_id\": 11857,\r\n    \"document_type_id\": \"76\",\r\n    \"issue_date\": \"2025-01-07\",\r\n    \"issuer_tax_id_code\": \"EKU9003173C9\",\r\n    \"issuer_tax_id_type\": \"MX-RFC\",\r\n    \"issuer_legal_name\": \"ESCUELA KEMPER URGATE\",\r\n    \"issuer_address\": \"Calle roja 234\",\r\n    \"issuer_city\": \"Ciudad de méxico\",\r\n    \"issuer_country_id\": \"80\",\r\n    \"issuer_phone\": \"2223334444\",\r\n    \"issuer_activity\": \"601\",\r\n    \"issuer_postalcode\": \"42501\",\r\n    \"receiver_tax_id_code\": \"XAXX010101000\",\r\n    \"receiver_tax_id_type\": \"MX-RFC\",\r\n    \"receiver_legal_name\": \"ESCUELA KEMPER URGATE\",\r\n    \"receiver_address\": \"<string>\",\r\n    \"receiver_district\": \"<string>\",\r\n    \"receiver_city\": \"<string>\",\r\n    \"receiver_country_id\": \"80\",\r\n    \"receiver_phone\": \"<string>\",\r\n    \"receiver_activity\": \"<string>\",\r\n    \"payment_conditions\": \"0\",\r\n    \"currency_id\": 31\r\n  },\r\n  \"details\": [\r\n    {\r\n      \"quantity\": 1,\r\n      \"sku\": \"aa111\",\r\n      \"line_description\": \"Prueba Koywe\",\r\n      \"unit_measure\": \"UN\",\r\n      \"unit_price\": 1500,\r\n      \"long_description\": \"Esta es una linea de prueba\",\r\n      \"modifier_amount\": -100,\r\n      \"total_taxes\": 224,\r\n      \"modifier_percentage\": 0,\r\n      \"total_amount_line\": 1624,\r\n      \"taxes\": [\r\n        {\r\n          \"tax_type_id\": \"362\",\r\n          \"tax_percentage\": 16,\r\n          \"tax_amount\": 224\r\n        }\r\n      ]\r\n    }\r\n  ],\r\n  \"totals\": {\r\n    \"net_amount\": 1400,\r\n    \"taxes_amount\": 224,\r\n    \"total_amount\": 1624\r\n  }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api-billing.koywe.com/V1/documents",
+							"protocol": "https",
+							"host": [
+								"api-billing",
+								"koywe",
+								"com"
+							],
+							"path": [
+								"V1",
+								"documents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create new documents - Invoice I with VAT and IEPS taxes (Factura I - Factura Ingreso con IVA y IEPS)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{session_token_mexico}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"header\": {\r\n    \"account_id\": 11857,\r\n    \"document_type_id\": \"76\",\r\n    \"issue_date\": \"2025-01-07\",\r\n    \"issuer_tax_id_code\": \"EKU9003173C9\",\r\n    \"issuer_tax_id_type\": \"MX-RFC\",\r\n    \"issuer_legal_name\": \"ESCUELA KEMPER URGATE\",\r\n    \"issuer_address\": \"Calle roja 234\",\r\n    \"issuer_city\": \"Ciudad de méxico\",\r\n    \"issuer_country_id\": \"80\",\r\n    \"issuer_phone\": \"2223334444\",\r\n    \"issuer_activity\": \"601\",\r\n    \"issuer_postalcode\": \"42501\",\r\n    \"receiver_tax_id_code\": \"EKU9003173C9\",\r\n    \"receiver_tax_id_type\": \"MX-RFC\",\r\n    \"receiver_legal_name\": \"ESCUELA KEMPER URGATE\",\r\n    \"receiver_address\": \"<string>\",\r\n    \"receiver_district\": \"<string>\",\r\n    \"receiver_city\": \"<string>\",\r\n    \"receiver_country_id\": \"80\",\r\n    \"receiver_phone\": \"<string>\",\r\n    \"receiver_activity\": \"<string>\",\r\n    \"payment_conditions\": \"0\",\r\n    \"currency_id\": 31\r\n  },\r\n  \"details\": [\r\n    {\r\n      \"quantity\": 1,\r\n      \"sku\": \"aa111\",\r\n      \"line_description\": \"Prueba Koywe\",\r\n      \"unit_measure\": \"UN\",\r\n      \"unit_price\": 1500,\r\n      \"long_description\": \"Esta es una linea de prueba\",\r\n      \"modifier_amount\": -100,\r\n      \"total_taxes\": 266,\r\n      \"modifier_percentage\": 0,\r\n      \"total_amount_line\": 1666,\r\n      \"taxes\": [\r\n        {\r\n          \"tax_type_id\": \"362\",\r\n          \"tax_percentage\": 16,\r\n          \"tax_amount\": 224\r\n        },\r\n        {\r\n          \"tax_type_id\": \"368\",\r\n          \"tax_percentage\": 3,\r\n          \"tax_amount\": 42\r\n        }\r\n      ]\r\n    }\r\n  ],\r\n  \"totals\": {\r\n    \"net_amount\": 1400,\r\n    \"taxes_amount\": 266,\r\n    \"total_amount\": 1666\r\n  }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api-billing.koywe.com/V1/documents",
+							"protocol": "https",
+							"host": [
+								"api-billing",
+								"koywe",
+								"com"
+							],
+							"path": [
+								"V1",
+								"documents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Invoice issuance lifecycle",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{session_token_mexico}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api-billing.koywe.com/V1/documents/{document_id}",
+							"protocol": "https",
+							"host": [
+								"api-billing",
+								"koywe",
+								"com"
+							],
+							"path": [
+								"V1",
+								"documents",
+								"{document_id}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a new payment",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{session_token_mexico}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"payment_date\": \"2025-01-02\",\r\n\"document_id\": \"127\",\r\n\"payment_type_id\" : \"1\",\r\n\"payment_amount\" : \"10000\",\r\n\"payment_details\" : \"\",\r\n\"cash_account_id\" : \"1\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api-billing.koywe.com/V1/payments",
+							"protocol": "https",
+							"host": [
+								"api-billing",
+								"koywe",
+								"com"
+							],
+							"path": [
+								"V1",
+								"payments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cancelling an invoice",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{session_token_mexico}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api-billing.koywe.com/V1/documents/{document_id}",
+							"protocol": "https",
+							"host": [
+								"api-billing",
+								"koywe",
+								"com"
+							],
+							"path": [
+								"V1",
+								"documents",
+								"{document_id}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deleting a draft",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{session_token_mexico}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api-billing.koywe.com/V1/documents/{document_id}",
+							"protocol": "https",
+							"host": [
+								"api-billing",
+								"koywe",
+								"com"
+							],
+							"path": [
+								"V1",
+								"documents",
+								"{document_id}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Perú",
+			"item": [
+				{
+					"name": "Sandbox environment credentials",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.expect(pm.response.code).to.equal(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response contains required fields\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData).to.be.an('object');\r",
+									"    pm.expect(responseData).to.have.all.keys('access_token', 'expires_in', 'token_type', 'scope', 'refresh_token');\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Access token is a non-empty string\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData).to.be.an('object');\r",
+									"    pm.expect(responseData.access_token).to.exist.and.to.be.a('string').and.to.have.lengthOf.above(0, \"Access token should not be empty\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Expires_in is a positive integer\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData).to.be.an('object');\r",
+									"    pm.expect(responseData.expires_in).to.exist.and.to.be.a('number').and.to.be.above(0, \"Value should be a positive integer\");\r",
+									"});\r",
+									"\r",
+									"// ✅ Guarda el token para Perú\r",
+									"pm.environment.set(\"session_token_peru\", pm.response.json().access_token);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"grant_type\": \"password\",\r\n    \"client_id\": \"demo/001\",\r\n    \"client_secret\": \"ad258748356c5104df2bf4bdbabd3352\",\r\n    \"username\": \"demoperu\",\r\n    \"password\": \"23c7eeda24e06d3a1481cbedeb6d200e\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api-billing.koywe.com/{{api_version}}/auth",
+							"protocol": "https",
+							"host": [
+								"api-billing",
+								"koywe",
+								"com"
+							],
+							"path": [
+								"{{api_version}}",
+								"auth"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a new account",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{session_token_peru}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"country_id\": 83,\r\n    \"contact_name\": \"fernando rojas\",\r\n    \"contact_phone\": \"+51999888777\",\r\n    \"admin_email\": \"test@company.com\",\r\n    \"admin_password\": \"enternewpassword\",\r\n    \"registration_legal_name_company\": \"my company\",\r\n    \"registration_tax_id_code\": \"12345678901\",\r\n    \"registration_tax_id_type\": \"PE-RUC\",\r\n    \"registration_company_size\": 1,\r\n    \"registration_company_industry_sector\": \"1\",\r\n    \"registration_type_use\": 1,\r\n    \"registration_terms_of_use\": 1,\r\n    \"registration_additional_data\": {\r\n        \"company_logo\": \"SOIFsDCCA5igAwIBAgIUMzAwMDEw...\"\r\n    }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api-billing.koywe.com/V1/accounts",
+							"protocol": "https",
+							"host": [
+								"api-billing",
+								"koywe",
+								"com"
+							],
+							"path": [
+								"V1",
+								"accounts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create new documents - Invoice (Factura electrónica)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{session_token_peru}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"header\":{\r\n      \"account_id\":16268,\r\n      \"document_type_id\":\"96\",\r\n      \"received_issued_flag\":0,\r\n      \"issue_date\":\"2025-02-03\",\r\n      \"issuer_tax_id_code\":\"20610383727\",\r\n      \"issuer_tax_id_type\":\"PE-RUC\",\r\n      \"issuer_legal_name\":\"<string>\",\r\n      \"issuer_address\":\"<string>\",\r\n      \"issuer_district\":\"<string>\",\r\n      \"issuer_city\":\"<string>\",\r\n      \"issuer_department\":\"<string>\",\r\n      \"issuer_country_id\":\"83\",\r\n      \"issuer_phone\":\"<string>\",\r\n      \"issuer_activity\":\"<string>\",\r\n\t  \"issuer_postalcode\":\"12345456\",\r\n      \"receiver_tax_id_code\":\"20473731828\",\r\n      \"receiver_tax_id_type\":\"PE-RUC\",\r\n      \"receiver_legal_name\":\"ESCUELA KEMPER URGATES\",\r\n      \"receiver_address\":\"<string>\",\r\n      \"receiver_district\":\"<string>\",\r\n      \"receiver_city\":\"<string>\",\r\n      \"receiver_department\":\"<string>\",\r\n      \"receiver_country_id\":\"83\",\r\n      \"receiver_phone\":\"<string>\",\r\n      \"receiver_activity\":\"<string>\",\r\n\t  \"receiver_postalcode\":\"12343456\",\r\n      \"payment_conditions\":\"0\",\r\n      \"currency_id\":7,\r\n      \"additional\":{\r\n         \"pe_header\":{\r\n            \"signature_id\":\"ASDFG\",\r\n            \"operation_type\":\"0101\"\r\n         }\r\n      }\r\n   },\r\n   \"details\":[\r\n      {\r\n         \"quantity\":1,\r\n         \"line_description\":\"Prueba Koywe\",\r\n         \"unit_measure\":\"NIU\",\r\n         \"unit_price\":1000,\r\n         \"long_description\":\"Test descripcion\",\r\n         \"modifier_amount\":0,\r\n         \"total_taxes\":180,\r\n         \"modifier_percentage\":0,\r\n         \"total_amount_line\":1180,\r\n         \"sku\":\"3245\",\r\n         \"taxes\":[\r\n            {\r\n               \"tax_type_id\":\"413\",\r\n               \"tax_percentage\":18,\r\n               \"tax_amount\":180\r\n            }\r\n         ]\r\n      }\r\n   ],\r\n   \"totals\":{\r\n      \"net_amount\":1000,\r\n      \"taxes_amount\":180,\r\n      \"total_amount\":1180\r\n   }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api-billing.koywe.com/V1/documents",
+							"protocol": "https",
+							"host": [
+								"api-billing",
+								"koywe",
+								"com"
+							],
+							"path": [
+								"V1",
+								"documents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create new documents - Invoice on exports use case (Factura electrónica para casos de exportación)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{session_token_peru}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"header\":{\r\n      \"account_id\":179,\r\n      \"document_type_id\":\"96\",\r\n      \"received_issued_flag\":0,\r\n      \"issue_date\":\"2025-04-21\",\r\n      \"issuer_tax_id_code\":\"20610383727\",\r\n      \"issuer_tax_id_type\":\"PE-RUC\",\r\n      \"issuer_legal_name\":\"<string>\",\r\n      \"issuer_address\":\"<string>\",\r\n      \"issuer_district\":\"<string>\",\r\n      \"issuer_city\":\"<string>\",\r\n      \"issuer_department\":\"<string>\",\r\n      \"issuer_country_id\":\"83\",\r\n      \"issuer_phone\":\"<string>\",\r\n      \"issuer_activity\":\"<string>\",\r\n\t  \"issuer_postalcode\":\"12345456\",\r\n      \"receiver_tax_id_code\":\"851855616\",\r\n      \"receiver_tax_id_type\":\"US-EIN\",\r\n      \"receiver_legal_name\":\"ESCUELA KEMPER URGATES\",\r\n      \"receiver_address\":\"<string>\",\r\n      \"receiver_district\":\"<string>\",\r\n      \"receiver_city\":\"<string>\",\r\n      \"receiver_department\":\"<string>\",\r\n      \"receiver_country_id\":\"83\",\r\n      \"receiver_phone\":\"<string>\",\r\n      \"receiver_activity\":\"<string>\",\r\n\t  \"receiver_postalcode\":\"12343456\",\r\n      \"payment_conditions\":\"0\",\r\n      \"currency_id\":7,\r\n      \"additional\":{\r\n         \"pe_header\":{\r\n            \"signature_id\":\"ASDFG\",\r\n            \"operation_type\":\"0200\"\r\n         }\r\n      }\r\n   },\r\n   \"details\":[\r\n      {\r\n         \"quantity\":1,\r\n         \"line_description\":\"Prueba ROW\",\r\n         \"unit_measure\":\"NIU\",\r\n         \"unit_price\":1000,\r\n         \"long_description\":\"Test descripcion\",\r\n         \"modifier_amount\":0,\r\n         \"total_taxes\":0,\r\n         \"modifier_percentage\":0,\r\n         \"total_amount_line\":1000,\r\n         \"sku\":\"3245\",\r\n         \"taxes\":[\r\n            {\r\n               \"tax_type_id\":\"425\",\r\n               \"tax_percentage\":0,\r\n               \"tax_amount\":0\r\n            }\r\n         ]\r\n      }\r\n   ],\r\n   \"totals\":{\r\n      \"net_amount\":1000,\r\n      \"taxes_amount\":0,\r\n      \"total_amount\":1000\r\n   }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api-billing.koywe.com/V1/documents",
+							"protocol": "https",
+							"host": [
+								"api-billing",
+								"koywe",
+								"com"
+							],
+							"path": [
+								"V1",
+								"documents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create new documents - Receipt (Boleta electrónica)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{session_token_peru}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"header\":{\r\n      \"account_id\":16268,\r\n      \"document_type_id\":\"97\",\r\n      \"received_issued_flag\":0,\r\n      \"issue_date\":\"2025-02-03\",\r\n      \"issuer_tax_id_code\":\"20610383727\",\r\n      \"issuer_tax_id_type\":\"PE-RUC\",\r\n      \"issuer_legal_name\":\"<string>\",\r\n      \"issuer_address\":\"<string>\",\r\n      \"issuer_district\":\"<string>\",\r\n      \"issuer_city\":\"<string>\",\r\n      \"issuer_department\":\"<string>\",\r\n      \"issuer_country_id\":\"80\",\r\n      \"issuer_phone\":\"<string>\",\r\n      \"issuer_activity\":\"<string>\",\r\n\t  \"issuer_postalcode\":\"12345456\",\r\n      \"receiver_tax_id_code\":\"20473731828\",\r\n      \"receiver_tax_id_type\":\"PE-RUC\",\r\n      \"receiver_legal_name\":\"ESCUELA KEMPER URGATES\",\r\n      \"receiver_address\":\"<string>\",\r\n      \"receiver_district\":\"<string>\",\r\n      \"receiver_city\":\"<string>\",\r\n      \"receiver_department\":\"<string>\",\r\n      \"receiver_country_id\":\"80\",\r\n      \"receiver_phone\":\"<string>\",\r\n      \"receiver_activity\":\"<string>\",\r\n\t  \"receiver_postalcode\":\"12343456\",\r\n      \"payment_conditions\":\"0\",\r\n      \"currency_id\":7,\r\n      \"additional\":{\r\n         \"pe_header\":{\r\n            \"signature_id\":\"ASDFG\",\r\n            \"operation_type\":\"0101\"\r\n         }\r\n      }\r\n   },\r\n   \"details\":[\r\n      {\r\n         \"quantity\":1,\r\n         \"line_description\":\"Prueba Koywe\",\r\n         \"unit_measure\":\"NIU\",\r\n         \"unit_price\":1000,\r\n         \"long_description\":\"Test descripcion\",\r\n         \"modifier_amount\":0,\r\n         \"total_taxes\":180,\r\n         \"modifier_percentage\":0,\r\n         \"total_amount_line\":1180,\r\n         \"sku\":\"3245\",\r\n         \"taxes\":[\r\n            {\r\n               \"tax_type_id\":\"413\",\r\n               \"tax_percentage\":18,\r\n               \"tax_amount\":180\r\n            }\r\n         ]\r\n      }\r\n   ],\r\n   \"totals\":{\r\n      \"net_amount\":1000,\r\n      \"taxes_amount\":180,\r\n      \"total_amount\":1180\r\n   }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api-billing.koywe.com/V1/documents",
+							"protocol": "https",
+							"host": [
+								"api-billing",
+								"koywe",
+								"com"
+							],
+							"path": [
+								"V1",
+								"documents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create new documents - Credit note (Nota de crédito electrónica)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{session_token_peru}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"header\": {\r\n      \"account_id\": 16268,\r\n      \"document_type_id\": \"98\",\r\n      \"received_issued_flag\": 0,\r\n      \"issue_date\": \"2025-01-27\",\r\n      \"issuer_tax_id_code\": \"20610383727\",\r\n      \"issuer_tax_id_type\": \"PE-RUC\",\r\n      \"issuer_legal_name\": \"<string>\",\r\n      \"issuer_address\": \"<string>\",\r\n      \"issuer_district\": \"<string>\",\r\n      \"issuer_city\": \"<string>\",\r\n\t  \"issuer_department\":\"<string>\",\r\n      \"issuer_country_id\": \"80\",\r\n      \"issuer_phone\": \"<string>\",\r\n      \"issuer_activity\": \"<string>\",\r\n\t  \"issuer_postalcode\":\"12345456\",\r\n      \"receiver_tax_id_code\": \"20473731828\",\r\n      \"receiver_tax_id_type\": \"PE-RUC\",\r\n      \"receiver_legal_name\": \"ESCUELA KEMPER URGATES\",\r\n      \"receiver_address\": \"<string>\",\r\n      \"receiver_district\": \"<string>\",\r\n      \"receiver_city\": \"<string>\",\r\n\t  \"receiver_department\":\"<string>\",\r\n      \"receiver_country_id\": \"80\",\r\n      \"receiver_phone\": \"<string>\",\r\n      \"receiver_activity\": \"<string>\",\r\n\t  \"receiver_postalcode\":\"12343456\",\r\n      \"payment_conditions\": \"0\",\r\n      \"currency_id\": 7,\r\n\t  \"additional\":{\r\n         \"pe_header\":{\r\n            \"signature_id\":\"ASDFG\",\r\n            \"operation_type\":\"0101\"\r\n         }\r\n      }\r\n   },\r\n   \"details\": [\r\n      {\r\n         \"quantity\": 1,\r\n         \"line_description\": \"Prueba Koywe\",\r\n         \"unit_measure\": \"NIU\",\r\n         \"unit_price\": 1000,\r\n         \"long_description\": \"Test descripcion\",\r\n         \"modifier_amount\": 0,\r\n         \"total_taxes\": 180,\r\n         \"modifier_percentage\": 0,\r\n         \"total_amount_line\": 1180,\r\n         \"sku\": \"3245\",\r\n         \"taxes\": [\r\n            {\r\n               \"tax_type_id\": \"413\",\r\n               \"tax_percentage\": 18,\r\n               \"tax_amount\": 180\r\n            }\r\n         ]\r\n      }\r\n   ],\r\n   \"references\": [\r\n\t   {\r\n\t\t  \"document_type_id\": \"96\",\r\n\t\t  \"reference_number\": \"F001-00000087\",\r\n\t\t  \"reference_code\": \"01\",\r\n\t\t  \"description\": \"Anulacion solicitada por el emisor\",\r\n\t\t  \"reference_date\": \"2025-01-27\"\r\n\t   }\r\n   ],\r\n   \"totals\": {\r\n      \"net_amount\": 1000,\r\n      \"taxes_amount\": 180,\r\n      \"total_amount\": 1180\r\n   }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api-billing.koywe.com/V1/documents",
+							"protocol": "https",
+							"host": [
+								"api-billing",
+								"koywe",
+								"com"
+							],
+							"path": [
+								"V1",
+								"documents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create new documents - Debit note (Nota de débito electrónica)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{session_token_peru}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"header\":{\r\n      \"account_id\":16268,\r\n      \"document_type_id\":\"99\",\r\n      \"received_issued_flag\":0,\r\n      \"issue_date\":\"2025-01-23\",\r\n      \"issuer_tax_id_code\":\"20610383727\",\r\n      \"issuer_tax_id_type\":\"PE-RUC\",\r\n      \"issuer_legal_name\":\"<string>\",\r\n      \"issuer_address\":\"<string>\",\r\n      \"issuer_district\":\"<string>\",\r\n      \"issuer_city\":\"<string>\",\r\n\t  \"issuer_department\":\"<string>\",\r\n      \"issuer_country_id\":\"80\",\r\n      \"issuer_phone\":\"<string>\",\r\n      \"issuer_activity\":\"<string>\",\r\n\t  \"issuer_postalcode\":\"12345456\",\r\n      \"receiver_tax_id_code\":\"20473731828\",\r\n      \"receiver_tax_id_type\":\"PE-RUC\",\r\n      \"receiver_legal_name\":\"ESCUELA KEMPER URGATES\",\r\n      \"receiver_address\":\"<string>\",\r\n      \"receiver_district\":\"<string>\",\r\n      \"receiver_city\":\"<string>\",\r\n\t  \"receiver_department\":\"<string>\",\r\n      \"receiver_country_id\":\"80\",\r\n      \"receiver_phone\":\"<string>\",\r\n      \"receiver_activity\":\"<string>\",\r\n\t  \"receiver_postalcode\":\"12343456\",\r\n      \"payment_conditions\":\"0\",\r\n      \"currency_id\":7,\r\n      \"additional\":{\r\n         \"pe_header\":{\r\n            \"signature_id\":\"ASDFG\",\r\n            \"operation_type\":\"0101\"\r\n         }\r\n      }\r\n   },\r\n   \"details\":[\r\n      {\r\n         \"quantity\":1,\r\n         \"line_description\":\"Prueba Koywe\",\r\n         \"unit_measure\":\"NIU\",\r\n         \"unit_price\":1000,\r\n         \"long_description\":\"Test descripcion\",\r\n         \"modifier_amount\":0,\r\n         \"total_taxes\":180,\r\n         \"modifier_percentage\":0,\r\n         \"total_amount_line\":1180,\r\n         \"sku\":\"3245\",\r\n         \"taxes\":[\r\n            {\r\n               \"tax_type_id\":\"413\",\r\n               \"tax_percentage\":18,\r\n               \"tax_amount\":180\r\n            }\r\n         ]\r\n      }\r\n   ],\r\n   \"references\": [\r\n\t {\r\n\t\t\"document_type_id\":\"96\",\r\n\t\t\"reference_number\":\"F001-00000080\",\r\n\t\t\"reference_code\":\"03\",\r\n\t\t\"description\":\"Penalidad/otros conceptos\",\r\n\t\t\"reference_date\":\"2025-01-23\"\r\n\t }\r\n   ],\r\n   \"totals\":{\r\n      \"net_amount\":1000,\r\n      \"taxes_amount\":180,\r\n      \"total_amount\":1180\r\n   }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api-billing.koywe.com/V1/documents",
+							"protocol": "https",
+							"host": [
+								"api-billing",
+								"koywe",
+								"com"
+							],
+							"path": [
+								"V1",
+								"documents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create new documents - Bill of lading (Guía de remisión electrónica)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{session_token_peru}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"header\":{\r\n      \"account_id\":16268,\r\n      \"document_type_id\":\"100\",\r\n      \"received_issued_flag\":0,\r\n      \"issue_date\":\"2025-01-31\",\r\n      \"issuer_tax_id_code\":\"20610383727\",\r\n      \"issuer_tax_id_type\":\"PE-RUC\",\r\n      \"issuer_legal_name\":\"<string>\",\r\n      \"issuer_address\":\"<string>\",\r\n      \"issuer_district\":\"<string>\",\r\n      \"issuer_city\":\"<string>\",\r\n\t  \"issuer_department\":\"<string>\",\r\n      \"issuer_country_id\":\"83\",\r\n      \"issuer_phone\":\"<string>\",\r\n      \"issuer_activity\":\"<string>\",\r\n\t  \"issuer_postalcode\":\"12345456\",\r\n      \"receiver_tax_id_code\":\"20473731828\",\r\n      \"receiver_tax_id_type\":\"PE-RUC\",\r\n      \"receiver_legal_name\":\"ESCUELA KEMPER URGATES\",\r\n      \"receiver_address\":\"<string>\",\r\n      \"receiver_district\":\"<string>\",\r\n\t  \"receiver_department\":\"<string>\",\r\n      \"receiver_city\":\"<string>\",\r\n      \"receiver_country_id\":\"80\",\r\n      \"receiver_phone\":\"<string>\",\r\n      \"receiver_activity\":\"<string>\",\r\n\t  \"receiver_postalcode\":\"12343456\",\r\n      \"payment_conditions\":\"0\",\r\n      \"currency_id\":7,\r\n      \"additional\":{\r\n         \"pe_header\":{\r\n            \"signature_id\":\"ASDFG\",\r\n            \"operation_type\":\"0101\"\r\n         },\r\n         \"pe_shipping\":{\r\n            \"handling_code\":\"01\",\r\n            \"special_instructions\":\"SUNAT_Envio_IndicadorTrasladoVehiculoM1L\",\r\n            \"handling_instructions\":\"DESCRIPCION DEL MOTIVO DE TRASLADO\",\r\n            \"gross_weight_measure\":\"500\",\r\n            \"gross_weight_measure_id\":\"KGM\",\r\n            \"shipment_stage\":{\r\n               \"transport_mode_code\":\"01\",\r\n               \"transit_period\":\"2025-01-31\",\r\n               \"driver_person\":{\r\n                  \"driver_id\":\"72257341\",\r\n                  \"first_name\":\"NOMBRE CONDUCTOR\",\r\n                  \"family_name\":\"APELLIDOS CONDUCTOR\",\r\n                  \"job_title\":\"Principal\",\r\n                  \"identity_document_reference\":\"LICENC1234\"\r\n               },\r\n               \"carrier_party\":{\r\n          \t   \"party_identification\": \"20104498044\",\r\n          \t   \"party_legal_entity_name\": \"EMPRESA TRANSPORTISTA\",\r\n          \t   \"party_legal_entity_id\": \"NUMREGISTRANS\",\r\n          \t   \"agent_party_id\": \"NUMAUTRANS\"\r\n          \t}\r\n            },\r\n            \"delivery\":{\r\n               \"delivery_address\":{\r\n                  \"id\":\"150110\",\r\n                  \"city_subdivision_name\":\"URBANIZACION\",\r\n                  \"city_name\":\"PROVINCIA\",\r\n                  \"country_subentity\":\"DEPARTAMENTO\",\r\n                  \"district\":\"DISTRITO\",\r\n                  \"address_line\":\"DIRECCION PUNTO LLEGADA\",\r\n                  \"country_id\":\"83\"\r\n               },\r\n               \"dispatch\":{\r\n                  \"id\":\"150112\",\r\n                  \"city_subdivision_name\":\"URBANIZACION\",\r\n                  \"city_name\":\"PROVINCIA\",\r\n                  \"country_subentity\":\"DEPARTAMENTO\",\r\n                  \"district\":\"DISTRITO\",\r\n                  \"address_line\":\"DIRECCION PUNTO LLEGADA\",\r\n                  \"country_id\":\"83\",\r\n                  \"dispatch_party_company_id\": \"NUMAUTORIREMIT123\"\r\n               }\r\n            },\r\n            \"transport_handling_unit\":{\r\n               \"transport_equipment_id\":\"PLACA1\"\r\n            }\r\n         }\r\n      }\r\n   },\r\n   \"details\":[\r\n      {\r\n         \"quantity\":1,\r\n         \"line_description\":\"Prueba Koywe\",\r\n         \"unit_measure\":\"NIU\",\r\n         \"unit_price\":1000,\r\n         \"long_description\":\"Test descripcion\",\r\n         \"modifier_amount\":0,\r\n         \"total_taxes\":180,\r\n         \"modifier_percentage\":0,\r\n         \"total_amount_line\":1180,\r\n         \"sku\":\"3245\",\r\n         \"taxes\":[\r\n            {\r\n               \"tax_type_id\":\"413\",\r\n               \"tax_percentage\":18,\r\n               \"tax_amount\":180\r\n            }\r\n         ]\r\n      }\r\n   ],\r\n   \"references\": [\r\n\t {\r\n\t\t\"document_type_id\": \"96\",\r\n\t\t\"reference_number\": \"F001-00000099\",\r\n\t\t\"reference_code\": 1,\r\n\t\t\"description\": \"Traslado\",\r\n\t\t\"reference_date\": \"2025-01-31\"\r\n\t }\r\n   ],\r\n   \"totals\":{\r\n      \"net_amount\":1000,\r\n      \"taxes_amount\":180,\r\n      \"total_amount\":1180\r\n   }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api-billing.koywe.com/V1/documents",
+							"protocol": "https",
+							"host": [
+								"api-billing",
+								"koywe",
+								"com"
+							],
+							"path": [
+								"V1",
+								"documents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create new documents - Retention receipt (Comprobante de retención)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{session_token_peru}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"header\":{\r\n      \"account_id\":16268,\r\n      \"document_type_id\":\"109\",\r\n      \"received_issued_flag\":0,\r\n      \"issue_date\":\"2025-01-24\",\r\n      \"issuer_tax_id_code\":\"20610383727\",\r\n      \"issuer_tax_id_type\":\"PE-RUC\",\r\n      \"issuer_legal_name\":\"<string>\",\r\n      \"issuer_address\":\"<string>\",\r\n      \"issuer_district\":\"<string>\",\r\n      \"issuer_city\":\"<string>\",\r\n\t  \"issuer_department\":\"<string>\",\r\n      \"issuer_country_id\":\"80\",\r\n      \"issuer_phone\":\"<string>\",\r\n      \"issuer_activity\":\"<string>\",\r\n\t  \"issuer_postalcode\":\"12345456\",\r\n      \"receiver_tax_id_code\":\"20473731828\",\r\n      \"receiver_tax_id_type\":\"PE-RUC\",\r\n      \"receiver_legal_name\":\"ESCUELA KEMPER URGATES\",\r\n      \"receiver_address\":\"<string>\",\r\n      \"receiver_district\":\"<string>\",\r\n      \"receiver_city\":\"<string>\",\r\n\t  \"receiver_department\":\"<string>\",\r\n      \"receiver_country_id\":\"80\",\r\n      \"receiver_phone\":\"<string>\",\r\n      \"receiver_activity\":\"<string>\",\r\n      \"receiver_email\":\"rockman-jjlb@hotmail.com\",\r\n\t  \"receiver_postalcode\":\"12343456\",\r\n      \"payment_conditions\":\"0\",\r\n      \"currency_id\":7,\r\n      \"additional\":{\r\n         \"pe_header\":{\r\n            \"signature_id\":\"ASDFG\",\r\n            \"operation_type\":\"0101\"\r\n         },\r\n\t\t \"pe_retention_header\":{\r\n\t\t\t \"pe_sunat_retention_system_code\":\"01\",\r\n\t\t\t \"pe_sunat_retention_percent\":\"3.00\",\r\n\t\t\t \"pe_sunat_total_paid\":\"1144.60\"\r\n\t\t }\r\n      }\r\n   },\r\n   \"details\":[\r\n      {\r\n         \"quantity\":1,\r\n         \"line_description\":\"Prueba Koywe\",\r\n         \"unit_measure\":\"NIU\",\r\n         \"unit_price\":1000,\r\n         \"long_description\":\"Test descripcion\",\r\n         \"modifier_amount\":0,\r\n         \"total_taxes\":180,\r\n         \"modifier_percentage\":0,\r\n         \"total_amount_line\":1180,\r\n         \"sku\":\"3245\",\r\n         \"taxes\":[\r\n            {\r\n               \"tax_type_id\":\"413\",\r\n               \"tax_percentage\":18,\r\n               \"tax_amount\":180\r\n            }\r\n         ]\r\n      }\r\n   ],\r\n   \"references\":[\r\n\t\t {\r\n\t\t\t\"document_type_id\":\"96\",\r\n\t\t\t\"reference_number\":\"F001-00000080\",\r\n\t\t\t\"reference_code\":1,\r\n\t\t\t\"description\":\"Pago\",\r\n\t\t\t\"reference_date\":\"2025-01-24\",\r\n\t\t\t\"additional\":{\r\n\t\t\t\t\"pe_retention_details\":{\r\n\t\t\t\t\t\"reference_paid_amount\":\"1144.60\",\r\n\t\t\t\t\t\"reference_total_invoice_amount\": \"1180\",\r\n\t\t\t\t\t\"reference_paid_date\":\"2025-01-24\",\r\n\t\t\t\t\t\"reference_payment_id\":\"1\",\r\n\t\t\t\t\t\"pe_reference_sunat_retention_amount\":\"34.34\",\r\n\t\t\t\t\t\"pe_reference_sunat_retention_date\":\"2025-01-23\",\r\n\t\t\t\t\t\"calculation_rate\":\"1\",\r\n\t\t\t\t\t\"currency_id\":\"7\"\r\n\t\t\t\t}\r\n\t\t\t}\r\n\t\t }\r\n    ],\r\n   \"totals\":{\r\n      \"net_amount\":1000,\r\n      \"taxes_amount\":180,\r\n      \"total_amount\":1180\r\n   }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api-billing.koywe.com/V1/documents",
+							"protocol": "https",
+							"host": [
+								"api-billing",
+								"koywe",
+								"com"
+							],
+							"path": [
+								"V1",
+								"documents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Invoice issuance lifecycle",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{session_token_peru}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api-billing.koywe.com/V1/documents/{document_id}",
+							"protocol": "https",
+							"host": [
+								"api-billing",
+								"koywe",
+								"com"
+							],
+							"path": [
+								"V1",
+								"documents",
+								"{document_id}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deleting a draft",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{session_token_peru}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api-billing.koywe.com/V1/documents/{document_id}",
+							"protocol": "https",
+							"host": [
+								"api-billing",
+								"koywe",
+								"com"
+							],
+							"path": [
+								"V1",
+								"documents",
+								"{document_id}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "API Reference",
+			"item": [
+				{
+					"name": "Authentication",
+					"item": [
+						{
+							"name": "Authenticate and receive a bearer token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response status code is 200\", function () {\r",
+											"    pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"Response time is less than 200ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"Response contains required fields\", function () {\r",
+											"    const responseData = pm.response.json();\r",
+											"    \r",
+											"    pm.expect(responseData).to.be.an('object');\r",
+											"    pm.expect(responseData).to.have.all.keys('access_token', 'expires_in', 'token_type', 'scope', 'refresh_token');\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"Access token is a non-empty string\", function () {\r",
+											"    const responseData = pm.response.json();\r",
+											"    \r",
+											"    pm.expect(responseData).to.be.an('object');\r",
+											"    pm.expect(responseData.access_token).to.exist.and.to.be.a('string').and.to.have.lengthOf.above(0, \"Access token should not be empty\");\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"Expires_in is a positive integer\", function () {\r",
+											"    const responseData = pm.response.json();\r",
+											"    \r",
+											"    pm.expect(responseData).to.be.an('object');\r",
+											"    pm.expect(responseData.expires_in).to.exist.and.to.be.a('number').and.to.be.above(0, \"Value should be a positive integer\");\r",
+											"});\r",
+											"\r",
+											"// ✅ Guarda el token\r",
+											"pm.environment.set(\"session_token\", pm.response.json().access_token);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"grant_type\": \"password\",\r\n    \"client_id\": \"demo/001\",\r\n    \"client_secret\": \"ad258748356c5104df2bf4bdbabd3352\",\r\n    \"username\": \"1.111.111-1/demoapi\",\r\n    \"password\": \"76be37bcc4970d29e519fca46edead19\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://api-billing.koywe.com/{{api_version}}/auth",
+									"protocol": "https",
+									"host": [
+										"api-billing",
+										"koywe",
+										"com"
+									],
+									"path": [
+										"{{api_version}}",
+										"auth"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Accounts",
+					"item": [
+						{
+							"name": "Create a new account",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{session_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"country_id\": 1,\r\n  \"contact_name\": \"contact_name\",\r\n  \"contact_phone\": \"contact_phone\",\r\n  \"admin_email\": \"admin_email\",\r\n  \"admin_password\": \"admin_password\",\r\n  \"registration_legal_name_company\": \"registration_legal_name_company\",\r\n  \"registration_tax_id_code\": \"registration_tax_id_code\",\r\n  \"registration_tax_id_type\": \"registration_tax_id_type\",\r\n  \"registration_company_size\": \"registration_company_size\",\r\n  \"registration_terms_of_use\": 1,\r\n  \"registration_type_use\": 1,\r\n  \"registration_additional_data\": {}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://api-billing.koywe.com/{{api_version}}/accounts",
+									"protocol": "https",
+									"host": [
+										"api-billing",
+										"koywe",
+										"com"
+									],
+									"path": [
+										"{{api_version}}",
+										"accounts"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get a specific account",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{session_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://api-billing.koywe.com/{{api_version}}/accounts/:account_id",
+									"protocol": "https",
+									"host": [
+										"api-billing",
+										"koywe",
+										"com"
+									],
+									"path": [
+										"{{api_version}}",
+										"accounts",
+										":account_id"
+									],
+									"variable": [
+										{
+											"key": "account_id",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Customers Suppliers",
+					"item": [
+						{
+							"name": "Lists all customers/suppliers",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{session_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://api-billing.koywe.com/{{api_version}}/customers_suppliers",
+									"protocol": "https",
+									"host": [
+										"api-billing",
+										"koywe",
+										"com"
+									],
+									"path": [
+										"{{api_version}}",
+										"customers_suppliers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Creates a new customer/supplier",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{session_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"key\": \"value\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://api-billing.koywe.com/{{api_version}}/customers_suppliers",
+									"protocol": "https",
+									"host": [
+										"api-billing",
+										"koywe",
+										"com"
+									],
+									"path": [
+										"{{api_version}}",
+										"customers_suppliers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieves a specific customer/supplier",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{session_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://api-billing.koywe.com/{{api_version}}/customers_suppliers/:customer_supplier_id",
+									"protocol": "https",
+									"host": [
+										"api-billing",
+										"koywe",
+										"com"
+									],
+									"path": [
+										"{{api_version}}",
+										"customers_suppliers",
+										":customer_supplier_id"
+									],
+									"variable": [
+										{
+											"key": "customer_supplier_id",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update customer/supplier",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{session_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"key\": \"value\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://api-billing.koywe.com/{{api_version}}/customers_suppliers/:customer_supplier_id",
+									"protocol": "https",
+									"host": [
+										"api-billing",
+										"koywe",
+										"com"
+									],
+									"path": [
+										"{{api_version}}",
+										"customers_suppliers",
+										":customer_supplier_id"
+									],
+									"variable": [
+										{
+											"key": "customer_supplier_id",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Deletes a specific customer/supplier",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{session_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "https://api-billing.koywe.com/{{api_version}}/customers_suppliers/:customer_supplier_id",
+									"protocol": "https",
+									"host": [
+										"api-billing",
+										"koywe",
+										"com"
+									],
+									"path": [
+										"{{api_version}}",
+										"customers_suppliers",
+										":customer_supplier_id"
+									],
+									"variable": [
+										{
+											"key": "customer_supplier_id",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Documents",
+					"item": [
+						{
+							"name": "Get a paginated list of documents",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{session_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://api-billing.koywe.com/{{api_version}}/documents",
+									"protocol": "https",
+									"host": [
+										"api-billing",
+										"koywe",
+										"com"
+									],
+									"path": [
+										"{{api_version}}",
+										"documents"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a new document",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{session_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"header\": {\r\n    \"account_id\": 423,\r\n    \"document_type_id\": \"2\",\r\n\r\n    \"received_issued_flag\": 1,\r\n    \"issue_date\": \"2025-01-07\",\r\n    \"issuer_tax_id_code\": \"76399932-7\",\r\n    \"issuer_tax_id_type\": \"CL-RUT\",\r\n    \"issuer_legal_name\": \"Laura\",\r\n    \"issuer_address\": \"Gregorio\",\r\n    \"issuer_district\": \"Centro\",\r\n    \"issuer_city\": \"Santiadfo\",\r\n    \"issuer_country_id\": \"253\",\r\n    \"issuer_phone\": \"442020550\",\r\n    \"issuer_activity\": \"Venta\",\r\n    \"receiver_tax_id_code\": \"76399932-7\",\r\n    \"receiver_tax_id_type\": \"CL-RUT\",\r\n    \"receiver_legal_name\": \"ESCUELA KEMPER URGATE\",\r\n    \"receiver_address\": \"Camacho\",\r\n    \"receiver_district\": \"Superior\",\r\n    \"receiver_city\": \"Iquique\",\r\n    \"receiver_country_id\": \"253\",\r\n    \"receiver_phone\": \"442020551\",\r\n    \"receiver_activity\": \"Venta Mayor\",\r\n    \"payment_conditions\": \"0\",\r\n    \"currency_id\": 39\r\n\r\n  },\r\n  \"details\": [\r\n    {\r\n      \"quantity\": 1,\r\n      \"sku\": \"aa111\",\r\n      \"line_description\": \"Prueba Koywe\",\r\n      \"unit_measure\": \"UN\",\r\n      \"unit_price\": 1500,\r\n      \"long_description\": \"Esta es una linea de prueba\",\r\n      \"modifier_amount\": -100,\r\n      \"total_taxes\": 266,\r\n      \"modifier_percentage\": 0,\r\n      \"total_amount_line\": 1624,\r\n      \"taxes\": [\r\n        {\r\n          \"tax_type_id\": \"387\",\r\n          \"tax_percentage\": 19,\r\n          \"tax_amount\": 266\r\n        }\r\n      ]\r\n    }\r\n  ],\r\n  \"totals\": {\r\n    \"net_amount\": 1400,\r\n    \"taxes_amount\": 266,\r\n    \"total_amount\": 1666\r\n  }\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://api-billing.koywe.com/{{api_version}}/documents",
+									"protocol": "https",
+									"host": [
+										"api-billing",
+										"koywe",
+										"com"
+									],
+									"path": [
+										"{{api_version}}",
+										"documents"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get a specific document",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{session_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://api-billing.koywe.com/{{api_version}}/documents/:document_id",
+									"protocol": "https",
+									"host": [
+										"api-billing",
+										"koywe",
+										"com"
+									],
+									"path": [
+										"{{api_version}}",
+										"documents",
+										":document_id"
+									],
+									"variable": [
+										{
+											"key": "document_id",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update a specific document",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{session_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"header\": {\r\n    \"document_type_id\": \"2\"\r\n  }\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://api-billing.koywe.com/{{api_version}}/documents/:document_id",
+									"protocol": "https",
+									"host": [
+										"api-billing",
+										"koywe",
+										"com"
+									],
+									"path": [
+										"{{api_version}}",
+										"documents",
+										":document_id"
+									],
+									"variable": [
+										{
+											"key": "document_id",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete a specific document",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{session_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "https://api-billing.koywe.com/{{api_version}}/documents/:document_id",
+									"protocol": "https",
+									"host": [
+										"api-billing",
+										"koywe",
+										"com"
+									],
+									"path": [
+										"{{api_version}}",
+										"documents",
+										":document_id"
+									],
+									"variable": [
+										{
+											"key": "document_id",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Document Transfers",
+					"item": [
+						{
+							"name": "Get a paginated list of transfers",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{session_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://api-billing.koywe.com/{{api_version}}/document_transfers",
+									"protocol": "https",
+									"host": [
+										"api-billing",
+										"koywe",
+										"com"
+									],
+									"path": [
+										"{{api_version}}",
+										"document_transfers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Initiate a document transfer process",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{session_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"key\": \"value\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://api-billing.koywe.com/{{api_version}}/document_transfers",
+									"protocol": "https",
+									"host": [
+										"api-billing",
+										"koywe",
+										"com"
+									],
+									"path": [
+										"{{api_version}}",
+										"document_transfers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get a specific document transfer",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{session_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://api-billing.koywe.com/{{api_version}}/document_transfers/:document_transfer_id",
+									"protocol": "https",
+									"host": [
+										"api-billing",
+										"koywe",
+										"com"
+									],
+									"path": [
+										"{{api_version}}",
+										"document_transfers",
+										":document_transfer_id"
+									],
+									"variable": [
+										{
+											"key": "document_transfer_id",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Inbox",
+					"item": [
+						{
+							"name": "Get a paginated list of received documents",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{session_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://api-billing.koywe.com/{{api_version}}/inbox_documents",
+									"protocol": "https",
+									"host": [
+										"api-billing",
+										"koywe",
+										"com"
+									],
+									"path": [
+										"{{api_version}}",
+										"inbox_documents"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get a specific received document",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://api-billing.koywe.com/{{api_version}}/inbox_documents/:inbox_document_id",
+									"protocol": "https",
+									"host": [
+										"api-billing",
+										"koywe",
+										"com"
+									],
+									"path": [
+										"{{api_version}}",
+										"inbox_documents",
+										":inbox_document_id"
+									],
+									"variable": [
+										{
+											"key": "inbox_document_id",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Accept or reject a document",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"document_status\": \"accepted\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://api-billing.koywe.com/{{api_version}}/inbox_documents/:inbox_document_id",
+									"protocol": "https",
+									"host": [
+										"api-billing",
+										"koywe",
+										"com"
+									],
+									"path": [
+										"{{api_version}}",
+										"inbox_documents",
+										":inbox_document_id"
+									],
+									"variable": [
+										{
+											"key": "inbox_document_id",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Digital Certificates",
+					"item": [
+						{
+							"name": "Get a specific digital certificate",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{session_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://api-billing.koywe.com/{{api_version}}/digital_certificates/:certificate_id",
+									"protocol": "https",
+									"host": [
+										"api-billing",
+										"koywe",
+										"com"
+									],
+									"path": [
+										"{{api_version}}",
+										"digital_certificates",
+										":certificate_id"
+									],
+									"variable": [
+										{
+											"key": "certificate_id",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete a specific digital certificate",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{session_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "https://api-billing.koywe.com/{{api_version}}/digital_certificates/:certificate_id",
+									"protocol": "https",
+									"host": [
+										"api-billing",
+										"koywe",
+										"com"
+									],
+									"path": [
+										"{{api_version}}",
+										"digital_certificates",
+										":certificate_id"
+									],
+									"variable": [
+										{
+											"key": "certificate_id",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get a paginated list of certificates",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{session_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://api-billing.koywe.com/{{api_version}}/digital_certificates",
+									"protocol": "https",
+									"host": [
+										"api-billing",
+										"koywe",
+										"com"
+									],
+									"path": [
+										"{{api_version}}",
+										"digital_certificates"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a new digital certificate",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{session_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"account_id\": 1,\r\n  \"certificate_password\": \"certificate_password\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://api-billing.koywe.com/{{api_version}}/digital_certificates",
+									"protocol": "https",
+									"host": [
+										"api-billing",
+										"koywe",
+										"com"
+									],
+									"path": [
+										"{{api_version}}",
+										"digital_certificates"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Digital Certificates Issuance",
+					"item": [
+						{
+							"name": "Get a specific digital certificate link",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{session_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://api-billing.koywe.com/{{api_version}}/digital_certificate_issuance/:certificate_issuance_id",
+									"protocol": "https",
+									"host": [
+										"api-billing",
+										"koywe",
+										"com"
+									],
+									"path": [
+										"{{api_version}}",
+										"digital_certificate_issuance",
+										":certificate_issuance_id"
+									],
+									"variable": [
+										{
+											"key": "certificate_issuance_id",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a new digital certificate link",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{session_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"certificate_duration\": 1,\r\n  \"parent_account_id\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://api-billing.koywe.com/{{api_version}}/digital_certificate_issuance",
+									"protocol": "https",
+									"host": [
+										"api-billing",
+										"koywe",
+										"com"
+									],
+									"path": [
+										"{{api_version}}",
+										"digital_certificate_issuance"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Payments",
+					"item": [
+						{
+							"name": "Create a new payment",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{session_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"certificate_duration\": 1,\r\n  \"parent_account_id\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://api-billing.koywe.com/{{api_version}}/payments",
+									"protocol": "https",
+									"host": [
+										"api-billing",
+										"koywe",
+										"com"
+									],
+									"path": [
+										"{{api_version}}",
+										"payments"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get a specific payment",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{session_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://api-billing.koywe.com/{{api_version}}/payments/:payment_id",
+									"protocol": "https",
+									"host": [
+										"api-billing",
+										"koywe",
+										"com"
+									],
+									"path": [
+										"{{api_version}}",
+										"payments",
+										":payment_id"
+									],
+									"variable": [
+										{
+											"key": "payment_id",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Products",
+					"item": [
+						{
+							"name": "Lists all products",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{session_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://api-billing.koywe.com/{{api_version}}/products",
+									"protocol": "https",
+									"host": [
+										"api-billing",
+										"koywe",
+										"com"
+									],
+									"path": [
+										"{{api_version}}",
+										"products"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Creates a new product",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{session_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"name\",\r\n  \"status\": 1,\r\n  \"product_category_id\": 1,\r\n  \"cost\": {},\r\n  \"price\": [\r\n    {},\r\n    {}\r\n  ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://api-billing.koywe.com/{{api_version}}/products",
+									"protocol": "https",
+									"host": [
+										"api-billing",
+										"koywe",
+										"com"
+									],
+									"path": [
+										"{{api_version}}",
+										"products"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieves a specific product",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{session_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://api-billing.koywe.com/{{api_version}}/products/:product_id",
+									"protocol": "https",
+									"host": [
+										"api-billing",
+										"koywe",
+										"com"
+									],
+									"path": [
+										"{{api_version}}",
+										"products",
+										":product_id"
+									],
+									"variable": [
+										{
+											"key": "product_id",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update product",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{session_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"name\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://api-billing.koywe.com/{{api_version}}/products/:product_id",
+									"protocol": "https",
+									"host": [
+										"api-billing",
+										"koywe",
+										"com"
+									],
+									"path": [
+										"{{api_version}}",
+										"products",
+										":product_id"
+									],
+									"variable": [
+										{
+											"key": "product_id",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Deletes a specific product",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{session_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "https://api-billing.koywe.com/{{api_version}}/products/:product_id",
+									"protocol": "https",
+									"host": [
+										"api-billing",
+										"koywe",
+										"com"
+									],
+									"path": [
+										"{{api_version}}",
+										"products",
+										":product_id"
+									],
+									"variable": [
+										{
+											"key": "product_id",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "product Price Lists",
+					"item": [
+						{
+							"name": "Retrieves all products price lists",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{session_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://api-billing.koywe.com/{{api_version}}/product_price_lists",
+									"protocol": "https",
+									"host": [
+										"api-billing",
+										"koywe",
+										"com"
+									],
+									"path": [
+										"{{api_version}}",
+										"product_price_lists"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Creates a new product price list",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{session_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"name\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://api-billing.koywe.com/{{api_version}}/product_price_lists",
+									"protocol": "https",
+									"host": [
+										"api-billing",
+										"koywe",
+										"com"
+									],
+									"path": [
+										"{{api_version}}",
+										"product_price_lists"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieves a specific products price list",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{session_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://api-billing.koywe.com/{{api_version}}/product_price_lists/:product_price_list_id",
+									"protocol": "https",
+									"host": [
+										"api-billing",
+										"koywe",
+										"com"
+									],
+									"path": [
+										"{{api_version}}",
+										"product_price_lists",
+										":product_price_list_id"
+									],
+									"variable": [
+										{
+											"key": "product_price_list_id",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update product price list",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{session_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"name\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://api-billing.koywe.com/{{api_version}}/product_price_lists/:product_price_list_id",
+									"protocol": "https",
+									"host": [
+										"api-billing",
+										"koywe",
+										"com"
+									],
+									"path": [
+										"{{api_version}}",
+										"product_price_lists",
+										":product_price_list_id"
+									],
+									"variable": [
+										{
+											"key": "product_price_list_id",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Deletes a specific products price list",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{session_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "https://api-billing.koywe.com/{{api_version}}/product_price_lists/:product_price_list_id",
+									"protocol": "https",
+									"host": [
+										"api-billing",
+										"koywe",
+										"com"
+									],
+									"path": [
+										"{{api_version}}",
+										"product_price_lists",
+										":product_price_list_id"
+									],
+									"variable": [
+										{
+											"key": "product_price_list_id",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Product Locations",
+					"item": [
+						{
+							"name": "Retrieves all product locations",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{session_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://api-billing.koywe.com/{{api_version}}/product_locations",
+									"protocol": "https",
+									"host": [
+										"api-billing",
+										"koywe",
+										"com"
+									],
+									"path": [
+										"{{api_version}}",
+										"product_locations"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Creates a new product location",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{session_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"name\",\r\n  \"status\": 1,\r\n  \"company_branch_id\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://api-billing.koywe.com/{{api_version}}/product_locations",
+									"protocol": "https",
+									"host": [
+										"api-billing",
+										"koywe",
+										"com"
+									],
+									"path": [
+										"{{api_version}}",
+										"product_locations"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieves a specific Product location",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{session_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://api-billing.koywe.com/{{api_version}}/product_locations/:product_location_id",
+									"protocol": "https",
+									"host": [
+										"api-billing",
+										"koywe",
+										"com"
+									],
+									"path": [
+										"{{api_version}}",
+										"product_locations",
+										":product_location_id"
+									],
+									"variable": [
+										{
+											"key": "product_location_id",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update product location",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{session_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"name\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://api-billing.koywe.com/{{api_version}}/product_locations/:product_location_id",
+									"protocol": "https",
+									"host": [
+										"api-billing",
+										"koywe",
+										"com"
+									],
+									"path": [
+										"{{api_version}}",
+										"product_locations",
+										":product_location_id"
+									],
+									"variable": [
+										{
+											"key": "product_location_id",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Deletes a specific products location",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{session_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "https://api-billing.koywe.com/{{api_version}}/product_locations/:product_location_id",
+									"protocol": "https",
+									"host": [
+										"api-billing",
+										"koywe",
+										"com"
+									],
+									"path": [
+										"{{api_version}}",
+										"product_locations",
+										":product_location_id"
+									],
+									"variable": [
+										{
+											"key": "product_location_id",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Product Categories",
+					"item": [
+						{
+							"name": "Retrieves all product categories",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{session_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://api-billing.koywe.com/{{api_version}}/product_categories",
+									"protocol": "https",
+									"host": [
+										"api-billing",
+										"koywe",
+										"com"
+									],
+									"path": [
+										"{{api_version}}",
+										"product_categories"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Creates a new product category",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{session_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"name\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://api-billing.koywe.com/{{api_version}}/product_categories",
+									"protocol": "https",
+									"host": [
+										"api-billing",
+										"koywe",
+										"com"
+									],
+									"path": [
+										"{{api_version}}",
+										"product_categories"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieves a specific product category",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{session_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://api-billing.koywe.com/{{api_version}}/product_categories/:product_category_id",
+									"protocol": "https",
+									"host": [
+										"api-billing",
+										"koywe",
+										"com"
+									],
+									"path": [
+										"{{api_version}}",
+										"product_categories",
+										":product_category_id"
+									],
+									"variable": [
+										{
+											"key": "product_category_id",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update product category",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{session_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"name\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://api-billing.koywe.com/{{api_version}}/product_categories/:product_category_id",
+									"protocol": "https",
+									"host": [
+										"api-billing",
+										"koywe",
+										"com"
+									],
+									"path": [
+										"{{api_version}}",
+										"product_categories",
+										":product_category_id"
+									],
+									"variable": [
+										{
+											"key": "product_category_id",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Deletes a specific products category",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{session_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "https://api-billing.koywe.com/{{api_version}}/product_categories/:product_category_id",
+									"protocol": "https",
+									"host": [
+										"api-billing",
+										"koywe",
+										"com"
+									],
+									"path": [
+										"{{api_version}}",
+										"product_categories",
+										":product_category_id"
+									],
+									"variable": [
+										{
+											"key": "product_category_id",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Webhook Subscriptions",
+					"item": [
+						{
+							"name": "Get a specific webhook subscription",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{session_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://api-billing.koywe.com/{{api_version}}/webhook_subscriptions/:webhook_subscription_id",
+									"protocol": "https",
+									"host": [
+										"api-billing",
+										"koywe",
+										"com"
+									],
+									"path": [
+										"{{api_version}}",
+										"webhook_subscriptions",
+										":webhook_subscription_id"
+									],
+									"variable": [
+										{
+											"key": "webhook_subscription_id",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete a specific webhook subscription",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{session_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "https://api-billing.koywe.com/{{api_version}}/webhook_subscriptions/:webhook_subscription_id",
+									"protocol": "https",
+									"host": [
+										"api-billing",
+										"koywe",
+										"com"
+									],
+									"path": [
+										"{{api_version}}",
+										"webhook_subscriptions",
+										":webhook_subscription_id"
+									],
+									"variable": [
+										{
+											"key": "webhook_subscription_id",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get a paginated list of webhook subscriptions",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{session_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://api-billing.koywe.com/{{api_version}}/webhook_subscriptions",
+									"protocol": "https",
+									"host": [
+										"api-billing",
+										"koywe",
+										"com"
+									],
+									"path": [
+										"{{api_version}}",
+										"webhook_subscriptions"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a new digital certificate",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{session_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": " {\r\n    \"subscription_output_type\": \"APINOTIFICATION\",\r\n    \"callback_url\": \"https://server.com/myscript.php\",\r\n    \"callback_username\": \"callback_username\",\r\n    \"callback_password\": \"callback_password\",\r\n    \"user_id\": \"2\",\r\n    \"product_location_id\": \"44\"\r\n  }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://api-billing.koywe.com/{{api_version}}/webhook_subscriptions",
+									"protocol": "https",
+									"host": [
+										"api-billing",
+										"koywe",
+										"com"
+									],
+									"path": [
+										"{{api_version}}",
+										"webhook_subscriptions"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Company Branches",
+					"item": [
+						{
+							"name": "Get a paginated list of company branches",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{session_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://api-billing.koywe.com/{{api_version}}/company_branches",
+									"protocol": "https",
+									"host": [
+										"api-billing",
+										"koywe",
+										"com"
+									],
+									"path": [
+										"{{api_version}}",
+										"company_branches"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a new company branch",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{session_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "https://api-billing.koywe.com/{{api_version}}/company_branches",
+									"protocol": "https",
+									"host": [
+										"api-billing",
+										"koywe",
+										"com"
+									],
+									"path": [
+										"{{api_version}}",
+										"company_branches"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get a specific company branch",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{session_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://api-billing.koywe.com/{{api_version}}/company_branches/:company_branch_id",
+									"protocol": "https",
+									"host": [
+										"api-billing",
+										"koywe",
+										"com"
+									],
+									"path": [
+										"{{api_version}}",
+										"company_branches",
+										":company_branch_id"
+									],
+									"variable": [
+										{
+											"key": "company_branch_id",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update company branch",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{session_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"name\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://api-billing.koywe.com/{{api_version}}/company_branches/:company_branch_id",
+									"protocol": "https",
+									"host": [
+										"api-billing",
+										"koywe",
+										"com"
+									],
+									"path": [
+										"{{api_version}}",
+										"company_branches",
+										":company_branch_id"
+									],
+									"variable": [
+										{
+											"key": "company_branch_id",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Deletes a specific company branch",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{session_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "https://api-billing.koywe.com/{{api_version}}/company_branches/:company_branch_id",
+									"protocol": "https",
+									"host": [
+										"api-billing",
+										"koywe",
+										"com"
+									],
+									"path": [
+										"{{api_version}}",
+										"company_branches",
+										":company_branch_id"
+									],
+									"variable": [
+										{
+											"key": "company_branch_id",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}
