@@ -21,8 +21,16 @@
       "description": "Operations related to your accounts."
     },
     {
+      "name": "\uD83D\uDCD1 Document authorizations",
+      "description": "Operations related to your document authorizations."
+    },
+    {
+      "name": "\uD83D\uDD22 Document types",
+      "description": "Operations related to your document types."
+    },
+    {
       "name": "\uD83C\uDFE2 Company branches",
-      "description": "Operations related to your company branches."
+      "description": "Operations related to your document authorizations."
     },
     {
       "name": "\uD83D\uDCDC Digital certificates",
@@ -215,6 +223,395 @@
                     "error": {
                       "type": "string",
                       "example": "invalid input or validation error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/document_authorizations": {
+      "get": {
+        "summary": "Get a paginated list of documents authorizations",
+        "tags": ["\uD83D\uDCD1 document_authorizations"],
+        "parameters": [
+          {
+            "name": "document_type_id",
+            "in": "query",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "_links": {
+                      "type": "object",
+                      "properties": {
+                        "self": {
+                          "type": "string"
+                        },
+                        "first": {
+                          "type": "string"
+                        },
+                        "last": {
+                          "type": "string"
+                        },
+                        "next": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "document_authorizations": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/SimplifiedDocumentAuthorizations"
+                      }
+                    },
+                    "page_count": {
+                      "type": "integer"
+                    },
+                    "page_size": {
+                      "type": "integer"
+                    },
+                    "total_items": {
+                      "type": "integer"
+                    },
+                    "page": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "post": {
+        "summary": "Create a new document authorization",
+        "tags": ["\uD83D\uDCD1 document_authorizations"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Document_authorizationsCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "New document authorization successfully created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Document_authorizationsResponseCreate"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - invalid input or validation error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "invalid input or validation error"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - invalid token or missing authentication",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "Invalid or expired token"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error - unexpected error occurred",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "Internal server error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/document_authorizations/{document_authorization_id}": {
+      "get": {
+        "summary": "Get a specific document authorization",
+        "tags": ["\uD83D\uDCD1 document_authorizations"],
+        "parameters": [
+          {
+            "name": "document_authorization_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "Document authorization ID to read"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Document_authorizationsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - invalid input or validation error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "invalid input or validation error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+
+    "/document_types": {
+      "get": {
+        "summary": "Get a paginated list of documents types",
+        "tags": ["\uD83D\uDD22 document_types"],
+        "description": "Retrieves a list of all documents types.",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "_links": {
+                      "type": "object",
+                      "properties": {
+                        "self": {
+                          "type": "string"
+                        },
+                        "first": {
+                          "type": "string"
+                        },
+                        "last": {
+                          "type": "string"
+                        },
+                        "next": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "document_types": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/SimplifiedDocumentTypes"
+                      }
+                    },
+                    "page_count": {
+                      "type": "integer"
+                    },
+                    "page_size": {
+                      "type": "integer"
+                    },
+                    "total_items": {
+                      "type": "integer"
+                    },
+                    "page": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/document_types/{document_type_id}": {
+      "get": {
+        "summary": "Get a specific document type",
+        "tags": ["\uD83D\uDD22 document_types"],
+        "parameters": [
+          {
+            "name": "document_type_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "Document type ID to read"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Document_typesResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - invalid input or validation error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "invalid input or validation error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "patch": {
+        "summary": "Update a document type",
+        "tags": ["\uD83D\uDD22 document_types"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Document_typesPatch"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Your document type is successfully updated.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Document_typesResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - invalid input or validation error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "invalid input or validation error"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - invalid token or missing authentication",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "Invalid or expired token"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error - unexpected error occurred",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "Internal server error"
                     }
                   }
                 }
@@ -486,7 +883,7 @@
             "schema": {
               "type": "integer"
             },
-            "description": "0,1 = In process. \\\n2 = Rejected by tax bureau. \\\n3 = Accepted by tax bureau. \\\n4 = Accepted by tax bureau with warnings."
+            "description": "0,1 = In process. \\\n2 = Sending rejected by tax bureau. \\\n3 = Accepted by tax bureau. \\\n4 = Accepted by tax bureau with warnings. \\\n5 = Content Rejected by tax bureau."
           },
           {
             "name": "document_number",
@@ -519,6 +916,30 @@
               "type": "string"
             },
             "description": "Receiver document number"
+          },
+          {
+            "name": "receiver_legal_name",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter to search by the receiver company's name in the document."
+          },
+          {
+            "name": "min_total_amount",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter that allows searching with a minimum of total_amount and also supports using both filters together."
+          },
+          {
+            "name": "max_total_amount",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter that allows searching with a maximum of total_amount and also supports using both filters together."
           },
           {
             "name": "order_by",
@@ -1006,7 +1427,7 @@
           }
         ]
       },
-      "put": {
+      "patch": {
         "summary": "Accept or reject a document",
         "tags": ["\uD83D\uDCE9 Inbox"],
         "parameters": [
@@ -1026,12 +1447,12 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "document_status": {
+                  "inbox_document_status": {
                     "type": "string",
-                    "enum": ["accepted", "rejected"]
+                    "description": "2 = Approve \\\n3 = Approve with objection \\\n4 = Reject \\\n5 = Receive merchandise"
                   }
                 },
-                "required": ["document_status"]
+                "required": ["inbox_document_status"]
               }
             }
           }
@@ -3698,6 +4119,9 @@
           "issuer_tax_id_type": {
             "type": "string"
           },
+          "receiver_legal_name": {
+            "type": "string"
+          },
           "receiver_tax_id_code": {
             "type": "string"
           },
@@ -3724,6 +4148,55 @@
           },
           "document_type_taxbureau": {
             "type": "string"
+          }
+        }
+      },
+      "SimplifiedDocumentAuthorizations": {
+        "type": "object",
+        "properties": {
+          "document_authorization_id": {
+            "type": "integer"
+          },
+          "document_type_id": {
+            "type": "integer"
+          },
+          "document_type_name": {
+            "type": "string"
+          },
+          "range_from": {
+            "type": "integer"
+          },
+          "range_to": {
+            "type": "integer"
+          },
+          "issue_date": {
+            "type": "string"
+          }
+        }
+      },
+      "SimplifiedDocumentTypes": {
+        "type": "object",
+        "properties": {
+          "document_type_id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "last_sequence_number": {
+            "type": "integer"
+          },
+          "active_user": {
+            "type": "integer"
+          },
+          "active_system": {
+            "type": "integer"
+          },
+          "received_issued_flag": {
+            "type": "integer"
+          },
+          "charged_credit_flag": {
+            "type": "integer"
           }
         }
       },
@@ -4215,7 +4688,8 @@
                     "type": "object",
                     "properties": {
                       "operation_type": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Operation type according to Peruvian SUNAT operation codes. You can find all operation_type codes on Peru examples page."
                       },
                       "signature_id": {
                         "type": "string"
@@ -4463,6 +4937,25 @@
                       }
                     },
                     "required": ["tax_type_id", "tax_percentage", "tax_amount"]
+                  }
+                },
+                "additional": {
+                  "type": "object",
+                  "properties": {
+                    "mx_detail": {
+                      "type": "object",
+                      "description": "These are additional fields you will need to use when adding details to your documents in Mexico",
+                      "properties": {
+                        "product_service_identifier": {
+                          "type": "string",
+                          "description": "This is the SAT code for the product or service you are buying/selling for tax purposes. Please see the SAT website for coding. If ommited, the generic code 01010101 will be used"
+                        },
+                        "measure_unit_code": {
+                          "type": "string",
+                          "description": "This is the SAT code for the measurement unit of this product or service. Please check the SAT website for codes. If ommited, the generic code E48 will be used"
+                        }
+                      }
+                    }
                   }
                 }
               },
@@ -4753,7 +5246,6 @@
           "certificate_password"
         ]
 
-
       },
       "AccountsResponse": {
         "type": "object",
@@ -4764,6 +5256,126 @@
             "example": "638"
           }
         }
+      },
+      "Document_typesPatch": {
+        "type": "object",
+        "properties": {
+          "last_sequence_number": {
+            "type": "integer",
+            "description": "Add the last_sequence_number with which you will start issuing."
+          }
+
+        },
+        "required": [
+          "last_sequence_number"
+        ]
+      },
+      "Document_authorizationsResponse": {
+        "type": "object",
+        "properties": {
+          "document_authorization_id": {
+            "type": "integer",
+            "description": "Returns the ID of the document authorization."
+          },
+          "document_type_id": {
+            "type": "integer",
+            "description": "Returns the ID of the document type."
+          },
+          "document_type_name": {
+            "type": "string",
+            "description": "Returns the name of the document type."
+          },
+          "range_from": {
+            "type": "integer",
+            "description": "Returns the range from of the document authorization."
+          },
+          "range_to": {
+            "type": "integer",
+            "description": "Returns the range to of the document authorization."
+          },
+          "issue_date": {
+            "type": "string",
+            "description": "Returns the issue date of the document authorization."
+          }
+        }
+      },
+      "Document_authorizationsResponseCreate": {
+        "type": "object",
+        "properties": {
+          "document_type_id": {
+            "type": "integer",
+            "description": "Returns the ID of the document type."
+          },
+          "document_type_name": {
+            "type": "string",
+            "description": "Returns the name of the document type."
+          },
+          "document_authorization_maximum": {
+            "type": "integer",
+            "description": "Returns the quantity maximum of the document authorization."
+          },
+          "document_authorization_unused": {
+            "type": "integer",
+            "description": "Returns the quantity unused of the document authorization."
+          },
+          "document_authorization_quantity": {
+            "type": "integer",
+            "description": "Returns the quantity of the document authorization loaded."
+          },
+          "message": {
+            "type": "string",
+            "description": "Returns success message."
+          }
+        }
+      },
+      "Document_typesResponse": {
+        "type": "object",
+        "properties": {
+          "document_type_id": {
+            "type": "integer",
+            "description": "Returns the ID of the document that was updated."
+          },
+          "name": {
+            "type": "string",
+            "description": "Returns the name of the document that was updated."
+          },
+          "last_sequence_number": {
+            "type": "integer",
+            "description": "Returns the number of the document that was updated."
+          },
+          "active_user": {
+            "type": "integer",
+            "description": "Returns if the user is active to use the document that was updated.\\\n1 = Enabled\\\n0 = Disabled"
+          },
+          "active_system": {
+            "type": "integer",
+            "description": "Returns whether the system allows using the document that was updated.\\\n1 = Enabled\\\n0 = Disabled"
+          },
+          "received_issued_flag": {
+            "type": "integer",
+            "description": "Returns whether the document type is issued or received.\\\n1 = Issued\\\n0 = Received"
+          },
+          "charge_credit_flag": {
+            "type": "integer",
+            "description": "Returns whether the document type is a charge or a credit.\\\n1 = Charge\\\n0 = Credit"
+          }
+        }
+      },
+      "Document_authorizationsCreate": {
+        "type": "object",
+        "properties": {
+          "document_type_id": {
+            "type": "integer",
+            "description": "ID of the document type."
+          },
+          "document_authorization_quantity": {
+            "type": "integer",
+            "description": "Quantity of the document authorization."
+          }
+        },
+        "required": [
+          "document_type_id"
+        ]
       },
       "Digital_certificatesPost": {
         "type": "object",
@@ -5295,1066 +5907,1065 @@
                   }
                 }
 
-                },
+              },
               "company_logo": {
                 "type": "string",
                 "description": "A string containing the company's logo encoded in Base64. The image must be in PNG format."
               }
-              }
             }
           }
         }
-      },
-
-      "CustomerSupplierPost": {
-        "type": "object",
-        "properties": {
-          "account_id": {
-            "type": "integer",
-            "description": "Associated account."
-          },
-          "name": {
-            "type": "string",
-            "description": "Name of the customer or supplier."
-          },
-          "is_customer": {
-            "type": "boolean",
-            "description": "Indicates if the entity is a customer."
-          },
-          "is_supplier": {
-            "type": "boolean",
-            "description": "Indicates if the entity is a supplier."
-          },
-          "responsible_user_id": {
-            "type": "integer",
-            "description": "ID of the user responsible for this entity."
-          },
-          "payment_term": {
-            "type": "string",
-            "description": "Payment terms for the customer or supplier.",
-            "example": "0,30"
-          },
-          "contacts": {
-            "type": "array",
-            "description": "List of contacts associated with the customer or supplier.",
-            "items": {
-              "type": "object",
-              "properties": {
-                "first_name": {
-                  "type": "string",
-                  "description": "First name of the contact."
-                },
-                "last_name": {
-                  "type": "string",
-                  "description": "Last name of the contact."
-                },
-                "phone": {
-                  "type": "string",
-                  "description": "Phone number of the contact."
-                },
-                "email": {
-                  "type": "string",
-                  "description": "Email address of the contact."
-                }
-              }
-            }
-          },
-          "invoicing_details": {
-            "type": "array",
-            "description": "List of invoicing details associated with the customer or supplier.",
-            "items": {
-              "type": "object",
-              "properties": {
-                "country_id": {
-                  "type": "string",
-                  "description": "Identifier for the country."
-                },
-                "tax_id_type": {
-                  "type": "string",
-                  "description": "Type of tax ID."
-                },
-                "tax_id_code": {
-                  "type": "string",
-                  "description": "Tax ID code."
-                },
-                "legal_name": {
-                  "type": "string",
-                  "description": "Legal name of the entity."
-                },
-                "address": {
-                  "type": "string",
-                  "description": "Address of the entity."
-                },
-                "district": {
-                  "type": "string",
-                  "description": "District of the address."
-                },
-                "city": {
-                  "type": "string",
-                  "description": "City of the address."
-                },
-                "business_activity": {
-                  "type": "string",
-                  "description": "Business activity of the entity."
-                },
-                "phone": {
-                  "type": "string",
-                  "description": "Phone number for invoicing purposes."
-                },
-                "postal_code": {
-                  "type": "string",
-                  "description": "Postal code of the address."
-                }
-              }
-            }
-          },
-          "additional": {
+      }
+    },
+    "CustomerSupplierPost": {
+      "type": "object",
+      "properties": {
+        "account_id": {
+          "type": "integer",
+          "description": "Associated account."
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the customer or supplier."
+        },
+        "is_customer": {
+          "type": "boolean",
+          "description": "Indicates if the entity is a customer."
+        },
+        "is_supplier": {
+          "type": "boolean",
+          "description": "Indicates if the entity is a supplier."
+        },
+        "responsible_user_id": {
+          "type": "integer",
+          "description": "ID of the user responsible for this entity."
+        },
+        "payment_term": {
+          "type": "string",
+          "description": "Payment terms for the customer or supplier.",
+          "example": "0,30"
+        },
+        "contacts": {
+          "type": "array",
+          "description": "List of contacts associated with the customer or supplier.",
+          "items": {
             "type": "object",
-            "description": "Additional data associated with the customer or supplier.",
             "properties": {
-              "data_name_1": {
+              "first_name": {
                 "type": "string",
-                "description": "Name of additional data field 1."
+                "description": "First name of the contact."
               },
-              "data_value_1": {
+              "last_name": {
                 "type": "string",
-                "description": "Value of additional data field 1."
+                "description": "Last name of the contact."
               },
-              "data_name_2": {
+              "phone": {
                 "type": "string",
-                "description": "Name of additional data field 2."
+                "description": "Phone number of the contact."
               },
-              "data_value_2": {
+              "email": {
                 "type": "string",
-                "description": "Value of additional data field 2."
-              },
-              "data_name_3": {
-                "type": "string",
-                "description": "Name of additional data field 3."
-              },
-              "data_value_3": {
-                "type": "string",
-                "description": "Value of additional data field 3."
-              },
-              "data_name_4": {
-                "type": "string",
-                "description": "Name of additional data field 4."
-              },
-              "data_value_4": {
-                "type": "string",
-                "description": "Value of additional data field 4."
-              },
-              "data_name_5": {
-                "type": "string",
-                "description": "Name of additional data field 5."
-              },
-              "data_value_5": {
-                "type": "string",
-                "description": "Value of additional data field 5."
+                "description": "Email address of the contact."
               }
             }
           }
-
-
         },
-        "required": ["account_id","name"]
-      },
-
-      "CustomerSupplier": {
-        "type": "object",
-        "properties": {
-          "account_id": {
-            "type": "integer",
-            "description": "Associated account."
-          },
-          "customer_supplier_id": {
-            "type": "integer",
-            "description": "Unique identifier for the customer or supplier."
-          },
-          "name": {
-            "type": "string",
-            "description": "Name of the customer or supplier."
-          },
-          "is_customer": {
-            "type": "boolean",
-            "description": "Indicates if the entity is a customer."
-          },
-          "is_supplier": {
-            "type": "boolean",
-            "description": "Indicates if the entity is a supplier."
-          },
-          "responsible_user_id": {
-            "type": "integer",
-            "description": "ID of the user responsible for this entity."
-          },
-          "payment_term": {
-            "type": "string",
-            "description": "Payment terms for the customer or supplier.",
-            "example": "0,30"
-          },
-          "contacts": {
-            "type": "array",
-            "description": "List of contacts associated with the customer or supplier.",
-            "items": {
-              "type": "object",
-              "properties": {
-                "customer_supplier_contact_id": {
-                  "type": "integer",
-                  "description": "Unique identifier for the contact."
-                },
-                "first_name": {
-                  "type": "string",
-                  "description": "First name of the contact."
-                },
-                "last_name": {
-                  "type": "string",
-                  "description": "Last name of the contact."
-                },
-                "phone": {
-                  "type": "string",
-                  "description": "Phone number of the contact."
-                },
-                "email": {
-                  "type": "string",
-                  "description": "Email address of the contact."
-                }
-              }
-            }
-          },
-          "invoicing_details": {
-            "type": "array",
-            "description": "List of invoicing details associated with the customer or supplier.",
-            "items": {
-              "type": "object",
-              "properties": {
-                "country_id": {
-                  "type": "string",
-                  "description": "Identifier for the country."
-                },
-                "tax_id_type": {
-                  "type": "string",
-                  "description": "Type of tax ID."
-                },
-                "tax_id_code": {
-                  "type": "string",
-                  "description": "Tax ID code."
-                },
-                "legal_name": {
-                  "type": "string",
-                  "description": "Legal name of the entity."
-                },
-                "address": {
-                  "type": "string",
-                  "description": "Address of the entity."
-                },
-                "district": {
-                  "type": "string",
-                  "description": "District of the address."
-                },
-                "city": {
-                  "type": "string",
-                  "description": "City of the address."
-                },
-                "business_activity": {
-                  "type": "string",
-                  "description": "Business activity of the entity."
-                },
-                "phone": {
-                  "type": "string",
-                  "description": "Phone number for invoicing purposes."
-                },
-                "postal_code": {
-                  "type": "string",
-                  "description": "Postal code of the address."
-                }
-              }
-            }
-          },
-          "additional": {
+        "invoicing_details": {
+          "type": "array",
+          "description": "List of invoicing details associated with the customer or supplier.",
+          "items": {
             "type": "object",
-            "description": "Additional data associated with the customer or supplier.",
             "properties": {
-              "data_name_1": {
+              "country_id": {
                 "type": "string",
-                "description": "Name of additional data field 1."
+                "description": "Identifier for the country."
               },
-              "data_value_1": {
+              "tax_id_type": {
                 "type": "string",
-                "description": "Value of additional data field 1."
+                "description": "Type of tax ID."
               },
-              "data_name_2": {
+              "tax_id_code": {
                 "type": "string",
-                "description": "Name of additional data field 2."
+                "description": "Tax ID code."
               },
-              "data_value_2": {
+              "legal_name": {
                 "type": "string",
-                "description": "Value of additional data field 2."
+                "description": "Legal name of the entity."
               },
-              "data_name_3": {
+              "address": {
                 "type": "string",
-                "description": "Name of additional data field 3."
+                "description": "Address of the entity."
               },
-              "data_value_3": {
+              "district": {
                 "type": "string",
-                "description": "Value of additional data field 3."
+                "description": "District of the address."
               },
-              "data_name_4": {
+              "city": {
                 "type": "string",
-                "description": "Name of additional data field 4."
+                "description": "City of the address."
               },
-              "data_value_4": {
+              "business_activity": {
                 "type": "string",
-                "description": "Value of additional data field 4."
+                "description": "Business activity of the entity."
               },
-              "data_name_5": {
+              "phone": {
                 "type": "string",
-                "description": "Name of additional data field 5."
+                "description": "Phone number for invoicing purposes."
               },
-              "data_value_5": {
+              "postal_code": {
                 "type": "string",
-                "description": "Value of additional data field 5."
+                "description": "Postal code of the address."
               }
             }
           }
-
-
         },
-        "required": ["account_id", "customer_supplier_id","name"]
-      },
-
-      "Digital_certificate_issuanceResponseGet": {
-        "type": "object",
-        "properties": {
-          "certificate_issuance_id": {
-            "type": "string",
-            "description": "ID of the digital certificate link.",
-            "example": "7y5wvL7tZ3aGEMnxeSF1"
-          },
-          "certificate_status": {
-            "type": "string",
-            "description": "Digital certificate status.\\\n0 = Pending\\\n1 = Form completed\\\n2 = Identity validated\\\n3 = Certificate downloaded",
-            "example": "3"
-          },
-          "certificate_duration": {
-            "type": "string",
-            "description": "Digital certificate duration, 1, 2 or 3 years",
-            "example": "1"
-          },
-          "certificate_file": {
-            "type": "string",
-            "description": "Digital certificate in base64 format. \\\nThis field is displayed only if the certificate_status is 3 = Certificate downloaded",
-            "example": "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"
+        "additional": {
+          "type": "object",
+          "description": "Additional data associated with the customer or supplier.",
+          "properties": {
+            "data_name_1": {
+              "type": "string",
+              "description": "Name of additional data field 1."
+            },
+            "data_value_1": {
+              "type": "string",
+              "description": "Value of additional data field 1."
+            },
+            "data_name_2": {
+              "type": "string",
+              "description": "Name of additional data field 2."
+            },
+            "data_value_2": {
+              "type": "string",
+              "description": "Value of additional data field 2."
+            },
+            "data_name_3": {
+              "type": "string",
+              "description": "Name of additional data field 3."
+            },
+            "data_value_3": {
+              "type": "string",
+              "description": "Value of additional data field 3."
+            },
+            "data_name_4": {
+              "type": "string",
+              "description": "Name of additional data field 4."
+            },
+            "data_value_4": {
+              "type": "string",
+              "description": "Value of additional data field 4."
+            },
+            "data_name_5": {
+              "type": "string",
+              "description": "Name of additional data field 5."
+            },
+            "data_value_5": {
+              "type": "string",
+              "description": "Value of additional data field 5."
+            }
           }
         }
-      },
 
-      "Product": {
-        "type": "object",
-        "properties": {
-          "product_id": {
-            "type": "string",
-            "description": "Read only. Internal ID of the product"
-          },
-          "name": {
-            "type": "string",
-            "description": "Product name"
-          },
-          "invoicing_details": { "type": "string",
-            "description": "Optional. Extra information to be included in the long_description of invoices"},
-          "additional_details": { "type": "string",
-            "description": "Optional. Additional information to be used internally"
-          },
-          "model": {
-            "type": "string",
-            "description": "Optional. Product model"
-          },
-          "brand": {
-            "type": "string",
-            "description": "Optional. Product brand"
-          },
-          "status": {
-            "type": "integer",
-            "description": "0 = inactive, 1 = active"
-          },
-          "sku": {
-            "type": "string",
-            "description": "Internal code that identifies a product or service. If not entered, an automatic number will be assigned"
-          },
-          "barcode": {
-            "type": "string",
-            "description": "Optional. Barcode that is printed on the product box, usually generated by the supplier"
-          },
-          "measure_unit": { "type": "string" },
-          "type": {
-            "type": "integer",
-            "description": "1 = physical product, 2 = service"
-          },
-          "embedded_quantity_barcode": {
-            "type": "boolean",
-            "description": "Optional. This field is used to identify when a product can be sold using embedded quantity barcodes. 0 = not a quantity barcode product. 1 = quantity barcode enabled. 0 by default"
-          },
-          "embedded_quantity_barcode_decimals": {
-            "type": "integer",
-            "description": "Optional. Decimals associated with the quantity barcode. 0 by default"
-          },
-          "additional_data_1": {
-            "type": "string",
-            "description": "Optional. Any additional information you need regarding the product"
-          },
-          "additional_data_2": {
-            "type": "string",
-            "description": "Optional. Any additional information you need regarding the product"
-          },
-          "additional_data_3": {
-            "type": "string",
-            "description": "Optional. Any additional information you need regarding the product"
-          },
-          "prices": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "price_list_id": {
-                  "type": "string",
-                  "description": "Reference to a price list"
-                },
-                "unit_net": {
-                  "type": "number",
-                  "description": "Price net of taxes"
-                },
-                "unit_taxes": {
-                  "type": "number",
-                  "description": "Total taxes applicable to the price"
-                },
-                "unit_total": {
-                  "type": "number",
-                  "description": "Total price"
-                },
-                "currency_id": {
-                  "type": "string",
-                  "description": "Currency ID according to currency table"
-                },
-                "sales_commission_percentage": {
-                  "type": "number",
-                  "description": "Sales commission percentage"
-                },
-                "taxes": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "tax_type_id": {
-                        "type": "integer",
-                        "description": "Tax ID according to table"
-                      },
-                      "tax_percentage": {
-                        "type": "number",
-                        "description": "Percentage if the tax is applied by percentage"
-                      },
-                      "tax_amount": {
-                        "type": "number",
-                        "description": "Total tax amount according to the full net amount"
-                      }
-                    }
-                  }
-                }
-              },
-              "required": ["price_list_id", "currency_id"]
-            }
-          },
-          "inventories": {
+
+      },
+      "required": ["account_id","name"]
+    },
+
+    "CustomerSupplier": {
+      "type": "object",
+      "properties": {
+        "account_id": {
+          "type": "integer",
+          "description": "Associated account."
+        },
+        "customer_supplier_id": {
+          "type": "integer",
+          "description": "Unique identifier for the customer or supplier."
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the customer or supplier."
+        },
+        "is_customer": {
+          "type": "boolean",
+          "description": "Indicates if the entity is a customer."
+        },
+        "is_supplier": {
+          "type": "boolean",
+          "description": "Indicates if the entity is a supplier."
+        },
+        "responsible_user_id": {
+          "type": "integer",
+          "description": "ID of the user responsible for this entity."
+        },
+        "payment_term": {
+          "type": "string",
+          "description": "Payment terms for the customer or supplier.",
+          "example": "0,30"
+        },
+        "contacts": {
+          "type": "array",
+          "description": "List of contacts associated with the customer or supplier.",
+          "items": {
             "type": "object",
             "properties": {
-              "total_available": {
-                "type": "number"
+              "customer_supplier_contact_id": {
+                "type": "integer",
+                "description": "Unique identifier for the contact."
               },
-              "total_reserved": {
-                "type": "number"
+              "first_name": {
+                "type": "string",
+                "description": "First name of the contact."
               },
-              "details": {
+              "last_name": {
+                "type": "string",
+                "description": "Last name of the contact."
+              },
+              "phone": {
+                "type": "string",
+                "description": "Phone number of the contact."
+              },
+              "email": {
+                "type": "string",
+                "description": "Email address of the contact."
+              }
+            }
+          }
+        },
+        "invoicing_details": {
+          "type": "array",
+          "description": "List of invoicing details associated with the customer or supplier.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "country_id": {
+                "type": "string",
+                "description": "Identifier for the country."
+              },
+              "tax_id_type": {
+                "type": "string",
+                "description": "Type of tax ID."
+              },
+              "tax_id_code": {
+                "type": "string",
+                "description": "Tax ID code."
+              },
+              "legal_name": {
+                "type": "string",
+                "description": "Legal name of the entity."
+              },
+              "address": {
+                "type": "string",
+                "description": "Address of the entity."
+              },
+              "district": {
+                "type": "string",
+                "description": "District of the address."
+              },
+              "city": {
+                "type": "string",
+                "description": "City of the address."
+              },
+              "business_activity": {
+                "type": "string",
+                "description": "Business activity of the entity."
+              },
+              "phone": {
+                "type": "string",
+                "description": "Phone number for invoicing purposes."
+              },
+              "postal_code": {
+                "type": "string",
+                "description": "Postal code of the address."
+              }
+            }
+          }
+        },
+        "additional": {
+          "type": "object",
+          "description": "Additional data associated with the customer or supplier.",
+          "properties": {
+            "data_name_1": {
+              "type": "string",
+              "description": "Name of additional data field 1."
+            },
+            "data_value_1": {
+              "type": "string",
+              "description": "Value of additional data field 1."
+            },
+            "data_name_2": {
+              "type": "string",
+              "description": "Name of additional data field 2."
+            },
+            "data_value_2": {
+              "type": "string",
+              "description": "Value of additional data field 2."
+            },
+            "data_name_3": {
+              "type": "string",
+              "description": "Name of additional data field 3."
+            },
+            "data_value_3": {
+              "type": "string",
+              "description": "Value of additional data field 3."
+            },
+            "data_name_4": {
+              "type": "string",
+              "description": "Name of additional data field 4."
+            },
+            "data_value_4": {
+              "type": "string",
+              "description": "Value of additional data field 4."
+            },
+            "data_name_5": {
+              "type": "string",
+              "description": "Name of additional data field 5."
+            },
+            "data_value_5": {
+              "type": "string",
+              "description": "Value of additional data field 5."
+            }
+          }
+        }
+
+
+      },
+      "required": ["account_id", "customer_supplier_id","name"]
+    },
+
+    "Digital_certificate_issuanceResponseGet": {
+      "type": "object",
+      "properties": {
+        "certificate_issuance_id": {
+          "type": "string",
+          "description": "ID of the digital certificate link.",
+          "example": "7y5wvL7tZ3aGEMnxeSF1"
+        },
+        "certificate_status": {
+          "type": "string",
+          "description": "Digital certificate status.\\\n0 = Pending\\\n1 = Form completed\\\n2 = Identity validated\\\n3 = Certificate downloaded",
+          "example": "3"
+        },
+        "certificate_duration": {
+          "type": "string",
+          "description": "Digital certificate duration, 1, 2 or 3 years",
+          "example": "1"
+        },
+        "certificate_file": {
+          "type": "string",
+          "description": "Digital certificate in base64 format. \\\nThis field is displayed only if the certificate_status is 3 = Certificate downloaded",
+          "example": "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"
+        }
+      }
+    },
+
+    "Product": {
+      "type": "object",
+      "properties": {
+        "product_id": {
+          "type": "string",
+          "description": "Read only. Internal ID of the product"
+        },
+        "name": {
+          "type": "string",
+          "description": "Product name"
+        },
+        "invoicing_details": { "type": "string",
+          "description": "Optional. Extra information to be included in the long_description of invoices"},
+        "additional_details": { "type": "string",
+          "description": "Optional. Additional information to be used internally"
+        },
+        "model": {
+          "type": "string",
+          "description": "Optional. Product model"
+        },
+        "brand": {
+          "type": "string",
+          "description": "Optional. Product brand"
+        },
+        "status": {
+          "type": "integer",
+          "description": "0 = inactive, 1 = active"
+        },
+        "sku": {
+          "type": "string",
+          "description": "Internal code that identifies a product or service. If not entered, an automatic number will be assigned"
+        },
+        "barcode": {
+          "type": "string",
+          "description": "Optional. Barcode that is printed on the product box, usually generated by the supplier"
+        },
+        "measure_unit": { "type": "string" },
+        "type": {
+          "type": "integer",
+          "description": "1 = physical product, 2 = service"
+        },
+        "embedded_quantity_barcode": {
+          "type": "boolean",
+          "description": "Optional. This field is used to identify when a product can be sold using embedded quantity barcodes. 0 = not a quantity barcode product. 1 = quantity barcode enabled. 0 by default"
+        },
+        "embedded_quantity_barcode_decimals": {
+          "type": "integer",
+          "description": "Optional. Decimals associated with the quantity barcode. 0 by default"
+        },
+        "additional_data_1": {
+          "type": "string",
+          "description": "Optional. Any additional information you need regarding the product"
+        },
+        "additional_data_2": {
+          "type": "string",
+          "description": "Optional. Any additional information you need regarding the product"
+        },
+        "additional_data_3": {
+          "type": "string",
+          "description": "Optional. Any additional information you need regarding the product"
+        },
+        "prices": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "price_list_id": {
+                "type": "string",
+                "description": "Reference to a price list"
+              },
+              "unit_net": {
+                "type": "number",
+                "description": "Price net of taxes"
+              },
+              "unit_taxes": {
+                "type": "number",
+                "description": "Total taxes applicable to the price"
+              },
+              "unit_total": {
+                "type": "number",
+                "description": "Total price"
+              },
+              "currency_id": {
+                "type": "string",
+                "description": "Currency ID according to currency table"
+              },
+              "sales_commission_percentage": {
+                "type": "number",
+                "description": "Sales commission percentage"
+              },
+              "taxes": {
                 "type": "array",
                 "items": {
                   "type": "object",
                   "properties": {
-                    "product_location_id": {
-                      "type": "string"
+                    "tax_type_id": {
+                      "type": "integer",
+                      "description": "Tax ID according to table"
                     },
-                    "available_quantity": {
-                      "type": "number"
+                    "tax_percentage": {
+                      "type": "number",
+                      "description": "Percentage if the tax is applied by percentage"
                     },
-                    "reserved_quantity": {
-                      "type": "number"
+                    "tax_amount": {
+                      "type": "number",
+                      "description": "Total tax amount according to the full net amount"
                     }
+                  }
+                }
+              }
+            },
+            "required": ["price_list_id", "currency_id"]
+          }
+        },
+        "inventories": {
+          "type": "object",
+          "properties": {
+            "total_available": {
+              "type": "number"
+            },
+            "total_reserved": {
+              "type": "number"
+            },
+            "details": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "product_location_id": {
+                    "type": "string"
+                  },
+                  "available_quantity": {
+                    "type": "number"
+                  },
+                  "reserved_quantity": {
+                    "type": "number"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "required": ["name", "status", "type"]
+    },
+    "PriceList": {
+      "type": "object",
+      "properties": {
+        "price_list_id": {
+          "type": "string",
+          "description": "Unique identifier for the price list"
+        },
+        "price_list_name": {
+          "type": "string",
+          "description": "Name of the price list, e.g., wholesale, retail"
+        }
+      },
+      "required": ["price_list_id", "price_list_name"]
+    },
+    "Transfer": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "document_id": {
+          "type": "string"
+        },
+        "receiver_company": {
+          "$ref": "#/components/schemas/Company"
+        },
+        "status": {
+          "type": "string"
+        },
+        "transfer_date": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["document_id", "receiver_company", "status"]
+    },
+    "DocumentType": {
+      "type": "object",
+      "properties": {
+        "document_type_id": {
+          "type": "string",
+          "description": "Read only. ID of the document type"
+        },
+        "name": {
+          "type": "string",
+          "description": "Read only. Document type name in the local language"
+        },
+        "received_issued_flag": {
+          "type": "boolean",
+          "description": "Read only. 0 = received, 1 = issued"
+        },
+        "country_id": {
+          "type": "string",
+          "description": "Read only. Country ID according to ID table"
+        }
+      },
+      "required": ["document_type_id", "name", "received_issued_flag", "country_id"]
+    },
+    "Tax": {
+      "type": "object",
+      "properties": {
+        "tax_id": {
+          "type": "string"
+        },
+        "tax_type": {
+          "type": "string"
+        },
+        "tax_value": {
+          "type": "string"
+        },
+        "tax_amount": {
+          "type": "string"
+        },
+        "country_id": {
+          "type": "string"
+        },
+        "country_name": {
+          "type": "string"
+        }
+      },
+      "required": ["tax_id", "tax_type", "tax_value", "tax_amount", "country_id", "country_name"]
+    },
+    "Payment": {
+      "type": "object",
+      "properties": {
+        "payment_date": {
+          "type": "string",
+          "format": "date",
+          "description": "The date of the payment."
+        },
+        "document_id": {
+          "type": "string",
+          "description": "The ID of the document associated with the payment."
+        },
+        "payment_type_id": {
+          "type": "string",
+          "description": "The ID of the payment type."
+        },
+        "payment_amount": {
+          "type": "number",
+          "description": "The amount of the payment."
+        },
+        "payment_details": {
+          "type": "string",
+          "description": "Additional details about the payment."
+        },
+        "cash_account_id": {
+          "type": "string",
+          "description": "The ID of the cash account associated with the payment."
+        }
+      },
+      "required": ["payment_date", "document_id", "payment_type_id", "payment_amount", "cash_account_id"]
+    },
+    "PaymentResponseGet": {
+      "type": "object",
+      "properties": {
+        "payment_id": {
+          "type": "string",
+          "description": "ID of the payment.",
+          "example": "aaa111"
+        },
+        "payment_date": {
+          "type": "string",
+          "format": "date",
+          "description": "The date of the payment."
+        },
+        "document_id": {
+          "type": "string",
+          "description": "The ID of the document associated with the payment."
+        },
+        "payment_type_id": {
+          "type": "string",
+          "description": "The ID of the payment type."
+        },
+        "payment_amount": {
+          "type": "number",
+          "description": "The amount of the payment."
+        },
+        "payment_details": {
+          "type": "string",
+          "description": "Additional details about the payment."
+        },
+        "cash_account_id": {
+          "type": "string",
+          "description": "The ID of the cash account associated with the payment."
+        }
+      }
+    },
+    "Company_branchPost": {
+      "type": "object",
+      "properties": {
+        "account_id": {
+          "type": "integer",
+          "description": "ID of the associated account"
+        },
+        "is_headquarters": {
+          "type": "integer",
+          "description": "Indicates whether the location is the company's headquarters. If the value is 1, it means this branch is the main office."
+        },
+        "branch_type": {
+          "type": "integer",
+          "description": "Defines the type of branch. If the value is 1, it is a physical (real) branch. If the value is 2, it is a virtual branch."
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the company branch."
+        },
+        "address": {
+          "type": "string",
+          "description": "Address of the company branch."
+        },
+        "district": {
+          "type": "string",
+          "description": "District of the company branch."
+        },
+        "city": {
+          "type": "string",
+          "description": "City of the company branch."
+        },
+        "phone": {
+          "type": "string",
+          "description": "Phone of the company branch."
+        },
+        "company_branch_tax_code": {
+          "type": "string",
+          "description": "Tax code assigned to the company branch for fiscal and accounting purposes."
+        },
+        "company_branch_internal_code": {
+          "type": "string",
+          "description": "Internal code assigned to the company branch for identification within the system."
+        },
+        "parent_company_branch_id": {
+          "type": "integer",
+          "description": "ID of the parent company branch."
+        }
+      },
+      "required": ["account_id", "name"]
+    },
+    "Company_branchResponse": {
+      "type": "object",
+      "properties": {
+        "account_id": {
+          "type": "integer",
+          "description": "ID of the associated account"
+        },
+        "company_branch_id": {
+          "type": "string",
+          "description": "ID of the company branch"
+        },
+        "is_headquarters": {
+          "type": "integer",
+          "description": "Indicates whether the location is the company's headquarters. If the value is 1, it means this branch is the main office."
+        },
+        "branch_type": {
+          "type": "integer",
+          "description": "Defines the type of branch. If the value is 1, it is a physical (real) branch. If the value is 2, it is a virtual branch."
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the company branch."
+        },
+        "address": {
+          "type": "string",
+          "description": "Address of the company branch."
+        },
+        "district": {
+          "type": "string",
+          "description": "District of the company branch."
+        },
+        "city": {
+          "type": "string",
+          "description": "City of the company branch."
+        },
+        "phone": {
+          "type": "string",
+          "description": "Phone of the company branch."
+        },
+        "company_branch_tax_code": {
+          "type": "string",
+          "description": "Tax code assigned to the company branch for fiscal and accounting purposes."
+        },
+        "company_branch_internal_code": {
+          "type": "string",
+          "description": "Internal code assigned to the company branch for identification within the system."
+        },
+        "parent_company_branch_id": {
+          "type": "integer",
+          "description": "ID of the parent company branch."
+        },
+        "user_permissions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "user_id": {
+                "type": "string",
+                "description": "User ID associated to the subscription. Not used on API"
+              },
+              "user_name": {
+                "type": "string"
+              },
+              "has_branch_permission": {
+                "type": "number"
+              }
+            },
+            "required": ["user_id", "has_branch_permission"]
+          }
+        }
+      }
+    },
+    "DocumentTransferRequest": {
+      "type": "object",
+      "properties": {
+        "account_id": { "type": "string" },
+        "document": {
+          "type": "object",
+          "properties": {
+            "document_id": { "type": "string" },
+            "document_information": {
+              "type": "object",
+              "properties": {
+                "xml": { "type": "string" },
+                "pdf": { "type": "string" },
+                "document_type_id": { "type": "integer" },
+                "document_number": { "type": "string" },
+                "issuer_tax_id_code": { "type": "string" },
+                "issuer_tax_id_type": { "type": "string" },
+                "receiver_tax_id_code": { "type": "string" },
+                "receiver_tax_id_type": { "type": "string" },
+                "issue_date": { "type": "string", "format": "date" },
+                "due_date": { "type": "string", "format": "date" },
+                "total_amount": { "type": "number", "format": "float" },
+                "currency_id": { "type": "string" }
+              }
+            }
+          }
+        },
+        "transfer_information": {
+          "type": "object",
+          "properties": {
+            "datetime": { "type": "string", "format": "date-time" },
+            "transferred_amount": { "type": "number", "format": "float" },
+            "additional_conditions": { "type": "string" },
+            "digital_certificate_id": {
+              "type": "string"
+            }
+          }
+        },
+        "fulfillment_proof": {
+          "type": "array",
+          "description": "NOT ACTIVE YET",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": { "type": "integer" },
+              "description": { "type": "string" },
+              "content_data": { "type": "string" },
+              "content_type": { "type": "string" },
+              "datetime": { "type": "string", "format": "date-time" },
+              "status": { "type": "string" },
+              "fulfillment_type": { "type": "string" },
+              "validation_entity": { "type": "string" },
+              "validation_code": { "type": "string" }
+            }
+          }
+        },
+        "transfer_origin": { "$ref": "#/components/schemas/TransferEntityOrigin" },
+        "transfer_destination": { "$ref": "#/components/schemas/TransferEntityDestination" },
+        "notifications": {
+          "type": "array",
+          "description": "NOT ACTIVE YET",
+          "items": {
+            "type": "object",
+            "properties": {
+              "role_id": { "type": "integer" },
+              "message_type": { "type": "integer" },
+              "message_destination": { "type": "string" },
+              "language_id": { "type": "string" },
+              "additional_information": { "type": "string" },
+              "notification_types": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "transfer_status": { "type": "boolean" },
+                    "payment_update": { "type": "boolean" }
                   }
                 }
               }
             }
           }
         },
-        "required": ["name", "status", "type"]
-      },
-      "PriceList": {
-        "type": "object",
-        "properties": {
-          "price_list_id": {
-            "type": "string",
-            "description": "Unique identifier for the price list"
-          },
-          "price_list_name": {
-            "type": "string",
-            "description": "Name of the price list, e.g., wholesale, retail"
-          }
-        },
-        "required": ["price_list_id", "price_list_name"]
-      },
-      "Transfer": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "document_id": {
-            "type": "string"
-          },
-          "receiver_company": {
-            "$ref": "#/components/schemas/Company"
-          },
-          "status": {
-            "type": "string"
-          },
-          "transfer_date": {
-            "type": "string",
-            "format": "date-time"
-          }
-        },
-        "required": ["document_id", "receiver_company", "status"]
-      },
-      "DocumentType": {
-        "type": "object",
-        "properties": {
-          "document_type_id": {
-            "type": "string",
-            "description": "Read only. ID of the document type"
-          },
-          "name": {
-            "type": "string",
-            "description": "Read only. Document type name in the local language"
-          },
-          "received_issued_flag": {
-            "type": "boolean",
-            "description": "Read only. 0 = received, 1 = issued"
-          },
-          "country_id": {
-            "type": "string",
-            "description": "Read only. Country ID according to ID table"
-          }
-        },
-        "required": ["document_type_id", "name", "received_issued_flag", "country_id"]
-      },
-      "Tax": {
-        "type": "object",
-        "properties": {
-          "tax_id": {
-            "type": "string"
-          },
-          "tax_type": {
-            "type": "string"
-          },
-          "tax_value": {
-            "type": "string"
-          },
-          "tax_amount": {
-            "type": "string"
-          },
-          "country_id": {
-            "type": "string"
-          },
-          "country_name": {
-            "type": "string"
-          }
-        },
-        "required": ["tax_id", "tax_type", "tax_value", "tax_amount", "country_id", "country_name"]
-      },
-      "Payment": {
-        "type": "object",
-        "properties": {
-          "payment_date": {
-            "type": "string",
-            "format": "date",
-            "description": "The date of the payment."
-          },
-          "document_id": {
-            "type": "string",
-            "description": "The ID of the document associated with the payment."
-          },
-          "payment_type_id": {
-            "type": "string",
-            "description": "The ID of the payment type."
-          },
-          "payment_amount": {
-            "type": "number",
-            "description": "The amount of the payment."
-          },
-          "payment_details": {
-            "type": "string",
-            "description": "Additional details about the payment."
-          },
-          "cash_account_id": {
-            "type": "string",
-            "description": "The ID of the cash account associated with the payment."
-          }
-        },
-        "required": ["payment_date", "document_id", "payment_type_id", "payment_amount", "cash_account_id"]
-      },
-      "PaymentResponseGet": {
-        "type": "object",
-        "properties": {
-          "payment_id": {
-            "type": "string",
-            "description": "ID of the payment.",
-            "example": "aaa111"
-          },
-          "payment_date": {
-            "type": "string",
-            "format": "date",
-            "description": "The date of the payment."
-          },
-          "document_id": {
-            "type": "string",
-            "description": "The ID of the document associated with the payment."
-          },
-          "payment_type_id": {
-            "type": "string",
-            "description": "The ID of the payment type."
-          },
-          "payment_amount": {
-            "type": "number",
-            "description": "The amount of the payment."
-          },
-          "payment_details": {
-            "type": "string",
-            "description": "Additional details about the payment."
-          },
-          "cash_account_id": {
-            "type": "string",
-            "description": "The ID of the cash account associated with the payment."
-          }
-        }
-      },
-      "Company_branchPost": {
-        "type": "object",
-        "properties": {
-          "account_id": {
-            "type": "integer",
-            "description": "ID of the associated account"
-          },
-          "is_headquarters": {
-            "type": "integer",
-            "description": "Indicates whether the location is the company's headquarters. If the value is 1, it means this branch is the main office."
-          },
-          "branch_type": {
-            "type": "integer",
-            "description": "Defines the type of branch. If the value is 1, it is a physical (real) branch. If the value is 2, it is a virtual branch."
-          },
-          "name": {
-            "type": "string",
-            "description": "Name of the company branch."
-          },
-          "address": {
-            "type": "string",
-            "description": "Address of the company branch."
-          },
-          "district": {
-            "type": "string",
-            "description": "District of the company branch."
-          },
-          "city": {
-            "type": "string",
-            "description": "City of the company branch."
-          },
-          "phone": {
-            "type": "string",
-            "description": "Phone of the company branch."
-          },
-          "company_branch_tax_code": {
-            "type": "string",
-            "description": "Tax code assigned to the company branch for fiscal and accounting purposes."
-          },
-          "company_branch_internal_code": {
-            "type": "string",
-            "description": "Internal code assigned to the company branch for identification within the system."
-          },
-          "parent_company_branch_id": {
-            "type": "integer",
-            "description": "ID of the parent company branch."
-          }
-        },
-        "required": ["account_id", "name"]
-      },
-      "Company_branchResponse": {
-        "type": "object",
-        "properties": {
-          "account_id": {
-            "type": "integer",
-            "description": "ID of the associated account"
-          },
-          "company_branch_id": {
-            "type": "string",
-            "description": "ID of the company branch"
-          },
-          "is_headquarters": {
-            "type": "integer",
-            "description": "Indicates whether the location is the company's headquarters. If the value is 1, it means this branch is the main office."
-          },
-          "branch_type": {
-            "type": "integer",
-            "description": "Defines the type of branch. If the value is 1, it is a physical (real) branch. If the value is 2, it is a virtual branch."
-          },
-          "name": {
-            "type": "string",
-            "description": "Name of the company branch."
-          },
-          "address": {
-            "type": "string",
-            "description": "Address of the company branch."
-          },
-          "district": {
-            "type": "string",
-            "description": "District of the company branch."
-          },
-          "city": {
-            "type": "string",
-            "description": "City of the company branch."
-          },
-          "phone": {
-            "type": "string",
-            "description": "Phone of the company branch."
-          },
-          "company_branch_tax_code": {
-            "type": "string",
-            "description": "Tax code assigned to the company branch for fiscal and accounting purposes."
-          },
-          "company_branch_internal_code": {
-            "type": "string",
-            "description": "Internal code assigned to the company branch for identification within the system."
-          },
-          "parent_company_branch_id": {
-            "type": "integer",
-            "description": "ID of the parent company branch."
-          },
-          "user_permissions": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "user_id": {
-                  "type": "string",
-                  "description": "User ID associated to the subscription. Not used on API"
-                },
-                "user_name": {
-                  "type": "string"
-                },
-                "has_branch_permission": {
-                  "type": "number"
+        "payment_information": {
+          "type": "array",
+          "description": "NOT ACTIVE YET",
+          "items": {
+            "type": "object",
+            "properties": {
+              "payment_method_id": { "type": "integer" },
+              "other_method_name": { "type": "string" },
+              "bank_id": { "type": "integer" },
+              "country_id": { "type": "string" },
+              "account_holder": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string" },
+                  "type": { "type": "string" }
                 }
               },
-              "required": ["user_id", "has_branch_permission"]
+              "account_number": { "type": "string" },
+              "routing_number": { "type": "string" },
+              "routing_type": { "type": "string" },
+              "url": { "type": "string" },
+              "currency_id": { "type": "string" },
+              "expiration_date": { "type": "string", "format": "date" },
+              "additional_info_1": { "type": "string" },
+              "additional_info_2": { "type": "string" },
+              "additional_info_3": { "type": "string" }
             }
           }
         }
       },
-      "DocumentTransferRequest": {
-        "type": "object",
-        "properties": {
-          "account_id": { "type": "string" },
-          "document": {
-            "type": "object",
-            "properties": {
-              "document_id": { "type": "string" },
-              "document_information": {
-                "type": "object",
-                "properties": {
-                  "xml": { "type": "string" },
-                  "pdf": { "type": "string" },
-                  "document_type_id": { "type": "integer" },
-                  "document_number": { "type": "string" },
-                  "issuer_tax_id_code": { "type": "string" },
-                  "issuer_tax_id_type": { "type": "string" },
-                  "receiver_tax_id_code": { "type": "string" },
-                  "receiver_tax_id_type": { "type": "string" },
-                  "issue_date": { "type": "string", "format": "date" },
-                  "due_date": { "type": "string", "format": "date" },
-                  "total_amount": { "type": "number", "format": "float" },
-                  "currency_id": { "type": "string" }
-                }
+      "required": ["account_id","document","transfer_information","transfer_origin","transfer_destination"]
+    },
+    "TransferEntityOrigin": {
+      "type": "object",
+      "properties": {
+        "company_name": { "type": "string" },
+        "contact_first_name": { "type": "string" },
+        "contact_last_name": { "type": "string" },
+        "contact_phone": { "type": "string" },
+        "contact_email": { "type": "string" },
+        "tax_id_code": { "type": "string" },
+        "tax_id_type": { "type": "string" },
+        "address": { "type": "string" },
+        "city": { "type": "string" },
+        "district": { "type": "string" },
+        "county_id": { "type": "string" },
+        "state_id": { "type": "string" },
+        "country_id": { "type": "string" },
+        "authorized_agent": {
+          "type": "object",
+          "properties": {
+            "first_name": { "type": "string" },
+            "last_name": { "type": "string" },
+            "person_tax_id_code": { "type": "string" },
+            "person_tax_id_type": { "type": "string" }
+          }
+        }
+      },
+      "required": ["tax_id_code","tax_id_type","country_id","authorized_agent"]
+    },
+    "TransferEntityDestination": {
+      "type": "object",
+      "properties": {
+        "company_name": { "type": "string" },
+        "contact_first_name": { "type": "string" },
+        "contact_last_name": { "type": "string" },
+        "contact_phone": { "type": "string" },
+        "contact_email": { "type": "string" },
+        "tax_id_code": { "type": "string" },
+        "tax_id_type": { "type": "string" },
+        "address": { "type": "string" },
+        "city": { "type": "string" },
+        "district": { "type": "string" },
+        "county_id": { "type": "string" },
+        "state_id": { "type": "string" },
+        "country_id": { "type": "string" }
+      },
+      "required": ["tax_id_code","tax_id_type","country_id"]
+    },
+    "DocumentTransfer": {
+      "type": "object",
+      "properties": {
+        "document_transfer_id": {
+          "type": "string"
+        },
+        "account_id": { "type": "string" },
+        "document": {
+          "type": "object",
+          "properties": {
+            "document_id": { "type": "string" },
+            "document_information": {
+              "type": "object",
+              "properties": {
+                "xml": { "type": "string" },
+                "pdf": { "type": "string" },
+                "document_type_id": { "type": "integer" },
+                "document_number": { "type": "string" },
+                "issuer_tax_id_code": { "type": "string" },
+                "issuer_tax_id_type": { "type": "string" },
+                "receiver_tax_id_code": { "type": "string" },
+                "receiver_tax_id_type": { "type": "string" },
+                "issue_date": { "type": "string", "format": "date" },
+                "due_date": { "type": "string", "format": "date" },
+                "total_amount": { "type": "number", "format": "float" },
+                "currency_id": { "type": "string" }
               }
             }
+          }
+        },
+        "transfer_information": {
+          "type": "object",
+          "properties": {
+            "datetime": { "type": "string", "format": "date-time" },
+            "transferred_amount": { "type": "number", "format": "float" },
+            "additional_conditions": { "type": "string" }
           },
-          "transfer_information": {
+          "required": ["datetime","transferred_amount"]
+        },
+        "fulfillment_proof": {
+          "type": "array",
+          "items": {
             "type": "object",
             "properties": {
+              "type": { "type": "integer" },
+              "description": { "type": "string" },
+              "content_data": { "type": "string" },
+              "content_type": { "type": "string" },
               "datetime": { "type": "string", "format": "date-time" },
-              "transferred_amount": { "type": "number", "format": "float" },
-              "additional_conditions": { "type": "string" },
-              "digital_certificate_id": {
-                "type": "string"
-              }
+              "status": { "type": "string" },
+              "fulfillment_type": { "type": "string" },
+              "validation_entity": { "type": "string" },
+              "validation_code": { "type": "string" }
             }
-          },
-          "fulfillment_proof": {
-            "type": "array",
-            "description": "NOT ACTIVE YET",
-            "items": {
-              "type": "object",
-              "properties": {
-                "type": { "type": "integer" },
-                "description": { "type": "string" },
-                "content_data": { "type": "string" },
-                "content_type": { "type": "string" },
-                "datetime": { "type": "string", "format": "date-time" },
-                "status": { "type": "string" },
-                "fulfillment_type": { "type": "string" },
-                "validation_entity": { "type": "string" },
-                "validation_code": { "type": "string" }
-              }
-            }
-          },
-          "transfer_origin": { "$ref": "#/components/schemas/TransferEntityOrigin" },
-          "transfer_destination": { "$ref": "#/components/schemas/TransferEntityDestination" },
-          "notifications": {
-            "type": "array",
-            "description": "NOT ACTIVE YET",
-            "items": {
-              "type": "object",
-              "properties": {
-                "role_id": { "type": "integer" },
-                "message_type": { "type": "integer" },
-                "message_destination": { "type": "string" },
-                "language_id": { "type": "string" },
-                "additional_information": { "type": "string" },
-                "notification_types": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "transfer_status": { "type": "boolean" },
-                      "payment_update": { "type": "boolean" }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "payment_information": {
-            "type": "array",
-            "description": "NOT ACTIVE YET",
-            "items": {
-              "type": "object",
-              "properties": {
-                "payment_method_id": { "type": "integer" },
-                "other_method_name": { "type": "string" },
-                "bank_id": { "type": "integer" },
-                "country_id": { "type": "string" },
-                "account_holder": {
+          }
+        },
+        "transfer_origin": { "$ref": "#/components/schemas/TransferEntityOrigin" },
+        "transfer_destination": { "$ref": "#/components/schemas/TransferEntityDestination" },
+        "notifications": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "role_id": { "type": "integer" },
+              "message_type": { "type": "integer" },
+              "message_destination": { "type": "string" },
+              "language_id": { "type": "string" },
+              "additional_information": { "type": "string" },
+              "notification_types": {
+                "type": "array",
+                "items": {
                   "type": "object",
                   "properties": {
-                    "name": { "type": "string" },
-                    "type": { "type": "string" }
+                    "transfer_status": { "type": "boolean" },
+                    "payment_update": { "type": "boolean" }
                   }
-                },
-                "account_number": { "type": "string" },
-                "routing_number": { "type": "string" },
-                "routing_type": { "type": "string" },
-                "url": { "type": "string" },
-                "currency_id": { "type": "string" },
-                "expiration_date": { "type": "string", "format": "date" },
-                "additional_info_1": { "type": "string" },
-                "additional_info_2": { "type": "string" },
-                "additional_info_3": { "type": "string" }
+                }
               }
             }
           }
         },
-        "required": ["account_id","document","transfer_information","transfer_origin","transfer_destination"]
-      },
-      "TransferEntityOrigin": {
-        "type": "object",
-        "properties": {
-          "company_name": { "type": "string" },
-          "contact_first_name": { "type": "string" },
-          "contact_last_name": { "type": "string" },
-          "contact_phone": { "type": "string" },
-          "contact_email": { "type": "string" },
-          "tax_id_code": { "type": "string" },
-          "tax_id_type": { "type": "string" },
-          "address": { "type": "string" },
-          "city": { "type": "string" },
-          "district": { "type": "string" },
-          "county_id": { "type": "string" },
-          "state_id": { "type": "string" },
-          "country_id": { "type": "string" },
-          "authorized_agent": {
+        "payment_information": {
+          "type": "array",
+          "items": {
             "type": "object",
             "properties": {
-              "first_name": { "type": "string" },
-              "last_name": { "type": "string" },
-              "person_tax_id_code": { "type": "string" },
-              "person_tax_id_type": { "type": "string" }
-            }
-          }
-        },
-        "required": ["tax_id_code","tax_id_type","country_id","authorized_agent"]
-      },
-      "TransferEntityDestination": {
-        "type": "object",
-        "properties": {
-          "company_name": { "type": "string" },
-          "contact_first_name": { "type": "string" },
-          "contact_last_name": { "type": "string" },
-          "contact_phone": { "type": "string" },
-          "contact_email": { "type": "string" },
-          "tax_id_code": { "type": "string" },
-          "tax_id_type": { "type": "string" },
-          "address": { "type": "string" },
-          "city": { "type": "string" },
-          "district": { "type": "string" },
-          "county_id": { "type": "string" },
-          "state_id": { "type": "string" },
-          "country_id": { "type": "string" }
-        },
-        "required": ["tax_id_code","tax_id_type","country_id"]
-      },
-      "DocumentTransfer": {
-        "type": "object",
-        "properties": {
-          "document_transfer_id": {
-            "type": "string"
-          },
-          "account_id": { "type": "string" },
-          "document": {
-            "type": "object",
-            "properties": {
-              "document_id": { "type": "string" },
-              "document_information": {
+              "payment_method_id": { "type": "integer" },
+              "other_method_name": { "type": "string" },
+              "bank_id": { "type": "integer" },
+              "country_id": { "type": "string" },
+              "account_holder": {
                 "type": "object",
                 "properties": {
-                  "xml": { "type": "string" },
-                  "pdf": { "type": "string" },
-                  "document_type_id": { "type": "integer" },
-                  "document_number": { "type": "string" },
-                  "issuer_tax_id_code": { "type": "string" },
-                  "issuer_tax_id_type": { "type": "string" },
-                  "receiver_tax_id_code": { "type": "string" },
-                  "receiver_tax_id_type": { "type": "string" },
-                  "issue_date": { "type": "string", "format": "date" },
-                  "due_date": { "type": "string", "format": "date" },
-                  "total_amount": { "type": "number", "format": "float" },
-                  "currency_id": { "type": "string" }
+                  "name": { "type": "string" },
+                  "type": { "type": "string" }
                 }
-              }
-            }
-          },
-          "transfer_information": {
-            "type": "object",
-            "properties": {
-              "datetime": { "type": "string", "format": "date-time" },
-              "transferred_amount": { "type": "number", "format": "float" },
-              "additional_conditions": { "type": "string" }
-            },
-            "required": ["datetime","transferred_amount"]
-          },
-          "fulfillment_proof": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "type": { "type": "integer" },
-                "description": { "type": "string" },
-                "content_data": { "type": "string" },
-                "content_type": { "type": "string" },
-                "datetime": { "type": "string", "format": "date-time" },
-                "status": { "type": "string" },
-                "fulfillment_type": { "type": "string" },
-                "validation_entity": { "type": "string" },
-                "validation_code": { "type": "string" }
-              }
-            }
-          },
-          "transfer_origin": { "$ref": "#/components/schemas/TransferEntityOrigin" },
-          "transfer_destination": { "$ref": "#/components/schemas/TransferEntityDestination" },
-          "notifications": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "role_id": { "type": "integer" },
-                "message_type": { "type": "integer" },
-                "message_destination": { "type": "string" },
-                "language_id": { "type": "string" },
-                "additional_information": { "type": "string" },
-                "notification_types": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "transfer_status": { "type": "boolean" },
-                      "payment_update": { "type": "boolean" }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "payment_information": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "payment_method_id": { "type": "integer" },
-                "other_method_name": { "type": "string" },
-                "bank_id": { "type": "integer" },
-                "country_id": { "type": "string" },
-                "account_holder": {
-                  "type": "object",
-                  "properties": {
-                    "name": { "type": "string" },
-                    "type": { "type": "string" }
-                  }
-                },
-                "account_number": { "type": "string" },
-                "routing_number": { "type": "string" },
-                "routing_type": { "type": "string" },
-                "url": { "type": "string" },
-                "currency_id": { "type": "string" },
-                "expiration_date": { "type": "string", "format": "date" },
-                "additional_info_1": { "type": "string" },
-                "additional_info_2": { "type": "string" },
-                "additional_info_3": { "type": "string" }
-              }
-            }
-          },
-          "transfer_registry": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "registry_entity": { "type": "string" },
-                "sending_status": { "type": "string",
-                  "description": "0 = not sent, 1 = sent succesfully, 2 = sent failed"
-                },
-                "sending_datetime": { "type": "string", "format": "date-time" },
-                "sending_number": { "type": "string" },
-                "validation_status": { "type": "string",
-                  "description": "0 = not validated, 1 = accepted, 2 = rejected"
-                },
-                "validation_datetime": { "type": "string", "format": "date-time" },
-                "validation_details": { "type": "string" }
-              }
+              },
+              "account_number": { "type": "string" },
+              "routing_number": { "type": "string" },
+              "routing_type": { "type": "string" },
+              "url": { "type": "string" },
+              "currency_id": { "type": "string" },
+              "expiration_date": { "type": "string", "format": "date" },
+              "additional_info_1": { "type": "string" },
+              "additional_info_2": { "type": "string" },
+              "additional_info_3": { "type": "string" }
             }
           }
         },
-        "required": ["document_transfer_id","account_id","document","transfer_information","transfer_origin","transfer_destination","transfer_registry"]
-      }
-
+        "transfer_registry": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "registry_entity": { "type": "string" },
+              "sending_status": { "type": "string",
+                "description": "0 = not sent, 1 = sent succesfully, 2 = sent failed"
+              },
+              "sending_datetime": { "type": "string", "format": "date-time" },
+              "sending_number": { "type": "string" },
+              "validation_status": { "type": "string",
+                "description": "0 = not validated, 1 = accepted, 2 = rejected"
+              },
+              "validation_datetime": { "type": "string", "format": "date-time" },
+              "validation_details": { "type": "string" }
+            }
+          }
+        }
+      },
+      "required": ["document_transfer_id","account_id","document","transfer_information","transfer_origin","transfer_destination","transfer_registry"]
     }
+
+  }
 }
