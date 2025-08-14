@@ -1266,6 +1266,46 @@
 					"response": []
 				},
 				{
+					"name": "Create new documents - Invoice with reported payment code (Factura con código de pago)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{session_token_colombia}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"header\": {\r\n    \"account_id\": 14540,\r\n    \"document_type_id\": \"82\",\r\n    \"received_issued_flag\": 0,\r\n    \"issue_date\": \"2025-06-03\",\r\n    \"issuer_tax_id_code\": \"860517022-2\",\r\n    \"issuer_tax_id_type\": \"CO-NIT\",\r\n    \"issuer_legal_name\": \"Lorgio\",\r\n    \"issuer_address\": \"San Pedro\",\r\n    \"issuer_district\": \"Norte\",\r\n    \"issuer_city\": \"Barranquilla\",\r\n    \"issuer_country_id\": \"66\",\r\n    \"issuer_phone\": \"45789455\",\r\n    \"issuer_activity\": \"TIC\",\r\n    \"receiver_tax_id_code\": \"860517022-2\",\r\n    \"receiver_tax_id_type\": \"CO-NIT\",\r\n    \"receiver_legal_name\": \"ESCUELA KEMPER URGATE\",\r\n    \"receiver_address\": \"Central\",\r\n    \"receiver_county_id\": \"496\",\r\n    \"receiver_country_id\": \"66\",\r\n    \"receiver_phone\": \"487878878\",\r\n    \"receiver_activity\": \"Mayoreo\",\r\n    \"payment_conditions\": \"0\",\r\n    \"currency_id\": 28\r\n  },\r\n  \"details\": [\r\n    {\r\n      \"quantity\": 1,\r\n      \"line_description\": \"Prueba Koywe Marco\",\r\n      \"unit_measure\": \"UN\",\r\n      \"unit_price\": 1500,\r\n      \"long_description\": \"Esta es una linea de prueba\",\r\n      \"modifier_amount\": -100,\r\n      \"total_taxes\": 266,\r\n      \"modifier_percentage\": 0,\r\n      \"total_amount_line\": 1666,\r\n      \"taxes\": [\r\n        {\r\n          \"tax_type_id\": \"388\",\r\n          \"tax_percentage\": 19,\r\n          \"tax_amount\": 266\r\n        }\r\n      ]\r\n    }\r\n  ],\r\n  \"totals\": {\r\n    \"net_amount\": 1400,\r\n    \"taxes_amount\": 266,\r\n    \"total_amount\": 1666\r\n  }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api-billing.koywe.com/V1/documents",
+							"protocol": "https",
+							"host": [
+								"api-billing",
+								"koywe",
+								"com"
+							],
+							"path": [
+								"V1",
+								"documents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Create new documents - Invoice with a foreign receiver (Factura con receptor extranjero)",
 					"request": {
 						"auth": {
