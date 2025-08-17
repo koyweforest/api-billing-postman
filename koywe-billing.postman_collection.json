@@ -1,10 +1,9 @@
 {
 	"info": {
-		"_postman_id": "e3f7b573-7f3f-4008-8626-fc7edd1d0b3c",
+		"_postman_id": "2ff32a97-1402-46e2-beeb-b37f95e10c95",
 		"name": "Koywe Billing",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "44754209",
-		"_collection_link": "https://joseph-8572551.postman.co/workspace/API-FACTO~ad95a4c7-ef3b-4d72-ba16-93bf2679ac90/collection/44754209-e3f7b573-7f3f-4008-8626-fc7edd1d0b3c?action=share&source=collection_link&creator=44754209"
+		"_exporter_id": "40240208"
 	},
 	"item": [
 		{
@@ -1722,7 +1721,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"header\": {\r\n    \"account_id\": 11857,\r\n    \"document_type_id\": \"76\",\r\n    \"issue_date\": \"2025-01-07\",\r\n    \"issuer_tax_id_code\": \"EKU9003173C9\",\r\n    \"issuer_tax_id_type\": \"MX-RFC\",\r\n    \"issuer_legal_name\": \"ESCUELA KEMPER URGATE\",\r\n    \"issuer_address\": \"Calle roja 234\",\r\n    \"issuer_city\": \"Ciudad de méxico\",\r\n    \"issuer_country_id\": \"80\",\r\n    \"issuer_phone\": \"2223334444\",\r\n    \"issuer_activity\": \"601\",\r\n    \"issuer_postalcode\": \"42501\",\r\n    \"receiver_tax_id_code\": \"EKU9003173C9\",\r\n    \"receiver_tax_id_type\": \"MX-RFC\",\r\n    \"receiver_legal_name\": \"ESCUELA KEMPER URGATE\",\r\n    \"receiver_address\": \"Calle naranja 123\",\r\n    \"receiver_city\": \"Cancún\",\r\n    \"receiver_country_id\": \"80\",\r\n    \"receiver_phone\": \"2223334444\",\r\n    \"receiver_activity\": \"601\",\r\n    \"receiver_postalcode\": \"42501\",\r\n    \"payment_conditions\": \"0\",\r\n    \"currency_id\": 31\r\n  },\r\n  \"details\": [\r\n    {\r\n      \"quantity\": 1,\r\n      \"sku\": \"aa111\",\r\n      \"line_description\": \"Prueba Koywe\",\r\n      \"unit_measure\": \"UN\",\r\n      \"unit_price\": 1500,\r\n      \"long_description\": \"Esta es una linea de prueba\",\r\n      \"modifier_amount\": -100,\r\n      \"total_taxes\": 224,\r\n      \"modifier_percentage\": 0,\r\n      \"total_amount_line\": 1624,\r\n      \"taxes\": [\r\n        {\r\n          \"tax_type_id\": \"362\",\r\n          \"tax_percentage\": 16,\r\n          \"tax_amount\": 224\r\n        }\r\n      ]\r\n    }\r\n  ],\r\n  \"totals\": {\r\n    \"net_amount\": 1400,\r\n    \"taxes_amount\": 224,\r\n    \"total_amount\": 1624\r\n  }\r\n}\r\n",
+							"raw": "{\r\n  \"header\": {\r\n    \"account_id\": 11857,\r\n    \"document_type_id\": \"76\",\r\n    \"issue_date\": \"2025-01-07\",\r\n    \"issuer_tax_id_code\": \"EKU9003173C9\",\r\n    \"issuer_tax_id_type\": \"MX-RFC\",\r\n    \"issuer_legal_name\": \"ESCUELA KEMPER URGATE\",\r\n    \"issuer_address\": \"Calle roja 234\",\r\n    \"issuer_city\": \"Ciudad de méxico\",\r\n    \"issuer_country_id\": \"80\",\r\n    \"issuer_phone\": \"2223334444\",\r\n    \"issuer_activity\": \"601\",\r\n    \"issuer_postalcode\": \"42501\",\r\n    \"receiver_tax_id_code\": \"EKU9003173C9\",\r\n    \"receiver_tax_id_type\": \"MX-RFC\",\r\n    \"receiver_legal_name\": \"ESCUELA KEMPER URGATE\",\r\n    \"receiver_address\": \"Calle naranja 123\",\r\n    \"receiver_city\": \"Cancún\",\r\n    \"receiver_country_id\": \"80\",\r\n    \"receiver_phone\": \"2223334444\",\r\n    \"receiver_activity\": \"601\",\r\n    \"receiver_postalcode\": \"42501\",\r\n    \"payment_conditions\": \"0\",\r\n    \"currency_id\": 31,\r\n    \"additional\": {\r\n      \"mx_header\":{\r\n        \"receiver_cfdi_usage\": \"G03\",\r\n        \"reported_payment_code\": \"01\"\r\n      }\r\n    }\r\n  },\r\n  \"details\": [\r\n    {\r\n      \"quantity\": 1,\r\n      \"sku\": \"aa111\",\r\n      \"line_description\": \"Prueba Koywe\",\r\n      \"unit_measure\": \"UN\",\r\n      \"unit_price\": 1500,\r\n      \"long_description\": \"Esta es una linea de prueba\",\r\n      \"modifier_amount\": -100,\r\n      \"total_taxes\": 224,\r\n      \"modifier_percentage\": 0,\r\n      \"total_amount_line\": 1624,\r\n      \"taxes\": [\r\n        {\r\n          \"tax_type_id\": \"362\",\r\n          \"tax_percentage\": 16,\r\n          \"tax_amount\": 224\r\n        }\r\n      ]\r\n    }\r\n  ],\r\n  \"totals\": {\r\n    \"net_amount\": 1400,\r\n    \"taxes_amount\": 224,\r\n    \"total_amount\": 1624\r\n  }\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
