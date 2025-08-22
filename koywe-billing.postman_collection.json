@@ -1747,8 +1747,40 @@
 				{
 					"name": "Create new documents - Invoice I Global (Factura I Global - Factura ingreso)",
 					"request": {
-						"method": "GET",
-						"header": []
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{session_token_mexico}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"header\": {\r\n    \"account_id\": 11857,\r\n    \"document_type_id\": \"76\",\r\n    \"issue_date\": \"2025-08-22\",\r\n    \"issuer_tax_id_code\": \"EKU9003173C9\",\r\n    \"issuer_tax_id_type\": \"MX-RFC\",\r\n    \"issuer_legal_name\": \"ESCUELA KEMPER URGATE\",\r\n    \"issuer_address\": \"Calle roja 234\",\r\n    \"issuer_city\": \"Ciudad de méxico\",\r\n    \"issuer_country_id\": \"80\",\r\n    \"issuer_phone\": \"2223334444\",\r\n    \"issuer_activity\": \"601\",\r\n    \"issuer_postalcode\": \"42501\",\r\n    \"receiver_tax_id_code\": \"XAXX010101000\",\r\n    \"receiver_tax_id_type\": \"MX-RFC\",\r\n    \"receiver_legal_name\": \"PUBLICO EN GENERAL\",\r\n    \"receiver_address\": \"\",\r\n    \"receiver_city\": \"\",\r\n    \"receiver_country_id\": \"80\",\r\n    \"receiver_phone\": \"\",\r\n    \"receiver_activity\": \"616\",\r\n    \"receiver_postalcode\": \"42501\",\r\n    \"payment_conditions\": \"0\",\r\n    \"currency_id\": 31,\r\n    \"additional\": {\r\n      \"mx_header\":{\r\n        \"receiver_cfdi_usage\": \"S01\",\r\n        \"reported_payment_code\": \"01\",\r\n        \"global_periodicity\": \"01\",\r\n        \"global_month\": \"04\",\r\n        \"global_year\": \"2025\"\r\n      }\r\n    }\r\n  },\r\n  \"details\": [\r\n    {\r\n      \"quantity\": 1,\r\n      \"sku\": \"aa111\",\r\n      \"line_description\": \"Prueba Koywe\",\r\n      \"unit_measure\": \"UN\",\r\n      \"unit_price\": 1500,\r\n      \"long_description\": \"Esta es una linea de prueba\",\r\n      \"modifier_amount\": -100,\r\n      \"total_taxes\": 224,\r\n      \"modifier_percentage\": 0,\r\n      \"total_amount_line\": 1624,\r\n      \"taxes\": [\r\n        {\r\n          \"tax_type_id\": \"362\",\r\n          \"tax_percentage\": 16,\r\n          \"tax_amount\": 224\r\n        }\r\n      ],\r\n      \"additional\": {\r\n        \"mx_detail\": {\r\n          \"product_service_identifier\": \"01010101\",\r\n          \"measure_unit_code\": \"E48\"\r\n        }\r\n      }\r\n    }\r\n  ],\r\n  \"totals\": {\r\n    \"net_amount\": 1400,\r\n    \"taxes_amount\": 224,\r\n    \"total_amount\": 1624\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api-billing.koywe.com/V1/documents",
+							"protocol": "https",
+							"host": [
+								"api-billing",
+								"koywe",
+								"com"
+							],
+							"path": [
+								"V1",
+								"documents"
+							]
+						}
 					},
 					"response": []
 				},
