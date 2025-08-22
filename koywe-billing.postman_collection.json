@@ -1745,6 +1745,14 @@
 					"response": []
 				},
 				{
+					"name": "Create new documents - Invoice I Global (Factura I Global - Factura ingreso)",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
 					"name": "Create new documents - Invoice E (Factura E - Factura Egreso)",
 					"request": {
 						"auth": {
