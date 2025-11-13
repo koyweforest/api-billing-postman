@@ -1,9 +1,10 @@
 {
 	"info": {
-		"_postman_id": "2ff32a97-1402-46e2-beeb-b37f95e10c95",
+		"_postman_id": "656ed2ff-619b-4f7a-b96e-d504b3cfbae0",
 		"name": "Koywe Billing",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "40240208"
+		"_exporter_id": "44754209",
+		"_collection_link": "https://joseph-8572551.postman.co/workspace/API-FACTO~ad95a4c7-ef3b-4d72-ba16-93bf2679ac90/collection/44754209-656ed2ff-619b-4f7a-b96e-d504b3cfbae0?action=share&source=collection_link&creator=44754209"
 	},
 	"item": [
 		{
@@ -2576,7 +2577,7 @@
 					"response": []
 				},
 				{
-					"name": "Create new documents - Credit note (Nota de crédito electrónica)",
+					"name": "Credit note for Invoice with reference_number (Nota de crédito electrónica para Factura)",
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -2616,7 +2617,167 @@
 					"response": []
 				},
 				{
-					"name": "Create new documents - Debit note (Nota de débito electrónica)",
+					"name": "Credit note for Invoice with reference_document_id (Nota de crédito electrónica para Factura)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{session_token_peru}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"header\": {\r\n      \"account_id\": 16268,\r\n      \"document_type_id\": \"98\",\r\n      \"received_issued_flag\": 0,\r\n      \"issue_date\": \"2025-01-27\",\r\n      \"issuer_tax_id_code\": \"20610383727\",\r\n      \"issuer_tax_id_type\": \"PE-RUC\",\r\n      \"issuer_legal_name\": \"<string>\",\r\n      \"issuer_address\": \"<string>\",\r\n      \"issuer_district\": \"<string>\",\r\n      \"issuer_city\": \"<string>\",\r\n\t  \"issuer_department\":\"<string>\",\r\n      \"issuer_country_id\": \"80\",\r\n      \"issuer_phone\": \"<string>\",\r\n      \"issuer_activity\": \"<string>\",\r\n\t  \"issuer_postalcode\":\"12345456\",\r\n      \"receiver_tax_id_code\": \"20473731828\",\r\n      \"receiver_tax_id_type\": \"PE-RUC\",\r\n      \"receiver_legal_name\": \"ESCUELA KEMPER URGATES\",\r\n      \"receiver_address\": \"<string>\",\r\n      \"receiver_district\": \"<string>\",\r\n      \"receiver_city\": \"<string>\",\r\n\t  \"receiver_department\":\"<string>\",\r\n      \"receiver_country_id\": \"80\",\r\n      \"receiver_phone\": \"<string>\",\r\n      \"receiver_activity\": \"<string>\",\r\n\t  \"receiver_postalcode\":\"12343456\",\r\n      \"payment_conditions\": \"0\",\r\n      \"currency_id\": 7,\r\n\t  \"additional\":{\r\n         \"pe_header\":{\r\n            \"signature_id\":\"ASDFG\",\r\n            \"operation_type\":\"0101\"\r\n         }\r\n      }\r\n   },\r\n   \"details\": [\r\n      {\r\n         \"quantity\": 1,\r\n         \"line_description\": \"Prueba Koywe\",\r\n         \"unit_measure\": \"NIU\",\r\n         \"unit_price\": 1000,\r\n         \"long_description\": \"Test descripcion\",\r\n         \"modifier_amount\": 0,\r\n         \"total_taxes\": 180,\r\n         \"modifier_percentage\": 0,\r\n         \"total_amount_line\": 1180,\r\n         \"sku\": \"3245\",\r\n         \"taxes\": [\r\n            {\r\n               \"tax_type_id\": \"413\",\r\n               \"tax_percentage\": 18,\r\n               \"tax_amount\": 180\r\n            }\r\n         ]\r\n      }\r\n   ],\r\n   \"references\": [\r\n\t   {\r\n\t\t  \"document_type_id\": \"96\",\r\n\t\t  \"reference_number\": \"F001-00000087\",\r\n\t\t  \"reference_code\": \"01\",\r\n\t\t  \"description\": \"Anulacion solicitada por el emisor\",\r\n\t\t  \"reference_date\": \"2025-01-27\"\r\n\t   }\r\n   ],\r\n   \"totals\": {\r\n      \"net_amount\": 1000,\r\n      \"taxes_amount\": 180,\r\n      \"total_amount\": 1180\r\n   }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api-billing.koywe.com/V1/documents",
+							"protocol": "https",
+							"host": [
+								"api-billing",
+								"koywe",
+								"com"
+							],
+							"path": [
+								"V1",
+								"documents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Credit note for Receipt with reference_number (Nota de crédito electrónica para Boleta)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{session_token_peru}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"header\": {\r\n      \"account_id\": 16268,\r\n      \"document_type_id\": \"98\",\r\n      \"received_issued_flag\": 0,\r\n      \"issue_date\": \"2025-01-27\",\r\n      \"issuer_tax_id_code\": \"20610383727\",\r\n      \"issuer_tax_id_type\": \"PE-RUC\",\r\n      \"issuer_legal_name\": \"<string>\",\r\n      \"issuer_address\": \"<string>\",\r\n      \"issuer_district\": \"<string>\",\r\n      \"issuer_city\": \"<string>\",\r\n\t  \"issuer_department\":\"<string>\",\r\n      \"issuer_country_id\": \"80\",\r\n      \"issuer_phone\": \"<string>\",\r\n      \"issuer_activity\": \"<string>\",\r\n\t  \"issuer_postalcode\":\"12345456\",\r\n      \"receiver_tax_id_code\": \"20473731828\",\r\n      \"receiver_tax_id_type\": \"PE-RUC\",\r\n      \"receiver_legal_name\": \"ESCUELA KEMPER URGATES\",\r\n      \"receiver_address\": \"<string>\",\r\n      \"receiver_district\": \"<string>\",\r\n      \"receiver_city\": \"<string>\",\r\n\t  \"receiver_department\":\"<string>\",\r\n      \"receiver_country_id\": \"80\",\r\n      \"receiver_phone\": \"<string>\",\r\n      \"receiver_activity\": \"<string>\",\r\n\t  \"receiver_postalcode\":\"12343456\",\r\n      \"payment_conditions\": \"0\",\r\n      \"currency_id\": 7,\r\n\t  \"additional\":{\r\n         \"pe_header\":{\r\n            \"signature_id\":\"ASDFG\",\r\n            \"operation_type\":\"0101\"\r\n         }\r\n      }\r\n   },\r\n   \"details\": [\r\n      {\r\n         \"quantity\": 1,\r\n         \"line_description\": \"Prueba Koywe\",\r\n         \"unit_measure\": \"NIU\",\r\n         \"unit_price\": 1000,\r\n         \"long_description\": \"Test descripcion\",\r\n         \"modifier_amount\": 0,\r\n         \"total_taxes\": 180,\r\n         \"modifier_percentage\": 0,\r\n         \"total_amount_line\": 1180,\r\n         \"sku\": \"3245\",\r\n         \"taxes\": [\r\n            {\r\n               \"tax_type_id\": \"413\",\r\n               \"tax_percentage\": 18,\r\n               \"tax_amount\": 180\r\n            }\r\n         ]\r\n      }\r\n   ],\r\n   \"references\": [\r\n\t   {\r\n\t\t  \"document_type_id\": \"96\",\r\n\t\t  \"reference_number\": \"F001-00000087\",\r\n\t\t  \"reference_code\": \"01\",\r\n\t\t  \"description\": \"Anulacion solicitada por el emisor\",\r\n\t\t  \"reference_date\": \"2025-01-27\"\r\n\t   }\r\n   ],\r\n   \"totals\": {\r\n      \"net_amount\": 1000,\r\n      \"taxes_amount\": 180,\r\n      \"total_amount\": 1180\r\n   }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api-billing.koywe.com/V1/documents",
+							"protocol": "https",
+							"host": [
+								"api-billing",
+								"koywe",
+								"com"
+							],
+							"path": [
+								"V1",
+								"documents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Credit note for Receipt with reference_document_id (Nota de crédito electrónica para Boleta)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{session_token_peru}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"header\": {\r\n      \"account_id\": 16268,\r\n      \"document_type_id\": \"98\",\r\n      \"received_issued_flag\": 0,\r\n      \"issue_date\": \"2025-01-27\",\r\n      \"issuer_tax_id_code\": \"20610383727\",\r\n      \"issuer_tax_id_type\": \"PE-RUC\",\r\n      \"issuer_legal_name\": \"<string>\",\r\n      \"issuer_address\": \"<string>\",\r\n      \"issuer_district\": \"<string>\",\r\n      \"issuer_city\": \"<string>\",\r\n\t  \"issuer_department\":\"<string>\",\r\n      \"issuer_country_id\": \"80\",\r\n      \"issuer_phone\": \"<string>\",\r\n      \"issuer_activity\": \"<string>\",\r\n\t  \"issuer_postalcode\":\"12345456\",\r\n      \"receiver_tax_id_code\": \"20473731828\",\r\n      \"receiver_tax_id_type\": \"PE-RUC\",\r\n      \"receiver_legal_name\": \"ESCUELA KEMPER URGATES\",\r\n      \"receiver_address\": \"<string>\",\r\n      \"receiver_district\": \"<string>\",\r\n      \"receiver_city\": \"<string>\",\r\n\t  \"receiver_department\":\"<string>\",\r\n      \"receiver_country_id\": \"80\",\r\n      \"receiver_phone\": \"<string>\",\r\n      \"receiver_activity\": \"<string>\",\r\n\t  \"receiver_postalcode\":\"12343456\",\r\n      \"payment_conditions\": \"0\",\r\n      \"currency_id\": 7,\r\n\t  \"additional\":{\r\n         \"pe_header\":{\r\n            \"signature_id\":\"ASDFG\",\r\n            \"operation_type\":\"0101\"\r\n         }\r\n      }\r\n   },\r\n   \"details\": [\r\n      {\r\n         \"quantity\": 1,\r\n         \"line_description\": \"Prueba Koywe\",\r\n         \"unit_measure\": \"NIU\",\r\n         \"unit_price\": 1000,\r\n         \"long_description\": \"Test descripcion\",\r\n         \"modifier_amount\": 0,\r\n         \"total_taxes\": 180,\r\n         \"modifier_percentage\": 0,\r\n         \"total_amount_line\": 1180,\r\n         \"sku\": \"3245\",\r\n         \"taxes\": [\r\n            {\r\n               \"tax_type_id\": \"413\",\r\n               \"tax_percentage\": 18,\r\n               \"tax_amount\": 180\r\n            }\r\n         ]\r\n      }\r\n   ],\r\n   \"references\": [\r\n\t   {\r\n\t\t  \"document_type_id\": \"96\",\r\n\t\t  \"reference_number\": \"F001-00000087\",\r\n\t\t  \"reference_code\": \"01\",\r\n\t\t  \"description\": \"Anulacion solicitada por el emisor\",\r\n\t\t  \"reference_date\": \"2025-01-27\"\r\n\t   }\r\n   ],\r\n   \"totals\": {\r\n      \"net_amount\": 1000,\r\n      \"taxes_amount\": 180,\r\n      \"total_amount\": 1180\r\n   }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api-billing.koywe.com/V1/documents",
+							"protocol": "https",
+							"host": [
+								"api-billing",
+								"koywe",
+								"com"
+							],
+							"path": [
+								"V1",
+								"documents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Debit note with reference_number (Nota de débito electrónica)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{session_token_peru}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"header\":{\r\n      \"account_id\":16268,\r\n      \"document_type_id\":\"99\",\r\n      \"received_issued_flag\":0,\r\n      \"issue_date\":\"2025-01-23\",\r\n      \"issuer_tax_id_code\":\"20610383727\",\r\n      \"issuer_tax_id_type\":\"PE-RUC\",\r\n      \"issuer_legal_name\":\"<string>\",\r\n      \"issuer_address\":\"<string>\",\r\n      \"issuer_district\":\"<string>\",\r\n      \"issuer_city\":\"<string>\",\r\n\t  \"issuer_department\":\"<string>\",\r\n      \"issuer_country_id\":\"80\",\r\n      \"issuer_phone\":\"<string>\",\r\n      \"issuer_activity\":\"<string>\",\r\n\t  \"issuer_postalcode\":\"12345456\",\r\n      \"receiver_tax_id_code\":\"20473731828\",\r\n      \"receiver_tax_id_type\":\"PE-RUC\",\r\n      \"receiver_legal_name\":\"ESCUELA KEMPER URGATES\",\r\n      \"receiver_address\":\"<string>\",\r\n      \"receiver_district\":\"<string>\",\r\n      \"receiver_city\":\"<string>\",\r\n\t  \"receiver_department\":\"<string>\",\r\n      \"receiver_country_id\":\"80\",\r\n      \"receiver_phone\":\"<string>\",\r\n      \"receiver_activity\":\"<string>\",\r\n\t  \"receiver_postalcode\":\"12343456\",\r\n      \"payment_conditions\":\"0\",\r\n      \"currency_id\":7,\r\n      \"additional\":{\r\n         \"pe_header\":{\r\n            \"signature_id\":\"ASDFG\",\r\n            \"operation_type\":\"0101\"\r\n         }\r\n      }\r\n   },\r\n   \"details\":[\r\n      {\r\n         \"quantity\":1,\r\n         \"line_description\":\"Prueba Koywe\",\r\n         \"unit_measure\":\"NIU\",\r\n         \"unit_price\":1000,\r\n         \"long_description\":\"Test descripcion\",\r\n         \"modifier_amount\":0,\r\n         \"total_taxes\":180,\r\n         \"modifier_percentage\":0,\r\n         \"total_amount_line\":1180,\r\n         \"sku\":\"3245\",\r\n         \"taxes\":[\r\n            {\r\n               \"tax_type_id\":\"413\",\r\n               \"tax_percentage\":18,\r\n               \"tax_amount\":180\r\n            }\r\n         ]\r\n      }\r\n   ],\r\n   \"references\": [\r\n\t {\r\n\t\t\"document_type_id\":\"96\",\r\n\t\t\"reference_number\":\"F001-00000080\",\r\n\t\t\"reference_code\":\"03\",\r\n\t\t\"description\":\"Penalidad/otros conceptos\",\r\n\t\t\"reference_date\":\"2025-01-23\"\r\n\t }\r\n   ],\r\n   \"totals\":{\r\n      \"net_amount\":1000,\r\n      \"taxes_amount\":180,\r\n      \"total_amount\":1180\r\n   }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api-billing.koywe.com/V1/documents",
+							"protocol": "https",
+							"host": [
+								"api-billing",
+								"koywe",
+								"com"
+							],
+							"path": [
+								"V1",
+								"documents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Debit note with reference_document_id (Nota de débito electrónica)",
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -2696,7 +2857,47 @@
 					"response": []
 				},
 				{
-					"name": "Create new documents - Retention receipt (Comprobante de retención)",
+					"name": "Retention receipt with reference_number (Comprobante de retención)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{session_token_peru}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"header\":{\r\n      \"account_id\":16268,\r\n      \"document_type_id\":\"109\",\r\n      \"received_issued_flag\":0,\r\n      \"issue_date\":\"2025-01-24\",\r\n      \"issuer_tax_id_code\":\"20610383727\",\r\n      \"issuer_tax_id_type\":\"PE-RUC\",\r\n      \"issuer_legal_name\":\"<string>\",\r\n      \"issuer_address\":\"<string>\",\r\n      \"issuer_district\":\"<string>\",\r\n      \"issuer_city\":\"<string>\",\r\n\t  \"issuer_department\":\"<string>\",\r\n      \"issuer_country_id\":\"80\",\r\n      \"issuer_phone\":\"<string>\",\r\n      \"issuer_activity\":\"<string>\",\r\n\t  \"issuer_postalcode\":\"12345456\",\r\n      \"receiver_tax_id_code\":\"20473731828\",\r\n      \"receiver_tax_id_type\":\"PE-RUC\",\r\n      \"receiver_legal_name\":\"ESCUELA KEMPER URGATES\",\r\n      \"receiver_address\":\"<string>\",\r\n      \"receiver_district\":\"<string>\",\r\n      \"receiver_city\":\"<string>\",\r\n\t  \"receiver_department\":\"<string>\",\r\n      \"receiver_country_id\":\"80\",\r\n      \"receiver_phone\":\"<string>\",\r\n      \"receiver_activity\":\"<string>\",\r\n      \"receiver_email\":\"rockman-jjlb@hotmail.com\",\r\n\t  \"receiver_postalcode\":\"12343456\",\r\n      \"payment_conditions\":\"0\",\r\n      \"currency_id\":7,\r\n      \"additional\":{\r\n         \"pe_header\":{\r\n            \"signature_id\":\"ASDFG\",\r\n            \"operation_type\":\"0101\"\r\n         },\r\n\t\t \"pe_retention_header\":{\r\n\t\t\t \"pe_sunat_retention_system_code\":\"01\",\r\n\t\t\t \"pe_sunat_retention_percent\":\"3.00\",\r\n\t\t\t \"pe_sunat_total_paid\":\"1144.60\"\r\n\t\t }\r\n      }\r\n   },\r\n   \"details\":[\r\n      {\r\n         \"quantity\":1,\r\n         \"line_description\":\"Prueba Koywe\",\r\n         \"unit_measure\":\"NIU\",\r\n         \"unit_price\":1000,\r\n         \"long_description\":\"Test descripcion\",\r\n         \"modifier_amount\":0,\r\n         \"total_taxes\":180,\r\n         \"modifier_percentage\":0,\r\n         \"total_amount_line\":1180,\r\n         \"sku\":\"3245\",\r\n         \"taxes\":[\r\n            {\r\n               \"tax_type_id\":\"413\",\r\n               \"tax_percentage\":18,\r\n               \"tax_amount\":180\r\n            }\r\n         ]\r\n      }\r\n   ],\r\n   \"references\":[\r\n\t\t {\r\n\t\t\t\"document_type_id\":\"96\",\r\n\t\t\t\"reference_number\":\"F001-00000080\",\r\n\t\t\t\"reference_code\":1,\r\n\t\t\t\"description\":\"Pago\",\r\n\t\t\t\"reference_date\":\"2025-01-24\",\r\n\t\t\t\"additional\":{\r\n\t\t\t\t\"pe_retention_details\":{\r\n\t\t\t\t\t\"reference_paid_amount\":\"1144.60\",\r\n\t\t\t\t\t\"reference_total_invoice_amount\": \"1180\",\r\n\t\t\t\t\t\"reference_paid_date\":\"2025-01-24\",\r\n\t\t\t\t\t\"reference_payment_id\":\"1\",\r\n\t\t\t\t\t\"pe_reference_sunat_retention_amount\":\"34.34\",\r\n\t\t\t\t\t\"pe_reference_sunat_retention_date\":\"2025-01-23\",\r\n\t\t\t\t\t\"calculation_rate\":\"1\",\r\n\t\t\t\t\t\"currency_id\":\"7\"\r\n\t\t\t\t}\r\n\t\t\t}\r\n\t\t }\r\n    ],\r\n   \"totals\":{\r\n      \"net_amount\":1000,\r\n      \"taxes_amount\":180,\r\n      \"total_amount\":1180\r\n   }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api-billing.koywe.com/V1/documents",
+							"protocol": "https",
+							"host": [
+								"api-billing",
+								"koywe",
+								"com"
+							],
+							"path": [
+								"V1",
+								"documents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retention receipt with reference_document_id (Comprobante de retención)",
 					"request": {
 						"auth": {
 							"type": "bearer",
