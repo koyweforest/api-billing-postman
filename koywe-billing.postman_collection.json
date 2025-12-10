@@ -322,9 +322,13 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": {
-								"token": "{{session_token_chile}}"
-							}
+  "bearer": [
+    {
+      "key": "token",
+       "value": "{{session_token_chile}}"
+      "type": "string"
+    }
+  ]
 						},
 						"method": "POST",
 						"header": [],
