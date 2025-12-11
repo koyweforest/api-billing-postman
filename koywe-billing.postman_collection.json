@@ -341,7 +341,19 @@
 								}
 							}
 						},
-						"url": "https://api-billing.koywe.com/V1/documents"
+						"url": {
+						  "raw": "https://api-billing.koywe.com/V1/documents",
+						  "protocol": "https",
+						  "host": [
+						    "api-billing",
+						    "koywe",
+						    "com"
+						  ],
+						  "path": [
+						    "V1",
+						    "documents"
+						  ]
+						}
 					},
 					"response": []
 				},
