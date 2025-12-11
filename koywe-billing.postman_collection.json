@@ -325,7 +325,7 @@
   "bearer": [
     {
       "key": "token",
-       "value": "{{session_token_chile}}"
+       "value": "{{session_token_chile}}",
       "type": "string"
     }
   ]
