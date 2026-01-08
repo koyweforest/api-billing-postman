@@ -5439,8 +5439,8 @@
 									"    pm.expect(responseData.expires_in).to.exist.and.to.be.a('number').and.to.be.above(0, \"Value should be a positive integer\");\r",
 									"});\r",
 									"\r",
-									"// ✅ Guarda el token para Chile\r",
-									"pm.environment.set(\"session_token_chile\", pm.response.json().access_token);"
+									"// ✅ Guarda el token para Argentina\r",
+									"pm.environment.set(\"session_token_argentina\", pm.response.json().access_token);"
 								],
 								"type": "text/javascript",
 								"packages": {},
@@ -5487,7 +5487,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{session_token_chile}}",
+									"value": "{{session_token_argentina}}",
 									"type": "string"
 								}
 							]
@@ -5602,7 +5602,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{session_token_chile}}",
+									"value": "{{session_token_argentina}}",
 									"type": "string"
 								}
 							]
@@ -5717,7 +5717,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{session_token_chile}}",
+									"value": "{{session_token_argentina}}",
 									"type": "string"
 								}
 							]
@@ -5832,7 +5832,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{session_token_chile}}",
+									"value": "{{session_token_argentina}}",
 									"type": "string"
 								}
 							]
@@ -5947,7 +5947,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{session_token_chile}}",
+									"value": "{{session_token_argentina}}",
 									"type": "string"
 								}
 							]
@@ -6062,7 +6062,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{session_token_chile}}",
+									"value": "{{session_token_argentina}}",
 									"type": "string"
 								}
 							]
@@ -6177,7 +6177,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{session_token_chile}}",
+									"value": "{{session_token_argentina}}",
 									"type": "string"
 								}
 							]
@@ -6186,7 +6186,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n   \"header\":{\r\n      \"account_id\": 29240,\r\n      \"document_type_id\":\"112\",\r\n      \"issue_date\": \"2025-10-24\",\r\n      \"issuer_tax_id_code\": \"20357265992\",\r\n      \"issuer_tax_id_type\": \"AR-CUIT\",\r\n      \"issuer_legal_name\": \"Tecnologias Avanzadas S.A.\",\r\n      \"issuer_address\": \"Av. Corrientes 1234\",\r\n      \"issuer_district\": \"San Nicolas\",\r\n      \"issuer_city\": \"Ciudad Autonoma de Buenos Aires\",\r\n      \"issuer_department\": \"Buenos Aires\",\r\n      \"issuer_country_id\": \"88\",\r\n      \"issuer_phone\": \"011-4321-5678\",\r\n      \"issuer_activity\": \"Servicios de desarrollo de software\",\r\n      \"issuer_postalcode\": \"1043\",\r\n      \"receiver_tax_id_code\": \"30274688781\",\r\n      \"receiver_tax_id_type\": \"AR-CUIT\",\r\n      \"receiver_legal_name\": \"ESCUELA KEMPER URGATES\",\r\n      \"receiver_address\": \"Calle Belgrano 456\",\r\n      \"receiver_district\": \"Centro\",\r\n      \"receiver_city\": \"Cordoba\",\r\n      \"receiver_department\": \"Cordoba\",\r\n      \"receiver_country_id\": \"88\",\r\n      \"receiver_phone\": \"0351-487-2233\",\r\n      \"receiver_activity\": \"Servicios educativos\",\r\n      \"receiver_postalcode\": \"5000\",\r\n      \"payment_conditions\": \"0\",\r\n      \"currency_id\": 1,\r\n      \"branch_office_code\": 12,\r\n      \"additional\":{\r\n         \"ar_header\":{\r\n            \"invoice_concept\": 1,\r\n            \"items_quantity\": 1,\r\n            \"service_date_from\": \"2025-10-14\",\r\n            \"service_date_to\": \"2025-10-14\",\r\n            \"service_payment_due_date\": \"2025-10-14\",\r\n            \"receiver_vat_condition_id\": 1\r\n         }\r\n      }\r\n   },\r\n   \"details\": [\r\n    {\r\n      \"quantity\": 1,\r\n      \"line_description\": \"Prueba Koywe\",\r\n      \"unit_measure\": \"NIU\",\r\n      \"unit_price\": 150,\r\n      \"long_description\": \"Test descripcion\",\r\n      \"modifier_amount\": 0,\r\n      \"total_taxes\": 34.05,\r\n      \"modifier_percentage\": 0,\r\n      \"total_amount_line\": 184.05,\r\n      \"sku\": \"3245\",\r\n      \"taxes\": [\r\n        {\r\n               \"tax_type_id\":\"474\",\r\n               \"tax_percentage\":21,\r\n               \"tax_amount\":21,\r\n               \"tax_base_amount\": 100\r\n            },\r\n            {\r\n               \"tax_type_id\":\"475\",\r\n               \"tax_percentage\":10.5,\r\n               \"tax_amount\":5.25,\r\n               \"tax_base_amount\": 50\r\n            },\r\n            {\r\n               \"tax_type_id\":\"484\",\r\n               \"tax_percentage\":5.2,\r\n               \"tax_amount\":7.8,\r\n               \"tax_base_amount\": 150\r\n            }\r\n      ]\r\n    }\r\n  ],\r\n   \"references\": [\r\n\t   {\r\n\t\t  \"document_type_id\": \"111\",\r\n\t\t  \"reference_number\": \"68\",\r\n\t\t  \"reference_code\": \"01\",\r\n\t\t  \"description\": \"Anulacion solicitada por el emisor\",\r\n\t\t  \"reference_branch_office_code\": 12,\r\n\t\t  \"reference_date\": \"2025-10-17\"\r\n\t   }\r\n   ],\r\n   \"totals\":{\r\n      \"net_amount\":150,\r\n      \"vat_amount\":34.05,\r\n      \"total_amount\":184.05\r\n   }\r\n}",
+							"raw": "{\r\n   \"header\":{\r\n      \"account_id\": 29240,\r\n      \"document_type_id\":\"120\",\r\n      \"issue_date\": \"2025-10-24\",\r\n      \"issuer_tax_id_code\": \"20357265992\",\r\n      \"issuer_tax_id_type\": \"AR-CUIT\",\r\n      \"issuer_legal_name\": \"Tecnologias Avanzadas S.A.\",\r\n      \"issuer_address\": \"Av. Corrientes 1234\",\r\n      \"issuer_district\": \"San Nicolas\",\r\n      \"issuer_city\": \"Ciudad Autonoma de Buenos Aires\",\r\n      \"issuer_department\": \"Buenos Aires\",\r\n      \"issuer_country_id\": \"88\",\r\n      \"issuer_phone\": \"011-4321-5678\",\r\n      \"issuer_activity\": \"Servicios de desarrollo de software\",\r\n      \"issuer_postalcode\": \"1043\",\r\n      \"receiver_tax_id_code\": \"30274688781\",\r\n      \"receiver_tax_id_type\": \"AR-CUIT\",\r\n      \"receiver_legal_name\": \"ESCUELA KEMPER URGATES\",\r\n      \"receiver_address\": \"Calle Belgrano 456\",\r\n      \"receiver_district\": \"Centro\",\r\n      \"receiver_city\": \"Cordoba\",\r\n      \"receiver_department\": \"Cordoba\",\r\n      \"receiver_country_id\": \"88\",\r\n      \"receiver_phone\": \"0351-487-2233\",\r\n      \"receiver_activity\": \"Servicios educativos\",\r\n      \"receiver_postalcode\": \"5000\",\r\n      \"payment_conditions\": \"0\",\r\n      \"currency_id\": 1,\r\n      \"branch_office_code\": 12,\r\n      \"additional\":{\r\n         \"ar_header\":{\r\n            \"invoice_concept\": 1,\r\n            \"items_quantity\": 1,\r\n            \"service_date_from\": \"2025-10-14\",\r\n            \"service_date_to\": \"2025-10-14\",\r\n            \"service_payment_due_date\": \"2025-10-14\",\r\n            \"receiver_vat_condition_id\": 1\r\n         }\r\n      }\r\n   },\r\n   \"details\": [\r\n    {\r\n      \"quantity\": 1,\r\n      \"line_description\": \"Prueba Koywe\",\r\n      \"unit_measure\": \"NIU\",\r\n      \"unit_price\": 150,\r\n      \"long_description\": \"Test descripcion\",\r\n      \"modifier_amount\": 0,\r\n      \"total_taxes\": 34.05,\r\n      \"modifier_percentage\": 0,\r\n      \"total_amount_line\": 184.05,\r\n      \"sku\": \"3245\",\r\n      \"taxes\": [\r\n        {\r\n               \"tax_type_id\":\"474\",\r\n               \"tax_percentage\":21,\r\n               \"tax_amount\":21,\r\n               \"tax_base_amount\": 100\r\n            },\r\n            {\r\n               \"tax_type_id\":\"475\",\r\n               \"tax_percentage\":10.5,\r\n               \"tax_amount\":5.25,\r\n               \"tax_base_amount\": 50\r\n            },\r\n            {\r\n               \"tax_type_id\":\"484\",\r\n               \"tax_percentage\":5.2,\r\n               \"tax_amount\":7.8,\r\n               \"tax_base_amount\": 150\r\n            }\r\n      ]\r\n    }\r\n  ],\r\n   \"references\": [\r\n\t   {\r\n\t\t  \"document_type_id\": \"119\",\r\n\t\t  \"reference_number\": \"68\",\r\n\t\t  \"reference_code\": \"01\",\r\n\t\t  \"description\": \"Anulacion solicitada por el emisor\",\r\n\t\t  \"reference_branch_office_code\": 12,\r\n\t\t  \"reference_date\": \"2025-10-17\"\r\n\t   }\r\n   ],\r\n   \"totals\":{\r\n      \"net_amount\":150,\r\n      \"vat_amount\":34.05,\r\n      \"total_amount\":184.05\r\n   }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -6292,7 +6292,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{session_token_chile}}",
+									"value": "{{session_token_argentina}}",
 									"type": "string"
 								}
 							]
@@ -6407,7 +6407,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{session_token_chile}}",
+									"value": "{{session_token_argentina}}",
 									"type": "string"
 								}
 							]
@@ -6522,7 +6522,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{session_token_chile}}",
+									"value": "{{session_token_argentina}}",
 									"type": "string"
 								}
 							]
@@ -6531,7 +6531,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n   \"header\":{\r\n      \"account_id\": 29240,\r\n      \"document_type_id\":\"124\",\r\n      \"received_issued_flag\":0,\r\n      \"issue_date\":\"2025-10-24\",\r\n      \"issuer_tax_id_code\":\"20610383727\",\r\n      \"issuer_tax_id_type\":\"AR-CUIT\",\r\n      \"issuer_legal_name\":\"<string>\",\r\n      \"issuer_address\":\"<string>\",\r\n      \"issuer_district\":\"<string>\",\r\n      \"issuer_city\":\"<string>\",\r\n      \"issuer_department\":\"<string>\",\r\n      \"issuer_country_id\":\"88\",\r\n      \"issuer_phone\":\"<string>\",\r\n      \"issuer_activity\":\"<string>\",\r\n\t  \"issuer_postalcode\":\"12345456\",\r\n      \"receiver_tax_id_code\":\"20111111112\",\r\n      \"receiver_tax_id_type\":\"AR-CUIT\",\r\n      \"receiver_legal_name\":\"ESCUELA KEMPER URGATES\",\r\n      \"receiver_address\":\"string\",\r\n      \"receiver_district\":\"string\",\r\n      \"receiver_city\":\"string\",\r\n      \"receiver_department\":\"string\",\r\n      \"receiver_country_id\":\"83\",\r\n      \"receiver_phone\":\"<string>\",\r\n      \"receiver_activity\":\"<string>\",\r\n\t \"receiver_postalcode\":\"12343456\",\r\n      \"payment_conditions\":\"0\",\r\n      \"currency_id\":1,\r\n      \"branch_office_code\": 12,\r\n      \"additional\":{\r\n         \"ar_header\":{\r\n            \"invoice_concept\": 1,\r\n            \"items_quantity\": 1,\r\n            \"service_date_from\": \"2025-10-24\",\r\n            \"service_date_to\": \"2025-10-24\",\r\n            \"service_payment_due_date\": \"2025-10-24\",\r\n            \"receiver_vat_condition_id\": 9,\r\n            \"existing_permission\": \"N\",\r\n            \"language_code\": 1\r\n         }\r\n      }\r\n   },\r\n   \"details\": [\r\n    {\r\n      \"quantity\": 1,\r\n      \"line_description\": \"Prueba Koywe\",\r\n      \"unit_measure\": \"UN\",\r\n      \"unit_price\": 5000,\r\n      \"long_description\": \"Test descripcion\",\r\n      \"modifier_amount\": 0,\r\n      \"total_taxes\": 0,\r\n      \"modifier_percentage\": 0,\r\n      \"total_amount_line\": 5000,\r\n      \"sku\": \"3245\"\r\n    }\r\n  ],\r\n  \"references\": [\r\n\t   {\r\n\t\t  \"document_type_id\": \"123\",\r\n\t\t  \"reference_number\": \"15\",\r\n\t\t  \"reference_code\": \"01\",\r\n\t\t  \"description\": \"Anulacion solicitada por el emisor\",\r\n\t\t  \"reference_branch_office_code\": 12,\r\n\t\t  \"reference_date\": \"2025-10-24\"\r\n\t   }\r\n   ],\r\n   \"totals\":{\r\n      \"net_amount\":5000,\r\n      \"total_amount\":5000\r\n   }\r\n}",
+							"raw": "{\r\n   \"header\":{\r\n      \"account_id\": 29240,\r\n      \"document_type_id\":\"113\",\r\n      \"received_issued_flag\":0,\r\n      \"issue_date\":\"2025-10-24\",\r\n      \"issuer_tax_id_code\":\"20610383727\",\r\n      \"issuer_tax_id_type\":\"AR-CUIT\",\r\n      \"issuer_legal_name\":\"<string>\",\r\n      \"issuer_address\":\"<string>\",\r\n      \"issuer_district\":\"<string>\",\r\n      \"issuer_city\":\"<string>\",\r\n      \"issuer_department\":\"<string>\",\r\n      \"issuer_country_id\":\"88\",\r\n      \"issuer_phone\":\"<string>\",\r\n      \"issuer_activity\":\"<string>\",\r\n\t  \"issuer_postalcode\":\"12345456\",\r\n      \"receiver_tax_id_code\":\"20111111112\",\r\n      \"receiver_tax_id_type\":\"AR-CUIT\",\r\n      \"receiver_legal_name\":\"ESCUELA KEMPER URGATES\",\r\n      \"receiver_address\":\"string\",\r\n      \"receiver_district\":\"string\",\r\n      \"receiver_city\":\"string\",\r\n      \"receiver_department\":\"string\",\r\n      \"receiver_country_id\":\"83\",\r\n      \"receiver_phone\":\"<string>\",\r\n      \"receiver_activity\":\"<string>\",\r\n\t \"receiver_postalcode\":\"12343456\",\r\n      \"payment_conditions\":\"0\",\r\n      \"currency_id\":1,\r\n      \"branch_office_code\": 12,\r\n      \"additional\":{\r\n         \"ar_header\":{\r\n            \"invoice_concept\": 1,\r\n            \"items_quantity\": 1,\r\n            \"service_date_from\": \"2025-10-24\",\r\n            \"service_date_to\": \"2025-10-24\",\r\n            \"service_payment_due_date\": \"2025-10-24\",\r\n            \"receiver_vat_condition_id\": 9,\r\n            \"existing_permission\": \"N\",\r\n            \"language_code\": 1\r\n         }\r\n      }\r\n   },\r\n   \"details\": [\r\n    {\r\n      \"quantity\": 1,\r\n      \"line_description\": \"Prueba Koywe\",\r\n      \"unit_measure\": \"UN\",\r\n      \"unit_price\": 5000,\r\n      \"long_description\": \"Test descripcion\",\r\n      \"modifier_amount\": 0,\r\n      \"total_taxes\": 0,\r\n      \"modifier_percentage\": 0,\r\n      \"total_amount_line\": 5000,\r\n      \"sku\": \"3245\"\r\n    }\r\n  ],\r\n  \"references\": [\r\n\t   {\r\n\t\t  \"document_type_id\": \"111\",\r\n\t\t  \"reference_number\": \"15\",\r\n\t\t  \"reference_code\": \"01\",\r\n\t\t  \"description\": \"Anulacion solicitada por el emisor\",\r\n\t\t  \"reference_branch_office_code\": 12,\r\n\t\t  \"reference_date\": \"2025-10-24\"\r\n\t   }\r\n   ],\r\n   \"totals\":{\r\n      \"net_amount\":5000,\r\n      \"total_amount\":5000\r\n   }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -6637,7 +6637,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{session_token_chile}}",
+									"value": "{{session_token_argentina}}",
 									"type": "string"
 								}
 							]
@@ -6646,7 +6646,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n   \"header\":{\r\n      \"account_id\": 29240,\r\n      \"document_type_id\":\"124\",\r\n      \"received_issued_flag\":0,\r\n      \"issue_date\":\"2025-10-24\",\r\n      \"issuer_tax_id_code\":\"20610383727\",\r\n      \"issuer_tax_id_type\":\"AR-CUIT\",\r\n      \"issuer_legal_name\":\"<string>\",\r\n      \"issuer_address\":\"<string>\",\r\n      \"issuer_district\":\"<string>\",\r\n      \"issuer_city\":\"<string>\",\r\n      \"issuer_department\":\"<string>\",\r\n      \"issuer_country_id\":\"88\",\r\n      \"issuer_phone\":\"<string>\",\r\n      \"issuer_activity\":\"<string>\",\r\n\t  \"issuer_postalcode\":\"12345456\",\r\n      \"receiver_tax_id_code\":\"20111111112\",\r\n      \"receiver_tax_id_type\":\"AR-CUIT\",\r\n      \"receiver_legal_name\":\"ESCUELA KEMPER URGATES\",\r\n      \"receiver_address\":\"string\",\r\n      \"receiver_district\":\"string\",\r\n      \"receiver_city\":\"string\",\r\n      \"receiver_department\":\"string\",\r\n      \"receiver_country_id\":\"83\",\r\n      \"receiver_phone\":\"<string>\",\r\n      \"receiver_activity\":\"<string>\",\r\n\t \"receiver_postalcode\":\"12343456\",\r\n      \"payment_conditions\":\"0\",\r\n      \"currency_id\":1,\r\n      \"branch_office_code\": 12,\r\n      \"additional\":{\r\n         \"ar_header\":{\r\n            \"invoice_concept\": 1,\r\n            \"items_quantity\": 1,\r\n            \"service_date_from\": \"2025-10-24\",\r\n            \"service_date_to\": \"2025-10-24\",\r\n            \"service_payment_due_date\": \"2025-10-24\",\r\n            \"receiver_vat_condition_id\": 9,\r\n            \"existing_permission\": \"N\",\r\n            \"language_code\": 1\r\n         }\r\n      }\r\n   },\r\n   \"details\": [\r\n    {\r\n      \"quantity\": 1,\r\n      \"line_description\": \"Prueba Koywe\",\r\n      \"unit_measure\": \"UN\",\r\n      \"unit_price\": 5000,\r\n      \"long_description\": \"Test descripcion\",\r\n      \"modifier_amount\": 0,\r\n      \"total_taxes\": 0,\r\n      \"modifier_percentage\": 0,\r\n      \"total_amount_line\": 5000,\r\n      \"sku\": \"3245\"\r\n    }\r\n  ],\r\n  \"references\": [\r\n\t   {\r\n\t\t  \"document_type_id\": \"123\",\r\n\t\t  \"reference_number\": \"15\",\r\n\t\t  \"reference_code\": \"01\",\r\n\t\t  \"description\": \"Anulacion solicitada por el emisor\",\r\n\t\t  \"reference_branch_office_code\": 12,\r\n\t\t  \"reference_date\": \"2025-10-24\"\r\n\t   }\r\n   ],\r\n   \"totals\":{\r\n      \"net_amount\":5000,\r\n      \"total_amount\":5000\r\n   }\r\n}",
+							"raw": "{\r\n   \"header\":{\r\n      \"account_id\": 29240,\r\n      \"document_type_id\":\"117\",\r\n      \"received_issued_flag\":0,\r\n      \"issue_date\":\"2025-10-24\",\r\n      \"issuer_tax_id_code\":\"20610383727\",\r\n      \"issuer_tax_id_type\":\"AR-CUIT\",\r\n      \"issuer_legal_name\":\"<string>\",\r\n      \"issuer_address\":\"<string>\",\r\n      \"issuer_district\":\"<string>\",\r\n      \"issuer_city\":\"<string>\",\r\n      \"issuer_department\":\"<string>\",\r\n      \"issuer_country_id\":\"88\",\r\n      \"issuer_phone\":\"<string>\",\r\n      \"issuer_activity\":\"<string>\",\r\n\t  \"issuer_postalcode\":\"12345456\",\r\n      \"receiver_tax_id_code\":\"20111111112\",\r\n      \"receiver_tax_id_type\":\"AR-CUIT\",\r\n      \"receiver_legal_name\":\"ESCUELA KEMPER URGATES\",\r\n      \"receiver_address\":\"string\",\r\n      \"receiver_district\":\"string\",\r\n      \"receiver_city\":\"string\",\r\n      \"receiver_department\":\"string\",\r\n      \"receiver_country_id\":\"83\",\r\n      \"receiver_phone\":\"<string>\",\r\n      \"receiver_activity\":\"<string>\",\r\n\t \"receiver_postalcode\":\"12343456\",\r\n      \"payment_conditions\":\"0\",\r\n      \"currency_id\":1,\r\n      \"branch_office_code\": 12,\r\n      \"additional\":{\r\n         \"ar_header\":{\r\n            \"invoice_concept\": 1,\r\n            \"items_quantity\": 1,\r\n            \"service_date_from\": \"2025-10-24\",\r\n            \"service_date_to\": \"2025-10-24\",\r\n            \"service_payment_due_date\": \"2025-10-24\",\r\n            \"receiver_vat_condition_id\": 9,\r\n            \"existing_permission\": \"N\",\r\n            \"language_code\": 1\r\n         }\r\n      }\r\n   },\r\n   \"details\": [\r\n    {\r\n      \"quantity\": 1,\r\n      \"line_description\": \"Prueba Koywe\",\r\n      \"unit_measure\": \"UN\",\r\n      \"unit_price\": 5000,\r\n      \"long_description\": \"Test descripcion\",\r\n      \"modifier_amount\": 0,\r\n      \"total_taxes\": 0,\r\n      \"modifier_percentage\": 0,\r\n      \"total_amount_line\": 5000,\r\n      \"sku\": \"3245\"\r\n    }\r\n  ],\r\n  \"references\": [\r\n\t   {\r\n\t\t  \"document_type_id\": \"115\",\r\n\t\t  \"reference_number\": \"15\",\r\n\t\t  \"reference_code\": \"01\",\r\n\t\t  \"description\": \"Anulacion solicitada por el emisor\",\r\n\t\t  \"reference_branch_office_code\": 12,\r\n\t\t  \"reference_date\": \"2025-10-24\"\r\n\t   }\r\n   ],\r\n   \"totals\":{\r\n      \"net_amount\":5000,\r\n      \"total_amount\":5000\r\n   }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -6752,7 +6752,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{session_token_chile}}",
+									"value": "{{session_token_argentina}}",
 									"type": "string"
 								}
 							]
@@ -6761,7 +6761,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{{\r\n   \"header\":{\r\n      \"account_id\": 29240,\r\n      \"document_type_id\":\"121\",\r\n      \"issue_date\": \"2025-10-24\",\r\n      \"issuer_tax_id_code\": \"20357265992\",\r\n      \"issuer_tax_id_type\": \"AR-CUIT\",\r\n      \"issuer_legal_name\": \"Tecnologias Avanzadas S.A.\",\r\n      \"issuer_address\": \"Av. Corrientes 1234\",\r\n      \"issuer_district\": \"San Nicolas\",\r\n      \"issuer_city\": \"Ciudad Autonoma de Buenos Aires\",\r\n      \"issuer_department\": \"Buenos Aires\",\r\n      \"issuer_country_id\": \"88\",\r\n      \"issuer_phone\": \"011-4321-5678\",\r\n      \"issuer_activity\": \"Servicios de desarrollo de software\",\r\n      \"issuer_postalcode\": \"1043\",\r\n      \"receiver_tax_id_code\": \"30274688781\",\r\n      \"receiver_tax_id_type\": \"AR-CUIT\",\r\n      \"receiver_legal_name\": \"ESCUELA KEMPER URGATES\",\r\n      \"receiver_address\": \"Calle Belgrano 456\",\r\n      \"receiver_district\": \"Centro\",\r\n      \"receiver_city\": \"Cordoba\",\r\n      \"receiver_department\": \"Cordoba\",\r\n      \"receiver_country_id\": \"88\",\r\n      \"receiver_phone\": \"0351-487-2233\",\r\n      \"receiver_activity\": \"Servicios educativos\",\r\n      \"receiver_postalcode\": \"5000\",\r\n      \"payment_conditions\": \"0\",\r\n      \"currency_id\": 1,\r\n      \"branch_office_code\": 12,\r\n      \"additional\":{\r\n         \"ar_header\":{\r\n            \"invoice_concept\": 1,\r\n            \"items_quantity\": 1,\r\n            \"service_date_from\": \"2025-10-14\",\r\n            \"service_date_to\": \"2025-10-14\",\r\n            \"service_payment_due_date\": \"2025-10-14\",\r\n            \"receiver_vat_condition_id\": 1\r\n         }\r\n      }\r\n   },\r\n   \"details\": [\r\n    {\r\n      \"quantity\": 1,\r\n      \"line_description\": \"Prueba Koywe\",\r\n      \"unit_measure\": \"NIU\",\r\n      \"unit_price\": 150,\r\n      \"long_description\": \"Test descripcion\",\r\n      \"modifier_amount\": 0,\r\n      \"total_taxes\": 34.05,\r\n      \"modifier_percentage\": 0,\r\n      \"total_amount_line\": 184.05,\r\n      \"sku\": \"3245\",\r\n      \"taxes\": [\r\n        {\r\n               \"tax_type_id\":\"474\",\r\n               \"tax_percentage\":21,\r\n               \"tax_amount\":21,\r\n               \"tax_base_amount\": 100\r\n            },\r\n            {\r\n               \"tax_type_id\":\"475\",\r\n               \"tax_percentage\":10.5,\r\n               \"tax_amount\":5.25,\r\n               \"tax_base_amount\": 50\r\n            },\r\n            {\r\n               \"tax_type_id\":\"484\",\r\n               \"tax_percentage\":5.2,\r\n               \"tax_amount\":7.8,\r\n               \"tax_base_amount\": 150\r\n            }\r\n      ]\r\n    }\r\n  ],\r\n   \"references\": [\r\n\t   {\r\n\t\t  \"document_type_id\": \"119\",\r\n\t\t  \"reference_document_id\": 1544,\r\n\t\t  \"reference_code\": \"01\",\r\n\t\t  \"description\": \"Anulacion solicitada por el emisor\",\r\n\t\t  \"reference_branch_office_code\": 12,\r\n\t\t  \"reference_date\": \"2025-10-17\"\r\n\t   }\r\n   ],\r\n   \"totals\":{\r\n      \"net_amount\":150,\r\n      \"vat_amount\":34.05,\r\n      \"total_amount\":184.05\r\n   }\r\n}\r\n",
+							"raw": "{\r\n   \"header\":{\r\n      \"account_id\": 29240,\r\n      \"document_type_id\":\"121\",\r\n      \"issue_date\": \"2025-10-24\",\r\n      \"issuer_tax_id_code\": \"20357265992\",\r\n      \"issuer_tax_id_type\": \"AR-CUIT\",\r\n      \"issuer_legal_name\": \"Tecnologias Avanzadas S.A.\",\r\n      \"issuer_address\": \"Av. Corrientes 1234\",\r\n      \"issuer_district\": \"San Nicolas\",\r\n      \"issuer_city\": \"Ciudad Autonoma de Buenos Aires\",\r\n      \"issuer_department\": \"Buenos Aires\",\r\n      \"issuer_country_id\": \"88\",\r\n      \"issuer_phone\": \"011-4321-5678\",\r\n      \"issuer_activity\": \"Servicios de desarrollo de software\",\r\n      \"issuer_postalcode\": \"1043\",\r\n      \"receiver_tax_id_code\": \"30274688781\",\r\n      \"receiver_tax_id_type\": \"AR-CUIT\",\r\n      \"receiver_legal_name\": \"ESCUELA KEMPER URGATES\",\r\n      \"receiver_address\": \"Calle Belgrano 456\",\r\n      \"receiver_district\": \"Centro\",\r\n      \"receiver_city\": \"Cordoba\",\r\n      \"receiver_department\": \"Cordoba\",\r\n      \"receiver_country_id\": \"88\",\r\n      \"receiver_phone\": \"0351-487-2233\",\r\n      \"receiver_activity\": \"Servicios educativos\",\r\n      \"receiver_postalcode\": \"5000\",\r\n      \"payment_conditions\": \"0\",\r\n      \"currency_id\": 1,\r\n      \"branch_office_code\": 12,\r\n      \"additional\":{\r\n         \"ar_header\":{\r\n            \"invoice_concept\": 1,\r\n            \"items_quantity\": 1,\r\n            \"service_date_from\": \"2025-10-14\",\r\n            \"service_date_to\": \"2025-10-14\",\r\n            \"service_payment_due_date\": \"2025-10-14\",\r\n            \"receiver_vat_condition_id\": 1\r\n         }\r\n      }\r\n   },\r\n   \"details\": [\r\n    {\r\n      \"quantity\": 1,\r\n      \"line_description\": \"Prueba Koywe\",\r\n      \"unit_measure\": \"NIU\",\r\n      \"unit_price\": 150,\r\n      \"long_description\": \"Test descripcion\",\r\n      \"modifier_amount\": 0,\r\n      \"total_taxes\": 34.05,\r\n      \"modifier_percentage\": 0,\r\n      \"total_amount_line\": 184.05,\r\n      \"sku\": \"3245\",\r\n      \"taxes\": [\r\n        {\r\n               \"tax_type_id\":\"474\",\r\n               \"tax_percentage\":21,\r\n               \"tax_amount\":21,\r\n               \"tax_base_amount\": 100\r\n            },\r\n            {\r\n               \"tax_type_id\":\"475\",\r\n               \"tax_percentage\":10.5,\r\n               \"tax_amount\":5.25,\r\n               \"tax_base_amount\": 50\r\n            },\r\n            {\r\n               \"tax_type_id\":\"484\",\r\n               \"tax_percentage\":5.2,\r\n               \"tax_amount\":7.8,\r\n               \"tax_base_amount\": 150\r\n            }\r\n      ]\r\n    }\r\n  ],\r\n   \"references\": [\r\n\t   {\r\n\t\t  \"document_type_id\": \"119\",\r\n\t\t  \"reference_document_id\": 1544,\r\n\t\t  \"reference_code\": \"01\",\r\n\t\t  \"description\": \"Anulacion solicitada por el emisor\",\r\n\t\t  \"reference_branch_office_code\": 12,\r\n\t\t  \"reference_date\": \"2025-10-17\"\r\n\t   }\r\n   ],\r\n   \"totals\":{\r\n      \"net_amount\":150,\r\n      \"vat_amount\":34.05,\r\n      \"total_amount\":184.05\r\n   }\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -6867,7 +6867,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{session_token_chile}}",
+									"value": "{{session_token_argentina}}",
 									"type": "string"
 								}
 							]
@@ -6982,7 +6982,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{session_token_chile}}",
+									"value": "{{session_token_argentina}}",
 									"type": "string"
 								}
 							]
