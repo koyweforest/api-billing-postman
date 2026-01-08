@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "4df4da2e-2eaa-43f0-9c92-6c6a0d314b62",
+		"_postman_id": "a4bc5ec8-93b7-4414-9ddc-8537ca979b12",
 		"name": "Koywe Billing",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "44754209",
@@ -238,120 +238,6 @@
 								"V1",
 								"documents"
 							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Create new documents - Purchase invoice (Factura de compra electrónica)",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"var template = `\r",
-									"<canvas id=\"myChart\" height=\"75\"></canvas>\r",
-									"\r",
-									"<script src=\"https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js\"></script> \r",
-									"\r",
-									"<script>\r",
-									"    var ctx = document.getElementById(\"myChart\");\r",
-									"\r",
-									"    var myChart = new Chart(ctx, {\r",
-									"        type: \"bar\",\r",
-									"        data: {\r",
-									"            labels: [\"Net Amount\", \"Taxes Amount\", \"Total Amount\"],\r",
-									"            datasets: [{\r",
-									"                data: [],\r",
-									"                // Change these colours to customize the chart\r",
-									"                backgroundColor: [\"#003f5c\", \"#58508d\", \"#bc5090\"],\r",
-									"            }]\r",
-									"        },\r",
-									"        options: {\r",
-									"            legend: { display: false },\r",
-									"            title: {\r",
-									"                display: true,\r",
-									"                text: 'Document Totals'\r",
-									"            },\r",
-									"            scales: {\r",
-									"                xAxes: [{\r",
-									"                    display: true,\r",
-									"                    scaleLabel: {\r",
-									"                        display: true,\r",
-									"                        labelString: 'Categories'\r",
-									"                    }\r",
-									"                }],\r",
-									"                yAxes: [{\r",
-									"                    display: true,\r",
-									"                    scaleLabel: {\r",
-									"                        display: true,\r",
-									"                        labelString: 'Amount'\r",
-									"                    }\r",
-									"                }]\r",
-									"            }\r",
-									"        }\r",
-									"\r",
-									"    });\r",
-									"\r",
-									"    // Access the data passed to pm.visualizer.set() from the JavaScript\r",
-									"    pm.getData(function (err, value) {\r",
-									"        myChart.data.datasets[0].data = [value.response.totals.net_amount, value.response.totals.taxes_amount, value.response.totals.total_amount];\r",
-									"        myChart.update();\r",
-									"    });\r",
-									"\r",
-									"</script>`;\r",
-									"\r",
-									"function constructVisualizerPayload() {\r",
-									"    var res = pm.response.json();\r",
-									"    \r",
-									"    var visualizerData = {\r",
-									"        totals: res.totals\r",
-									"    };\r",
-									"\r",
-									"    return {response: visualizerData};\r",
-									"}\r",
-									"\r",
-									"pm.visualizer.set(template, constructVisualizerPayload());"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"auth": {
-							"type": "bearer",
-  "bearer": [
-    {
-      "key": "token",
-       "value": "{{session_token_chile}}",
-      "type": "string"
-    }
-  ]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"header\": {\r\n    \"account_id\": 423,\r\n    \"document_type_id\": \"31\",\r\n\r\n    \"received_issued_flag\": 1,\r\n    \"issue_date\": \"2025-01-07\",\r\n    \"issuer_tax_id_code\": \"76399932-7\",\r\n    \"issuer_tax_id_type\": \"CL-RUT\",\r\n    \"issuer_legal_name\": \"Laura\",\r\n    \"issuer_address\": \"Gregorio\",\r\n    \"issuer_district\": \"Centro\",\r\n    \"issuer_city\": \"Santiadfo\",\r\n    \"issuer_country_id\": \"253\",\r\n    \"issuer_phone\": \"442020550\",\r\n    \"issuer_activity\": \"Venta\",\r\n    \"receiver_tax_id_code\": \"76399932-7\",\r\n    \"receiver_tax_id_type\": \"CL-RUT\",\r\n    \"receiver_legal_name\": \"ESCUELA KEMPER URGATE\",\r\n    \"receiver_address\": \"Camacho\",\r\n    \"receiver_district\": \"Superior\",\r\n    \"receiver_city\": \"Iquique\",\r\n    \"receiver_country_id\": \"253\",\r\n    \"receiver_phone\": \"442020551\",\r\n    \"receiver_activity\": \"Venta Mayor\",\r\n    \"payment_conditions\": \"0\",\r\n    \"currency_id\": 39\r\n\r\n  },\r\n  \"details\": [\r\n    {\r\n      \"quantity\": 1,\r\n      \"sku\": \"aa111\",\r\n      \"line_description\": \"Prueba Koywe\",\r\n      \"unit_measure\": \"UN\",\r\n      \"unit_price\": 1500,\r\n      \"long_description\": \"Esta es una linea de prueba\",\r\n      \"modifier_amount\": -100,\r\n      \"total_taxes\": 266,\r\n      \"modifier_percentage\": 0,\r\n      \"total_amount_line\": 1624,\r\n      \"taxes\": [\r\n        {\r\n          \"tax_type_id\": \"387\",\r\n          \"tax_percentage\": 19,\r\n          \"tax_amount\": 266\r\n        }\r\n      ]\r\n    }\r\n  ],\r\n  \"totals\": {\r\n    \"net_amount\": 1400,\r\n    \"taxes_amount\": 266,\r\n    \"total_amount\": 1666\r\n  }\r\n}\r\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-						  "raw": "https://api-billing.koywe.com/V1/documents",
-						  "protocol": "https",
-						  "host": [
-						    "api-billing",
-						    "koywe",
-						    "com"
-						  ],
-						  "path": [
-						    "V1",
-						    "documents"
-						  ]
 						}
 					},
 					"response": []
@@ -5506,6 +5392,1511 @@
 							"response": []
 						}
 					]
+				}
+			]
+		},
+		{
+			"name": "Argentina",
+			"item": [
+				{
+					"name": "Sandbox environment credentials",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.expect(pm.response.code).to.equal(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response contains required fields\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData).to.be.an('object');\r",
+									"    pm.expect(responseData).to.have.all.keys('access_token', 'expires_in', 'token_type', 'scope', 'refresh_token');\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Access token is a non-empty string\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData).to.be.an('object');\r",
+									"    pm.expect(responseData.access_token).to.exist.and.to.be.a('string').and.to.have.lengthOf.above(0, \"Access token should not be empty\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Expires_in is a positive integer\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData).to.be.an('object');\r",
+									"    pm.expect(responseData.expires_in).to.exist.and.to.be.a('number').and.to.be.above(0, \"Value should be a positive integer\");\r",
+									"});\r",
+									"\r",
+									"// ✅ Guarda el token para Argentina\r",
+									"pm.environment.set(\"session_token_argentina\", pm.response.json().access_token);"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"grant_type\": \"password\",\r\n    \"client_id\": \"demo/001\",\r\n    \"client_secret\": \"1ac1baf6288f8ca90e313e448b2807c5\",\r\n    \"username\": \"demoargentina\",\r\n    \"password\": \"72438e29341796776f79689497c57d17\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api-billing.koywe.com/V1/auth",
+							"protocol": "https",
+							"host": [
+								"api-billing",
+								"koywe",
+								"com"
+							],
+							"path": [
+								"V1",
+								"auth"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a new account",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{session_token_argentina}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"country_id\": 88,\r\n    \"contact_name\": \"empresa test\",\r\n    \"contact_phone\": \"+5492644564738\",\r\n    \"admin_email\": \"test@company.com\",\r\n    \"admin_password\": \"nuevaclave\",\r\n    \"registration_legal_name_company\": \"my company\",\r\n    \"registration_tax_id_code\": \"30274688781\",\r\n    \"registration_tax_id_type\": \"AR-CUIT\",\r\n    \"registration_company_size\": 1,\r\n    \"registration_company_industry_sector\": \"1\",\r\n    \"registration_type_use\": 1,\r\n    \"registration_terms_of_use\": 1,\r\n    \"registration_additional_data\": {\r\n        \"certificate_cer\": \"MIIZhQIBAzCCGU8GCSqGSIb3DQE...\",\r\n        \"certificate_key\": \"7d800b3dc1eb5fcd6\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api-billing.koywe.com/V1/accounts",
+							"protocol": "https",
+							"host": [
+								"api-billing",
+								"koywe",
+								"com"
+							],
+							"path": [
+								"V1",
+								"accounts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create new documents - Invoice A (Electronic Invoice A)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var template = `\r",
+									"<canvas id=\"myChart\" height=\"75\"></canvas>\r",
+									"\r",
+									"<script src=\"https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js\"></script> \r",
+									"\r",
+									"<script>\r",
+									"    var ctx = document.getElementById(\"myChart\");\r",
+									"\r",
+									"    var myChart = new Chart(ctx, {\r",
+									"        type: \"bar\",\r",
+									"        data: {\r",
+									"            labels: [\"Net Amount\", \"Taxes Amount\", \"Total Amount\"],\r",
+									"            datasets: [{\r",
+									"                data: [],\r",
+									"                // Change these colours to customize the chart\r",
+									"                backgroundColor: [\"#003f5c\", \"#58508d\", \"#bc5090\"],\r",
+									"            }]\r",
+									"        },\r",
+									"        options: {\r",
+									"            legend: { display: false },\r",
+									"            title: {\r",
+									"                display: true,\r",
+									"                text: 'Document Totals'\r",
+									"            },\r",
+									"            scales: {\r",
+									"                xAxes: [{\r",
+									"                    display: true,\r",
+									"                    scaleLabel: {\r",
+									"                        display: true,\r",
+									"                        labelString: 'Categories'\r",
+									"                    }\r",
+									"                }],\r",
+									"                yAxes: [{\r",
+									"                    display: true,\r",
+									"                    scaleLabel: {\r",
+									"                        display: true,\r",
+									"                        labelString: 'Amount'\r",
+									"                    }\r",
+									"                }]\r",
+									"            }\r",
+									"        }\r",
+									"\r",
+									"    });\r",
+									"\r",
+									"    // Access the data passed to pm.visualizer.set() from the JavaScript\r",
+									"    pm.getData(function (err, value) {\r",
+									"        myChart.data.datasets[0].data = [value.response.totals.net_amount, value.response.totals.taxes_amount, value.response.totals.total_amount];\r",
+									"        myChart.update();\r",
+									"    });\r",
+									"\r",
+									"</script>`;\r",
+									"\r",
+									"function constructVisualizerPayload() {\r",
+									"    var res = pm.response.json();\r",
+									"    \r",
+									"    var visualizerData = {\r",
+									"        totals: res.totals\r",
+									"    };\r",
+									"\r",
+									"    return {response: visualizerData};\r",
+									"}\r",
+									"\r",
+									"pm.visualizer.set(template, constructVisualizerPayload());"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{session_token_argentina}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"header\":{\r\n     \"account_id\": 29240,\r\n\t \"document_type_id\": \"111\",\r\n\t \"received_issued_flag\": 0,\r\n\t \"issue_date\": \"2025-10-24\",\r\n\t \"issuer_tax_id_code\": \"20357265992\",\r\n\t \"issuer_tax_id_type\": \"AR-CUIT\",\r\n\t \"issuer_legal_name\": \"Tecnologias Avanzadas S.A.\",\r\n\t \"issuer_address\": \"Av. Corrientes 1234\",\r\n\t \"issuer_district\": \"San Nicolas\",\r\n\t \"issuer_city\": \"Ciudad Autonoma de Buenos Aires\",\r\n\t \"issuer_department\": \"Buenos Aires\",\r\n\t \"issuer_country_id\": \"88\",\r\n\t \"issuer_phone\": \"011-4321-5678\",\r\n\t \"issuer_activity\": \"Servicios de desarrollo de software\",\r\n\t \"issuer_postalcode\": \"1043\",\r\n\t \"receiver_tax_id_code\": \"30274688781\",\r\n\t \"receiver_tax_id_type\": \"AR-CUIT\",\r\n\t \"receiver_legal_name\": \"ESCUELA KEMPER URGATES\",\r\n\t \"receiver_address\": \"Calle Belgrano 456\",\r\n\t \"receiver_district\": \"Centro\",\r\n\t \"receiver_city\": \"Cordoba\",\r\n\t \"receiver_department\": \"Cordoba\",\r\n\t \"receiver_country_id\": \"88\",\r\n\t \"receiver_phone\": \"0351-487-2233\",\r\n\t \"receiver_activity\": \"Servicios educativos\",\r\n\t \"receiver_postalcode\": \"5000\",\r\n\t \"payment_conditions\": \"0\",\r\n\t \"currency_id\": 1,\r\n\t \"branch_office_code\": 12,\r\n      \"additional\":{\r\n         \"ar_header\":{\r\n            \"invoice_concept\": 1,\r\n            \"items_quantity\": 1,\r\n            \"service_date_from\": \"2025-10-14\",\r\n            \"service_date_to\": \"2025-10-14\",\r\n            \"service_payment_due_date\": \"2025-10-10\",\r\n            \"receiver_vat_condition_id\": 1\r\n         }\r\n      }\r\n   },\r\n   \"details\": [\r\n    {\r\n      \"quantity\": 1,\r\n      \"line_description\": \"Prueba Koywe\",\r\n      \"unit_measure\": \"UNI\",\r\n      \"unit_price\": 150,\r\n      \"long_description\": \"Test descripcion\",\r\n      \"modifier_amount\": 0,\r\n      \"total_taxes\": 38.25,\r\n      \"modifier_percentage\": 0,\r\n      \"total_amount_line\": 188.25,\r\n      \"sku\": \"3245\",\r\n      \"taxes\": [\r\n        {\r\n               \"tax_type_id\":\"474\",\r\n               \"tax_percentage\":21,\r\n               \"tax_amount\":21,\r\n               \"tax_base_amount\": 100\r\n            },\r\n            {\r\n               \"tax_type_id\":\"475\",\r\n               \"tax_percentage\":10.5,\r\n               \"tax_amount\":5.25,\r\n               \"tax_base_amount\": 50\r\n            },\r\n            {\r\n               \"tax_type_id\":\"484\",\r\n               \"tax_percentage\":8,\r\n               \"tax_amount\":12,\r\n               \"tax_base_amount\": 150\r\n            }\r\n      ]\r\n    },\r\n    {\r\n      \"quantity\": 1,\r\n      \"line_description\": \"Prueba Koywe 2\",\r\n      \"unit_measure\": \"UNI\",\r\n      \"unit_price\": 150,\r\n      \"long_description\": \"Test descripcion 2\",\r\n      \"modifier_amount\": 0,\r\n      \"total_taxes\": 38.25,\r\n      \"modifier_percentage\": 0,\r\n      \"total_amount_line\": 188.25,\r\n      \"sku\": \"1111\",\r\n      \"taxes\": [\r\n        {\r\n               \"tax_type_id\":\"474\",\r\n               \"tax_percentage\":21,\r\n               \"tax_amount\":21,\r\n               \"tax_base_amount\": 100\r\n            },\r\n            {\r\n               \"tax_type_id\":\"475\",\r\n               \"tax_percentage\":10.5,\r\n               \"tax_amount\":5.25,\r\n               \"tax_base_amount\": 50\r\n            },\r\n            {\r\n               \"tax_type_id\":\"484\",\r\n               \"tax_percentage\":8,\r\n               \"tax_amount\":12,\r\n               \"tax_base_amount\": 150\r\n            }\r\n      ]\r\n    }\r\n  ],\r\n   \"totals\": {\r\n    \"net_amount\": 300,\r\n    \"taxes_amount\":76.5,\r\n    \"total_amount\": 376.5\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api-billing.koywe.com/V1/documents",
+							"protocol": "https",
+							"host": [
+								"api-billing",
+								"koywe",
+								"com"
+							],
+							"path": [
+								"V1",
+								"documents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create new documents - Invoice B (Electronic Invoice B)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var template = `\r",
+									"<canvas id=\"myChart\" height=\"75\"></canvas>\r",
+									"\r",
+									"<script src=\"https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js\"></script> \r",
+									"\r",
+									"<script>\r",
+									"    var ctx = document.getElementById(\"myChart\");\r",
+									"\r",
+									"    var myChart = new Chart(ctx, {\r",
+									"        type: \"bar\",\r",
+									"        data: {\r",
+									"            labels: [\"Net Amount\", \"Taxes Amount\", \"Total Amount\"],\r",
+									"            datasets: [{\r",
+									"                data: [],\r",
+									"                // Change these colours to customize the chart\r",
+									"                backgroundColor: [\"#003f5c\", \"#58508d\", \"#bc5090\"],\r",
+									"            }]\r",
+									"        },\r",
+									"        options: {\r",
+									"            legend: { display: false },\r",
+									"            title: {\r",
+									"                display: true,\r",
+									"                text: 'Document Totals'\r",
+									"            },\r",
+									"            scales: {\r",
+									"                xAxes: [{\r",
+									"                    display: true,\r",
+									"                    scaleLabel: {\r",
+									"                        display: true,\r",
+									"                        labelString: 'Categories'\r",
+									"                    }\r",
+									"                }],\r",
+									"                yAxes: [{\r",
+									"                    display: true,\r",
+									"                    scaleLabel: {\r",
+									"                        display: true,\r",
+									"                        labelString: 'Amount'\r",
+									"                    }\r",
+									"                }]\r",
+									"            }\r",
+									"        }\r",
+									"\r",
+									"    });\r",
+									"\r",
+									"    // Access the data passed to pm.visualizer.set() from the JavaScript\r",
+									"    pm.getData(function (err, value) {\r",
+									"        myChart.data.datasets[0].data = [value.response.totals.net_amount, value.response.totals.taxes_amount, value.response.totals.total_amount];\r",
+									"        myChart.update();\r",
+									"    });\r",
+									"\r",
+									"</script>`;\r",
+									"\r",
+									"function constructVisualizerPayload() {\r",
+									"    var res = pm.response.json();\r",
+									"    \r",
+									"    var visualizerData = {\r",
+									"        totals: res.totals\r",
+									"    };\r",
+									"\r",
+									"    return {response: visualizerData};\r",
+									"}\r",
+									"\r",
+									"pm.visualizer.set(template, constructVisualizerPayload());"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{session_token_argentina}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"header\":{\r\n     \"account_id\": 29240,\r\n\t \"document_type_id\": \"115\",\r\n\t \"received_issued_flag\": 0,\r\n\t \"issue_date\": \"2025-10-24\",\r\n\t \"issuer_tax_id_code\": \"20357265992\",\r\n\t \"issuer_tax_id_type\": \"AR-CUIT\",\r\n\t \"issuer_legal_name\": \"Tecnologias Avanzadas S.A.\",\r\n\t \"issuer_address\": \"Av. Corrientes 1234\",\r\n\t \"issuer_district\": \"San Nicolas\",\r\n\t \"issuer_city\": \"Ciudad Autonoma de Buenos Aires\",\r\n\t \"issuer_department\": \"Buenos Aires\",\r\n\t \"issuer_country_id\": \"88\",\r\n\t \"issuer_phone\": \"011-4321-5678\",\r\n\t \"issuer_activity\": \"Servicios de desarrollo de software\",\r\n\t \"issuer_postalcode\": \"1043\",\r\n\t \"receiver_tax_id_code\": \"30274688781\",\r\n\t \"receiver_tax_id_type\": \"AR-CUIT\",\r\n\t \"receiver_legal_name\": \"ESCUELA KEMPER URGATES\",\r\n\t \"receiver_address\": \"Calle Belgrano 456\",\r\n\t \"receiver_district\": \"Centro\",\r\n\t \"receiver_city\": \"Cordoba\",\r\n\t \"receiver_department\": \"Cordoba\",\r\n\t \"receiver_country_id\": \"88\",\r\n\t \"receiver_phone\": \"0351-487-2233\",\r\n\t \"receiver_activity\": \"Servicios educativos\",\r\n\t \"receiver_postalcode\": \"5000\",\r\n\t \"payment_conditions\": \"0\",\r\n\t \"currency_id\": 1,\r\n\t \"branch_office_code\": 12,\r\n      \"additional\":{\r\n         \"ar_header\":{\r\n            \"invoice_concept\": 1,\r\n            \"items_quantity\": 1,\r\n            \"service_date_from\": \"2025-10-14\",\r\n            \"service_date_to\": \"2025-10-14\",\r\n            \"service_payment_due_date\": \"2025-10-10\",\r\n            \"receiver_vat_condition_id\": 1\r\n         }\r\n      }\r\n   },\r\n   \"details\": [\r\n    {\r\n      \"quantity\": 1,\r\n      \"line_description\": \"Prueba Koywe\",\r\n      \"unit_measure\": \"UNI\",\r\n      \"unit_price\": 150,\r\n      \"long_description\": \"Test descripcion\",\r\n      \"modifier_amount\": 0,\r\n      \"total_taxes\": 38.25,\r\n      \"modifier_percentage\": 0,\r\n      \"total_amount_line\": 188.25,\r\n      \"sku\": \"3245\",\r\n      \"taxes\": [\r\n        {\r\n               \"tax_type_id\":\"474\",\r\n               \"tax_percentage\":21,\r\n               \"tax_amount\":21,\r\n               \"tax_base_amount\": 100\r\n            },\r\n            {\r\n               \"tax_type_id\":\"475\",\r\n               \"tax_percentage\":10.5,\r\n               \"tax_amount\":5.25,\r\n               \"tax_base_amount\": 50\r\n            },\r\n            {\r\n               \"tax_type_id\":\"484\",\r\n               \"tax_percentage\":8,\r\n               \"tax_amount\":12,\r\n               \"tax_base_amount\": 150\r\n            }\r\n      ]\r\n    },\r\n    {\r\n      \"quantity\": 1,\r\n      \"line_description\": \"Prueba Koywe 2\",\r\n      \"unit_measure\": \"UNI\",\r\n      \"unit_price\": 150,\r\n      \"long_description\": \"Test descripcion 2\",\r\n      \"modifier_amount\": 0,\r\n      \"total_taxes\": 38.25,\r\n      \"modifier_percentage\": 0,\r\n      \"total_amount_line\": 188.25,\r\n      \"sku\": \"1111\",\r\n      \"taxes\": [\r\n        {\r\n               \"tax_type_id\":\"474\",\r\n               \"tax_percentage\":21,\r\n               \"tax_amount\":21,\r\n               \"tax_base_amount\": 100\r\n            },\r\n            {\r\n               \"tax_type_id\":\"475\",\r\n               \"tax_percentage\":10.5,\r\n               \"tax_amount\":5.25,\r\n               \"tax_base_amount\": 50\r\n            },\r\n            {\r\n               \"tax_type_id\":\"484\",\r\n               \"tax_percentage\":8,\r\n               \"tax_amount\":12,\r\n               \"tax_base_amount\": 150\r\n            }\r\n      ]\r\n    }\r\n  ],\r\n   \"totals\": {\r\n    \"net_amount\": 300,\r\n    \"taxes_amount\":76.5,\r\n    \"total_amount\": 376.5\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api-billing.koywe.com/V1/documents",
+							"protocol": "https",
+							"host": [
+								"api-billing",
+								"koywe",
+								"com"
+							],
+							"path": [
+								"V1",
+								"documents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create new documents - Invoice C (Electronic Invoice C)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var template = `\r",
+									"<canvas id=\"myChart\" height=\"75\"></canvas>\r",
+									"\r",
+									"<script src=\"https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js\"></script> \r",
+									"\r",
+									"<script>\r",
+									"    var ctx = document.getElementById(\"myChart\");\r",
+									"\r",
+									"    var myChart = new Chart(ctx, {\r",
+									"        type: \"bar\",\r",
+									"        data: {\r",
+									"            labels: [\"Net Amount\", \"Taxes Amount\", \"Total Amount\"],\r",
+									"            datasets: [{\r",
+									"                data: [],\r",
+									"                // Change these colours to customize the chart\r",
+									"                backgroundColor: [\"#003f5c\", \"#58508d\", \"#bc5090\"],\r",
+									"            }]\r",
+									"        },\r",
+									"        options: {\r",
+									"            legend: { display: false },\r",
+									"            title: {\r",
+									"                display: true,\r",
+									"                text: 'Document Totals'\r",
+									"            },\r",
+									"            scales: {\r",
+									"                xAxes: [{\r",
+									"                    display: true,\r",
+									"                    scaleLabel: {\r",
+									"                        display: true,\r",
+									"                        labelString: 'Categories'\r",
+									"                    }\r",
+									"                }],\r",
+									"                yAxes: [{\r",
+									"                    display: true,\r",
+									"                    scaleLabel: {\r",
+									"                        display: true,\r",
+									"                        labelString: 'Amount'\r",
+									"                    }\r",
+									"                }]\r",
+									"            }\r",
+									"        }\r",
+									"\r",
+									"    });\r",
+									"\r",
+									"    // Access the data passed to pm.visualizer.set() from the JavaScript\r",
+									"    pm.getData(function (err, value) {\r",
+									"        myChart.data.datasets[0].data = [value.response.totals.net_amount, value.response.totals.taxes_amount, value.response.totals.total_amount];\r",
+									"        myChart.update();\r",
+									"    });\r",
+									"\r",
+									"</script>`;\r",
+									"\r",
+									"function constructVisualizerPayload() {\r",
+									"    var res = pm.response.json();\r",
+									"    \r",
+									"    var visualizerData = {\r",
+									"        totals: res.totals\r",
+									"    };\r",
+									"\r",
+									"    return {response: visualizerData};\r",
+									"}\r",
+									"\r",
+									"pm.visualizer.set(template, constructVisualizerPayload());"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{session_token_argentina}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"header\":{\r\n     \"account_id\": 29240,\r\n\t \"document_type_id\": \"119\",\r\n\t \"received_issued_flag\": 0,\r\n\t \"issue_date\": \"2025-10-24\",\r\n     \"issuer_tax_id_code\": \"20357265992\",\r\n     \"issuer_tax_id_type\": \"AR-CUIT\",\r\n     \"issuer_legal_name\": \"Tecnologias Avanzadas S.A.\",\r\n     \"issuer_address\": \"Av. Corrientes 1234\",\r\n     \"issuer_district\": \"San Nicolas\",\r\n     \"issuer_city\": \"Ciudad Autonoma de Buenos Aires\",\r\n     \"issuer_department\": \"Buenos Aires\",\r\n     \"issuer_country_id\": \"88\",\r\n     \"issuer_phone\": \"011-4321-5678\",\r\n     \"issuer_activity\": \"Servicios de desarrollo de software\",\r\n     \"issuer_postalcode\": \"1043\",\r\n     \"receiver_tax_id_code\": \"30274688781\",\r\n     \"receiver_tax_id_type\": \"AR-CUIT\",\r\n     \"receiver_legal_name\": \"ESCUELA KEMPER URGATES\",\r\n     \"receiver_address\": \"Calle Belgrano 456\",\r\n     \"receiver_district\": \"Centro\",\r\n     \"receiver_city\": \"Cordoba\",\r\n     \"receiver_department\": \"Cordoba\",\r\n     \"receiver_country_id\": \"88\",\r\n     \"receiver_phone\": \"0351-487-2233\",\r\n     \"receiver_activity\": \"Servicios educativos\",\r\n     \"receiver_postalcode\": \"5000\",\r\n     \"payment_conditions\": \"0\",\r\n     \"currency_id\": 1,\r\n     \"branch_office_code\": 12,\r\n      \"additional\":{\r\n         \"ar_header\":{\r\n            \"invoice_concept\": 1,\r\n            \"items_quantity\": 1,\r\n            \"service_date_from\": \"2025-10-17\",\r\n            \"service_date_to\": \"2025-10-17\",\r\n            \"service_payment_due_date\": \"2025-10-17\",\r\n            \"receiver_vat_condition_id\": 7\r\n         }\r\n      }\r\n   },\r\n   \"details\": [\r\n    {\r\n      \"quantity\": 1,\r\n      \"line_description\": \"Prueba Koywe\",\r\n      \"unit_measure\": \"UNI\",\r\n      \"unit_price\": 100,\r\n      \"long_description\": \"Test descripcion\",\r\n      \"modifier_amount\": 0,\r\n      \"total_taxes\": 0,\r\n      \"modifier_percentage\": 0,\r\n      \"total_amount_line\": 100,\r\n      \"sku\": \"3245\"\r\n    }\r\n  ],\r\n   \"totals\":{\r\n      \"net_amount\":100,\r\n      \"non_taxed_amount\":0,\r\n      \"exempt_amount\":0,\r\n      \"vat_amount\":0,\r\n      \"other_taxes_amount\":0,\r\n      \"total_amount\":100\r\n   }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api-billing.koywe.com/V1/documents",
+							"protocol": "https",
+							"host": [
+								"api-billing",
+								"koywe",
+								"com"
+							],
+							"path": [
+								"V1",
+								"documents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create new documents - Invoice E (Electronic Export Invoice)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var template = `\r",
+									"<canvas id=\"myChart\" height=\"75\"></canvas>\r",
+									"\r",
+									"<script src=\"https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js\"></script> \r",
+									"\r",
+									"<script>\r",
+									"    var ctx = document.getElementById(\"myChart\");\r",
+									"\r",
+									"    var myChart = new Chart(ctx, {\r",
+									"        type: \"bar\",\r",
+									"        data: {\r",
+									"            labels: [\"Net Amount\", \"Taxes Amount\", \"Total Amount\"],\r",
+									"            datasets: [{\r",
+									"                data: [],\r",
+									"                // Change these colours to customize the chart\r",
+									"                backgroundColor: [\"#003f5c\", \"#58508d\", \"#bc5090\"],\r",
+									"            }]\r",
+									"        },\r",
+									"        options: {\r",
+									"            legend: { display: false },\r",
+									"            title: {\r",
+									"                display: true,\r",
+									"                text: 'Document Totals'\r",
+									"            },\r",
+									"            scales: {\r",
+									"                xAxes: [{\r",
+									"                    display: true,\r",
+									"                    scaleLabel: {\r",
+									"                        display: true,\r",
+									"                        labelString: 'Categories'\r",
+									"                    }\r",
+									"                }],\r",
+									"                yAxes: [{\r",
+									"                    display: true,\r",
+									"                    scaleLabel: {\r",
+									"                        display: true,\r",
+									"                        labelString: 'Amount'\r",
+									"                    }\r",
+									"                }]\r",
+									"            }\r",
+									"        }\r",
+									"\r",
+									"    });\r",
+									"\r",
+									"    // Access the data passed to pm.visualizer.set() from the JavaScript\r",
+									"    pm.getData(function (err, value) {\r",
+									"        myChart.data.datasets[0].data = [value.response.totals.net_amount, value.response.totals.taxes_amount, value.response.totals.total_amount];\r",
+									"        myChart.update();\r",
+									"    });\r",
+									"\r",
+									"</script>`;\r",
+									"\r",
+									"function constructVisualizerPayload() {\r",
+									"    var res = pm.response.json();\r",
+									"    \r",
+									"    var visualizerData = {\r",
+									"        totals: res.totals\r",
+									"    };\r",
+									"\r",
+									"    return {response: visualizerData};\r",
+									"}\r",
+									"\r",
+									"pm.visualizer.set(template, constructVisualizerPayload());"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{session_token_argentina}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"header\":{\r\n      \"account_id\": 29240,\r\n      \"document_type_id\": \"123\",\r\n      \"received_issued_flag\": 0,\r\n      \"issue_date\": \"2025-10-24\",\r\n      \"issuer_tax_id_code\": \"20357265992\",\r\n      \"issuer_tax_id_type\": \"AR-CUIT\",\r\n      \"issuer_legal_name\": \"Tecnologias Avanzadas S.A.\",\r\n      \"issuer_address\": \"Av. Corrientes 1234\",\r\n      \"issuer_district\": \"San Nicolas\",\r\n      \"issuer_city\": \"Ciudad Autonoma de Buenos Aires\",\r\n      \"issuer_department\": \"Buenos Aires\",\r\n      \"issuer_country_id\": \"88\",\r\n      \"issuer_phone\": \"011-4321-5678\",\r\n      \"issuer_activity\": \"Servicios de desarrollo de software\",\r\n      \"issuer_postalcode\": \"1043\",\r\n      \"receiver_tax_id_code\": \"30274688781\",\r\n      \"receiver_tax_id_type\": \"AR-CUIT\",\r\n      \"receiver_legal_name\": \"ESCUELA KEMPER URGATES\",\r\n      \"receiver_address\": \"Calle Belgrano 456\",\r\n      \"receiver_district\": \"Centro\",\r\n      \"receiver_city\": \"Cordoba\",\r\n      \"receiver_department\": \"Cordoba\",\r\n      \"receiver_country_id\": \"88\",\r\n      \"receiver_phone\": \"0351-487-2233\",\r\n      \"receiver_activity\": \"Servicios educativos\",\r\n      \"receiver_postalcode\": \"5000\",\r\n      \"payment_conditions\": \"0\",\r\n      \"currency_id\": 1,\r\n      \"branch_office_code\": 12,\r\n      \"additional\":{\r\n         \"ar_header\":{\r\n            \"invoice_concept\": 1,\r\n            \"items_quantity\": 1,\r\n            \"service_date_from\": \"2025-10-20\",\r\n            \"service_date_to\": \"2025-10-20\",\r\n            \"service_payment_due_date\": \"2025-10-20\",\r\n            \"receiver_vat_condition_id\": 9,\r\n            \"existing_permission\": \"N\",\r\n            \"language_code\": 1\r\n         }\r\n      }\r\n   },\r\n   \"details\": [\r\n    {\r\n      \"quantity\": 1,\r\n      \"line_description\": \"Prueba Koywe\",\r\n      \"unit_measure\": \"UN\",\r\n      \"unit_price\": 5000,\r\n      \"long_description\": \"Test descripcion\",\r\n      \"modifier_amount\": 0,\r\n      \"total_taxes\": 0,\r\n      \"modifier_percentage\": 0,\r\n      \"total_amount_line\": 5000,\r\n      \"sku\": \"3245\"\r\n    }\r\n  ],\r\n   \"totals\":{\r\n      \"net_amount\":5000,\r\n      \"non_taxed_amount\":0,\r\n      \"exempt_amount\":0,\r\n      \"vat_amount\":0,\r\n      \"other_taxes_amount\":0,\r\n      \"total_amount\":5000\r\n   }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api-billing.koywe.com/V1/documents",
+							"protocol": "https",
+							"host": [
+								"api-billing",
+								"koywe",
+								"com"
+							],
+							"path": [
+								"V1",
+								"documents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create new documents - Credit Note A with reference to reference_document_id (Nota de crédito A con referencia de reference_document_id)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var template = `\r",
+									"<canvas id=\"myChart\" height=\"75\"></canvas>\r",
+									"\r",
+									"<script src=\"https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js\"></script> \r",
+									"\r",
+									"<script>\r",
+									"    var ctx = document.getElementById(\"myChart\");\r",
+									"\r",
+									"    var myChart = new Chart(ctx, {\r",
+									"        type: \"bar\",\r",
+									"        data: {\r",
+									"            labels: [\"Net Amount\", \"Taxes Amount\", \"Total Amount\"],\r",
+									"            datasets: [{\r",
+									"                data: [],\r",
+									"                // Change these colours to customize the chart\r",
+									"                backgroundColor: [\"#003f5c\", \"#58508d\", \"#bc5090\"],\r",
+									"            }]\r",
+									"        },\r",
+									"        options: {\r",
+									"            legend: { display: false },\r",
+									"            title: {\r",
+									"                display: true,\r",
+									"                text: 'Document Totals'\r",
+									"            },\r",
+									"            scales: {\r",
+									"                xAxes: [{\r",
+									"                    display: true,\r",
+									"                    scaleLabel: {\r",
+									"                        display: true,\r",
+									"                        labelString: 'Categories'\r",
+									"                    }\r",
+									"                }],\r",
+									"                yAxes: [{\r",
+									"                    display: true,\r",
+									"                    scaleLabel: {\r",
+									"                        display: true,\r",
+									"                        labelString: 'Amount'\r",
+									"                    }\r",
+									"                }]\r",
+									"            }\r",
+									"        }\r",
+									"\r",
+									"    });\r",
+									"\r",
+									"    // Access the data passed to pm.visualizer.set() from the JavaScript\r",
+									"    pm.getData(function (err, value) {\r",
+									"        myChart.data.datasets[0].data = [value.response.totals.net_amount, value.response.totals.taxes_amount, value.response.totals.total_amount];\r",
+									"        myChart.update();\r",
+									"    });\r",
+									"\r",
+									"</script>`;\r",
+									"\r",
+									"function constructVisualizerPayload() {\r",
+									"    var res = pm.response.json();\r",
+									"    \r",
+									"    var visualizerData = {\r",
+									"        totals: res.totals\r",
+									"    };\r",
+									"\r",
+									"    return {response: visualizerData};\r",
+									"}\r",
+									"\r",
+									"pm.visualizer.set(template, constructVisualizerPayload());"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{session_token_argentina}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"header\":{\r\n      \"account_id\": 29240,\r\n      \"document_type_id\":\"112\",\r\n      \"issue_date\": \"2025-10-24\",\r\n      \"issuer_tax_id_code\": \"20357265992\",\r\n      \"issuer_tax_id_type\": \"AR-CUIT\",\r\n      \"issuer_legal_name\": \"Tecnologias Avanzadas S.A.\",\r\n      \"issuer_address\": \"Av. Corrientes 1234\",\r\n      \"issuer_district\": \"San Nicolas\",\r\n      \"issuer_city\": \"Ciudad Autonoma de Buenos Aires\",\r\n      \"issuer_department\": \"Buenos Aires\",\r\n      \"issuer_country_id\": \"88\",\r\n      \"issuer_phone\": \"011-4321-5678\",\r\n      \"issuer_activity\": \"Servicios de desarrollo de software\",\r\n      \"issuer_postalcode\": \"1043\",\r\n      \"receiver_tax_id_code\": \"30274688781\",\r\n      \"receiver_tax_id_type\": \"AR-CUIT\",\r\n      \"receiver_legal_name\": \"ESCUELA KEMPER URGATES\",\r\n      \"receiver_address\": \"Calle Belgrano 456\",\r\n      \"receiver_district\": \"Centro\",\r\n      \"receiver_city\": \"Cordoba\",\r\n      \"receiver_department\": \"Cordoba\",\r\n      \"receiver_country_id\": \"88\",\r\n      \"receiver_phone\": \"0351-487-2233\",\r\n      \"receiver_activity\": \"Servicios educativos\",\r\n      \"receiver_postalcode\": \"5000\",\r\n      \"payment_conditions\": \"0\",\r\n      \"currency_id\": 1,\r\n      \"branch_office_code\": 12,\r\n      \"additional\":{\r\n         \"ar_header\":{\r\n            \"invoice_concept\": 1,\r\n            \"items_quantity\": 1,\r\n            \"service_date_from\": \"2025-10-14\",\r\n            \"service_date_to\": \"2025-10-14\",\r\n            \"service_payment_due_date\": \"2025-10-14\",\r\n            \"receiver_vat_condition_id\": 1\r\n         }\r\n      }\r\n   },\r\n   \"details\": [\r\n    {\r\n      \"quantity\": 1,\r\n      \"line_description\": \"Prueba Koywe\",\r\n      \"unit_measure\": \"NIU\",\r\n      \"unit_price\": 150,\r\n      \"long_description\": \"Test descripcion\",\r\n      \"modifier_amount\": 0,\r\n      \"total_taxes\": 34.05,\r\n      \"modifier_percentage\": 0,\r\n      \"total_amount_line\": 184.05,\r\n      \"sku\": \"3245\",\r\n      \"taxes\": [\r\n        {\r\n               \"tax_type_id\":\"474\",\r\n               \"tax_percentage\":21,\r\n               \"tax_amount\":21,\r\n               \"tax_base_amount\": 100\r\n            },\r\n            {\r\n               \"tax_type_id\":\"475\",\r\n               \"tax_percentage\":10.5,\r\n               \"tax_amount\":5.25,\r\n               \"tax_base_amount\": 50\r\n            },\r\n            {\r\n               \"tax_type_id\":\"484\",\r\n               \"tax_percentage\":5.2,\r\n               \"tax_amount\":7.8,\r\n               \"tax_base_amount\": 150\r\n            }\r\n      ]\r\n    }\r\n  ],\r\n   \"references\": [\r\n\t   {\r\n\t\t  \"document_type_id\": \"111\",\r\n\t\t  \"reference_number\": \"68\",\r\n\t\t  \"reference_code\": \"01\",\r\n\t\t  \"description\": \"Anulacion solicitada por el emisor\",\r\n\t\t  \"reference_branch_office_code\": 12,\r\n\t\t  \"reference_date\": \"2025-10-17\"\r\n\t   }\r\n   ],\r\n   \"totals\":{\r\n      \"net_amount\":150,\r\n      \"vat_amount\":34.05,\r\n      \"total_amount\":184.05\r\n   }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api-billing.koywe.com/V1/documents",
+							"protocol": "https",
+							"host": [
+								"api-billing",
+								"koywe",
+								"com"
+							],
+							"path": [
+								"V1",
+								"documents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create new documents - Credit Note B with reference to reference_document_id (Nota de crédito B con referencia de reference_document_id)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var template = `\r",
+									"<canvas id=\"myChart\" height=\"75\"></canvas>\r",
+									"\r",
+									"<script src=\"https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js\"></script> \r",
+									"\r",
+									"<script>\r",
+									"    var ctx = document.getElementById(\"myChart\");\r",
+									"\r",
+									"    var myChart = new Chart(ctx, {\r",
+									"        type: \"bar\",\r",
+									"        data: {\r",
+									"            labels: [\"Net Amount\", \"Taxes Amount\", \"Total Amount\"],\r",
+									"            datasets: [{\r",
+									"                data: [],\r",
+									"                // Change these colours to customize the chart\r",
+									"                backgroundColor: [\"#003f5c\", \"#58508d\", \"#bc5090\"],\r",
+									"            }]\r",
+									"        },\r",
+									"        options: {\r",
+									"            legend: { display: false },\r",
+									"            title: {\r",
+									"                display: true,\r",
+									"                text: 'Document Totals'\r",
+									"            },\r",
+									"            scales: {\r",
+									"                xAxes: [{\r",
+									"                    display: true,\r",
+									"                    scaleLabel: {\r",
+									"                        display: true,\r",
+									"                        labelString: 'Categories'\r",
+									"                    }\r",
+									"                }],\r",
+									"                yAxes: [{\r",
+									"                    display: true,\r",
+									"                    scaleLabel: {\r",
+									"                        display: true,\r",
+									"                        labelString: 'Amount'\r",
+									"                    }\r",
+									"                }]\r",
+									"            }\r",
+									"        }\r",
+									"\r",
+									"    });\r",
+									"\r",
+									"    // Access the data passed to pm.visualizer.set() from the JavaScript\r",
+									"    pm.getData(function (err, value) {\r",
+									"        myChart.data.datasets[0].data = [value.response.totals.net_amount, value.response.totals.taxes_amount, value.response.totals.total_amount];\r",
+									"        myChart.update();\r",
+									"    });\r",
+									"\r",
+									"</script>`;\r",
+									"\r",
+									"function constructVisualizerPayload() {\r",
+									"    var res = pm.response.json();\r",
+									"    \r",
+									"    var visualizerData = {\r",
+									"        totals: res.totals\r",
+									"    };\r",
+									"\r",
+									"    return {response: visualizerData};\r",
+									"}\r",
+									"\r",
+									"pm.visualizer.set(template, constructVisualizerPayload());"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{session_token_argentina}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"header\":{\r\n      \"account_id\": 29240,\r\n      \"document_type_id\":\"120\",\r\n      \"issue_date\": \"2025-10-24\",\r\n      \"issuer_tax_id_code\": \"20357265992\",\r\n      \"issuer_tax_id_type\": \"AR-CUIT\",\r\n      \"issuer_legal_name\": \"Tecnologias Avanzadas S.A.\",\r\n      \"issuer_address\": \"Av. Corrientes 1234\",\r\n      \"issuer_district\": \"San Nicolas\",\r\n      \"issuer_city\": \"Ciudad Autonoma de Buenos Aires\",\r\n      \"issuer_department\": \"Buenos Aires\",\r\n      \"issuer_country_id\": \"88\",\r\n      \"issuer_phone\": \"011-4321-5678\",\r\n      \"issuer_activity\": \"Servicios de desarrollo de software\",\r\n      \"issuer_postalcode\": \"1043\",\r\n      \"receiver_tax_id_code\": \"30274688781\",\r\n      \"receiver_tax_id_type\": \"AR-CUIT\",\r\n      \"receiver_legal_name\": \"ESCUELA KEMPER URGATES\",\r\n      \"receiver_address\": \"Calle Belgrano 456\",\r\n      \"receiver_district\": \"Centro\",\r\n      \"receiver_city\": \"Cordoba\",\r\n      \"receiver_department\": \"Cordoba\",\r\n      \"receiver_country_id\": \"88\",\r\n      \"receiver_phone\": \"0351-487-2233\",\r\n      \"receiver_activity\": \"Servicios educativos\",\r\n      \"receiver_postalcode\": \"5000\",\r\n      \"payment_conditions\": \"0\",\r\n      \"currency_id\": 1,\r\n      \"branch_office_code\": 12,\r\n      \"additional\":{\r\n         \"ar_header\":{\r\n            \"invoice_concept\": 1,\r\n            \"items_quantity\": 1,\r\n            \"service_date_from\": \"2025-10-14\",\r\n            \"service_date_to\": \"2025-10-14\",\r\n            \"service_payment_due_date\": \"2025-10-14\",\r\n            \"receiver_vat_condition_id\": 1\r\n         }\r\n      }\r\n   },\r\n   \"details\": [\r\n    {\r\n      \"quantity\": 1,\r\n      \"line_description\": \"Prueba Koywe\",\r\n      \"unit_measure\": \"NIU\",\r\n      \"unit_price\": 150,\r\n      \"long_description\": \"Test descripcion\",\r\n      \"modifier_amount\": 0,\r\n      \"total_taxes\": 34.05,\r\n      \"modifier_percentage\": 0,\r\n      \"total_amount_line\": 184.05,\r\n      \"sku\": \"3245\",\r\n      \"taxes\": [\r\n        {\r\n               \"tax_type_id\":\"474\",\r\n               \"tax_percentage\":21,\r\n               \"tax_amount\":21,\r\n               \"tax_base_amount\": 100\r\n            },\r\n            {\r\n               \"tax_type_id\":\"475\",\r\n               \"tax_percentage\":10.5,\r\n               \"tax_amount\":5.25,\r\n               \"tax_base_amount\": 50\r\n            },\r\n            {\r\n               \"tax_type_id\":\"484\",\r\n               \"tax_percentage\":5.2,\r\n               \"tax_amount\":7.8,\r\n               \"tax_base_amount\": 150\r\n            }\r\n      ]\r\n    }\r\n  ],\r\n   \"references\": [\r\n\t   {\r\n\t\t  \"document_type_id\": \"119\",\r\n\t\t  \"reference_number\": \"68\",\r\n\t\t  \"reference_code\": \"01\",\r\n\t\t  \"description\": \"Anulacion solicitada por el emisor\",\r\n\t\t  \"reference_branch_office_code\": 12,\r\n\t\t  \"reference_date\": \"2025-10-17\"\r\n\t   }\r\n   ],\r\n   \"totals\":{\r\n      \"net_amount\":150,\r\n      \"vat_amount\":34.05,\r\n      \"total_amount\":184.05\r\n   }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api-billing.koywe.com/V1/documents",
+							"protocol": "https",
+							"host": [
+								"api-billing",
+								"koywe",
+								"com"
+							],
+							"path": [
+								"V1",
+								"documents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create new documents - Credit Note C with reference to reference_document_id (Nota de crédito C con referencia de reference_document_id)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var template = `\r",
+									"<canvas id=\"myChart\" height=\"75\"></canvas>\r",
+									"\r",
+									"<script src=\"https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js\"></script> \r",
+									"\r",
+									"<script>\r",
+									"    var ctx = document.getElementById(\"myChart\");\r",
+									"\r",
+									"    var myChart = new Chart(ctx, {\r",
+									"        type: \"bar\",\r",
+									"        data: {\r",
+									"            labels: [\"Net Amount\", \"Taxes Amount\", \"Total Amount\"],\r",
+									"            datasets: [{\r",
+									"                data: [],\r",
+									"                // Change these colours to customize the chart\r",
+									"                backgroundColor: [\"#003f5c\", \"#58508d\", \"#bc5090\"],\r",
+									"            }]\r",
+									"        },\r",
+									"        options: {\r",
+									"            legend: { display: false },\r",
+									"            title: {\r",
+									"                display: true,\r",
+									"                text: 'Document Totals'\r",
+									"            },\r",
+									"            scales: {\r",
+									"                xAxes: [{\r",
+									"                    display: true,\r",
+									"                    scaleLabel: {\r",
+									"                        display: true,\r",
+									"                        labelString: 'Categories'\r",
+									"                    }\r",
+									"                }],\r",
+									"                yAxes: [{\r",
+									"                    display: true,\r",
+									"                    scaleLabel: {\r",
+									"                        display: true,\r",
+									"                        labelString: 'Amount'\r",
+									"                    }\r",
+									"                }]\r",
+									"            }\r",
+									"        }\r",
+									"\r",
+									"    });\r",
+									"\r",
+									"    // Access the data passed to pm.visualizer.set() from the JavaScript\r",
+									"    pm.getData(function (err, value) {\r",
+									"        myChart.data.datasets[0].data = [value.response.totals.net_amount, value.response.totals.taxes_amount, value.response.totals.total_amount];\r",
+									"        myChart.update();\r",
+									"    });\r",
+									"\r",
+									"</script>`;\r",
+									"\r",
+									"function constructVisualizerPayload() {\r",
+									"    var res = pm.response.json();\r",
+									"    \r",
+									"    var visualizerData = {\r",
+									"        totals: res.totals\r",
+									"    };\r",
+									"\r",
+									"    return {response: visualizerData};\r",
+									"}\r",
+									"\r",
+									"pm.visualizer.set(template, constructVisualizerPayload());"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{session_token_argentina}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"header\":{\r\n      \"account_id\": 29240,\r\n      \"document_type_id\":\"120\",\r\n      \"issue_date\": \"2025-10-24\",\r\n      \"issuer_tax_id_code\": \"20357265992\",\r\n      \"issuer_tax_id_type\": \"AR-CUIT\",\r\n      \"issuer_legal_name\": \"Tecnologias Avanzadas S.A.\",\r\n      \"issuer_address\": \"Av. Corrientes 1234\",\r\n      \"issuer_district\": \"San Nicolas\",\r\n      \"issuer_city\": \"Ciudad Autonoma de Buenos Aires\",\r\n      \"issuer_department\": \"Buenos Aires\",\r\n      \"issuer_country_id\": \"88\",\r\n      \"issuer_phone\": \"011-4321-5678\",\r\n      \"issuer_activity\": \"Servicios de desarrollo de software\",\r\n      \"issuer_postalcode\": \"1043\",\r\n      \"receiver_tax_id_code\": \"30274688781\",\r\n      \"receiver_tax_id_type\": \"AR-CUIT\",\r\n      \"receiver_legal_name\": \"ESCUELA KEMPER URGATES\",\r\n      \"receiver_address\": \"Calle Belgrano 456\",\r\n      \"receiver_district\": \"Centro\",\r\n      \"receiver_city\": \"Cordoba\",\r\n      \"receiver_department\": \"Cordoba\",\r\n      \"receiver_country_id\": \"88\",\r\n      \"receiver_phone\": \"0351-487-2233\",\r\n      \"receiver_activity\": \"Servicios educativos\",\r\n      \"receiver_postalcode\": \"5000\",\r\n      \"payment_conditions\": \"0\",\r\n      \"currency_id\": 1,\r\n      \"branch_office_code\": 12,\r\n      \"additional\":{\r\n         \"ar_header\":{\r\n            \"invoice_concept\": 1,\r\n            \"items_quantity\": 1,\r\n            \"service_date_from\": \"2025-10-14\",\r\n            \"service_date_to\": \"2025-10-14\",\r\n            \"service_payment_due_date\": \"2025-10-14\",\r\n            \"receiver_vat_condition_id\": 1\r\n         }\r\n      }\r\n   },\r\n   \"details\": [\r\n    {\r\n      \"quantity\": 1,\r\n      \"line_description\": \"Prueba Koywe\",\r\n      \"unit_measure\": \"NIU\",\r\n      \"unit_price\": 150,\r\n      \"long_description\": \"Test descripcion\",\r\n      \"modifier_amount\": 0,\r\n      \"total_taxes\": 34.05,\r\n      \"modifier_percentage\": 0,\r\n      \"total_amount_line\": 184.05,\r\n      \"sku\": \"3245\",\r\n      \"taxes\": [\r\n        {\r\n               \"tax_type_id\":\"474\",\r\n               \"tax_percentage\":21,\r\n               \"tax_amount\":21,\r\n               \"tax_base_amount\": 100\r\n            },\r\n            {\r\n               \"tax_type_id\":\"475\",\r\n               \"tax_percentage\":10.5,\r\n               \"tax_amount\":5.25,\r\n               \"tax_base_amount\": 50\r\n            },\r\n            {\r\n               \"tax_type_id\":\"484\",\r\n               \"tax_percentage\":5.2,\r\n               \"tax_amount\":7.8,\r\n               \"tax_base_amount\": 150\r\n            }\r\n      ]\r\n    }\r\n  ],\r\n   \"references\": [\r\n\t   {\r\n\t\t  \"document_type_id\": \"119\",\r\n\t\t  \"reference_number\": \"15\",\r\n\t\t  \"reference_code\": \"01\",\r\n\t\t  \"description\": \"Anulacion solicitada por el emisor\",\r\n\t\t  \"reference_branch_office_code\": 12,\r\n\t\t  \"reference_date\": \"2025-10-17\"\r\n\t   }\r\n   ],\r\n   \"totals\":{\r\n      \"net_amount\":150,\r\n      \"vat_amount\":34.05,\r\n      \"total_amount\":184.05\r\n   }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api-billing.koywe.com/V1/documents",
+							"protocol": "https",
+							"host": [
+								"api-billing",
+								"koywe",
+								"com"
+							],
+							"path": [
+								"V1",
+								"documents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create new documents - Credit Note E with reference to reference_document_id (Nota de débito E con referencia de reference_document_id)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var template = `\r",
+									"<canvas id=\"myChart\" height=\"75\"></canvas>\r",
+									"\r",
+									"<script src=\"https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js\"></script> \r",
+									"\r",
+									"<script>\r",
+									"    var ctx = document.getElementById(\"myChart\");\r",
+									"\r",
+									"    var myChart = new Chart(ctx, {\r",
+									"        type: \"bar\",\r",
+									"        data: {\r",
+									"            labels: [\"Net Amount\", \"Taxes Amount\", \"Total Amount\"],\r",
+									"            datasets: [{\r",
+									"                data: [],\r",
+									"                // Change these colours to customize the chart\r",
+									"                backgroundColor: [\"#003f5c\", \"#58508d\", \"#bc5090\"],\r",
+									"            }]\r",
+									"        },\r",
+									"        options: {\r",
+									"            legend: { display: false },\r",
+									"            title: {\r",
+									"                display: true,\r",
+									"                text: 'Document Totals'\r",
+									"            },\r",
+									"            scales: {\r",
+									"                xAxes: [{\r",
+									"                    display: true,\r",
+									"                    scaleLabel: {\r",
+									"                        display: true,\r",
+									"                        labelString: 'Categories'\r",
+									"                    }\r",
+									"                }],\r",
+									"                yAxes: [{\r",
+									"                    display: true,\r",
+									"                    scaleLabel: {\r",
+									"                        display: true,\r",
+									"                        labelString: 'Amount'\r",
+									"                    }\r",
+									"                }]\r",
+									"            }\r",
+									"        }\r",
+									"\r",
+									"    });\r",
+									"\r",
+									"    // Access the data passed to pm.visualizer.set() from the JavaScript\r",
+									"    pm.getData(function (err, value) {\r",
+									"        myChart.data.datasets[0].data = [value.response.totals.net_amount, value.response.totals.taxes_amount, value.response.totals.total_amount];\r",
+									"        myChart.update();\r",
+									"    });\r",
+									"\r",
+									"</script>`;\r",
+									"\r",
+									"function constructVisualizerPayload() {\r",
+									"    var res = pm.response.json();\r",
+									"    \r",
+									"    var visualizerData = {\r",
+									"        totals: res.totals\r",
+									"    };\r",
+									"\r",
+									"    return {response: visualizerData};\r",
+									"}\r",
+									"\r",
+									"pm.visualizer.set(template, constructVisualizerPayload());"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{session_token_argentina}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"header\":{\r\n      \"account_id\": 29240,\r\n      \"document_type_id\":\"124\",\r\n      \"received_issued_flag\":0,\r\n      \"issue_date\":\"2025-10-24\",\r\n      \"issuer_tax_id_code\":\"20610383727\",\r\n      \"issuer_tax_id_type\":\"AR-CUIT\",\r\n      \"issuer_legal_name\":\"<string>\",\r\n      \"issuer_address\":\"<string>\",\r\n      \"issuer_district\":\"<string>\",\r\n      \"issuer_city\":\"<string>\",\r\n      \"issuer_department\":\"<string>\",\r\n      \"issuer_country_id\":\"88\",\r\n      \"issuer_phone\":\"<string>\",\r\n      \"issuer_activity\":\"<string>\",\r\n\t  \"issuer_postalcode\":\"12345456\",\r\n      \"receiver_tax_id_code\":\"20111111112\",\r\n      \"receiver_tax_id_type\":\"AR-CUIT\",\r\n      \"receiver_legal_name\":\"ESCUELA KEMPER URGATES\",\r\n      \"receiver_address\":\"string\",\r\n      \"receiver_district\":\"string\",\r\n      \"receiver_city\":\"string\",\r\n      \"receiver_department\":\"string\",\r\n      \"receiver_country_id\":\"83\",\r\n      \"receiver_phone\":\"<string>\",\r\n      \"receiver_activity\":\"<string>\",\r\n\t \"receiver_postalcode\":\"12343456\",\r\n      \"payment_conditions\":\"0\",\r\n      \"currency_id\":1,\r\n      \"branch_office_code\": 12,\r\n      \"additional\":{\r\n         \"ar_header\":{\r\n            \"invoice_concept\": 1,\r\n            \"items_quantity\": 1,\r\n            \"service_date_from\": \"2025-10-24\",\r\n            \"service_date_to\": \"2025-10-24\",\r\n            \"service_payment_due_date\": \"2025-10-24\",\r\n            \"receiver_vat_condition_id\": 9,\r\n            \"existing_permission\": \"N\",\r\n            \"language_code\": 1\r\n         }\r\n      }\r\n   },\r\n   \"details\": [\r\n    {\r\n      \"quantity\": 1,\r\n      \"line_description\": \"Prueba Koywe\",\r\n      \"unit_measure\": \"UN\",\r\n      \"unit_price\": 5000,\r\n      \"long_description\": \"Test descripcion\",\r\n      \"modifier_amount\": 0,\r\n      \"total_taxes\": 0,\r\n      \"modifier_percentage\": 0,\r\n      \"total_amount_line\": 5000,\r\n      \"sku\": \"3245\"\r\n    }\r\n  ],\r\n  \"references\": [\r\n\t   {\r\n\t\t  \"document_type_id\": \"123\",\r\n\t\t  \"reference_number\": \"15\",\r\n\t\t  \"reference_code\": \"01\",\r\n\t\t  \"description\": \"Anulacion solicitada por el emisor\",\r\n\t\t  \"reference_branch_office_code\": 12,\r\n\t\t  \"reference_date\": \"2025-10-24\"\r\n\t   }\r\n   ],\r\n   \"totals\":{\r\n      \"net_amount\":5000,\r\n      \"total_amount\":5000\r\n   }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api-billing.koywe.com/V1/documents",
+							"protocol": "https",
+							"host": [
+								"api-billing",
+								"koywe",
+								"com"
+							],
+							"path": [
+								"V1",
+								"documents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create new documents - Debit Note A with reference to reference_document_id (Nota de débito A con referencia de reference_document_id)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var template = `\r",
+									"<canvas id=\"myChart\" height=\"75\"></canvas>\r",
+									"\r",
+									"<script src=\"https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js\"></script> \r",
+									"\r",
+									"<script>\r",
+									"    var ctx = document.getElementById(\"myChart\");\r",
+									"\r",
+									"    var myChart = new Chart(ctx, {\r",
+									"        type: \"bar\",\r",
+									"        data: {\r",
+									"            labels: [\"Net Amount\", \"Taxes Amount\", \"Total Amount\"],\r",
+									"            datasets: [{\r",
+									"                data: [],\r",
+									"                // Change these colours to customize the chart\r",
+									"                backgroundColor: [\"#003f5c\", \"#58508d\", \"#bc5090\"],\r",
+									"            }]\r",
+									"        },\r",
+									"        options: {\r",
+									"            legend: { display: false },\r",
+									"            title: {\r",
+									"                display: true,\r",
+									"                text: 'Document Totals'\r",
+									"            },\r",
+									"            scales: {\r",
+									"                xAxes: [{\r",
+									"                    display: true,\r",
+									"                    scaleLabel: {\r",
+									"                        display: true,\r",
+									"                        labelString: 'Categories'\r",
+									"                    }\r",
+									"                }],\r",
+									"                yAxes: [{\r",
+									"                    display: true,\r",
+									"                    scaleLabel: {\r",
+									"                        display: true,\r",
+									"                        labelString: 'Amount'\r",
+									"                    }\r",
+									"                }]\r",
+									"            }\r",
+									"        }\r",
+									"\r",
+									"    });\r",
+									"\r",
+									"    // Access the data passed to pm.visualizer.set() from the JavaScript\r",
+									"    pm.getData(function (err, value) {\r",
+									"        myChart.data.datasets[0].data = [value.response.totals.net_amount, value.response.totals.taxes_amount, value.response.totals.total_amount];\r",
+									"        myChart.update();\r",
+									"    });\r",
+									"\r",
+									"</script>`;\r",
+									"\r",
+									"function constructVisualizerPayload() {\r",
+									"    var res = pm.response.json();\r",
+									"    \r",
+									"    var visualizerData = {\r",
+									"        totals: res.totals\r",
+									"    };\r",
+									"\r",
+									"    return {response: visualizerData};\r",
+									"}\r",
+									"\r",
+									"pm.visualizer.set(template, constructVisualizerPayload());"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{session_token_argentina}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"header\":{\r\n      \"account_id\": 29240,\r\n      \"document_type_id\":\"113\",\r\n      \"received_issued_flag\":0,\r\n      \"issue_date\":\"2025-10-24\",\r\n      \"issuer_tax_id_code\":\"20610383727\",\r\n      \"issuer_tax_id_type\":\"AR-CUIT\",\r\n      \"issuer_legal_name\":\"<string>\",\r\n      \"issuer_address\":\"<string>\",\r\n      \"issuer_district\":\"<string>\",\r\n      \"issuer_city\":\"<string>\",\r\n      \"issuer_department\":\"<string>\",\r\n      \"issuer_country_id\":\"88\",\r\n      \"issuer_phone\":\"<string>\",\r\n      \"issuer_activity\":\"<string>\",\r\n\t  \"issuer_postalcode\":\"12345456\",\r\n      \"receiver_tax_id_code\":\"20111111112\",\r\n      \"receiver_tax_id_type\":\"AR-CUIT\",\r\n      \"receiver_legal_name\":\"ESCUELA KEMPER URGATES\",\r\n      \"receiver_address\":\"string\",\r\n      \"receiver_district\":\"string\",\r\n      \"receiver_city\":\"string\",\r\n      \"receiver_department\":\"string\",\r\n      \"receiver_country_id\":\"83\",\r\n      \"receiver_phone\":\"<string>\",\r\n      \"receiver_activity\":\"<string>\",\r\n\t \"receiver_postalcode\":\"12343456\",\r\n      \"payment_conditions\":\"0\",\r\n      \"currency_id\":1,\r\n      \"branch_office_code\": 12,\r\n      \"additional\":{\r\n         \"ar_header\":{\r\n            \"invoice_concept\": 1,\r\n            \"items_quantity\": 1,\r\n            \"service_date_from\": \"2025-10-24\",\r\n            \"service_date_to\": \"2025-10-24\",\r\n            \"service_payment_due_date\": \"2025-10-24\",\r\n            \"receiver_vat_condition_id\": 9,\r\n            \"existing_permission\": \"N\",\r\n            \"language_code\": 1\r\n         }\r\n      }\r\n   },\r\n   \"details\": [\r\n    {\r\n      \"quantity\": 1,\r\n      \"line_description\": \"Prueba Koywe\",\r\n      \"unit_measure\": \"UN\",\r\n      \"unit_price\": 5000,\r\n      \"long_description\": \"Test descripcion\",\r\n      \"modifier_amount\": 0,\r\n      \"total_taxes\": 0,\r\n      \"modifier_percentage\": 0,\r\n      \"total_amount_line\": 5000,\r\n      \"sku\": \"3245\"\r\n    }\r\n  ],\r\n  \"references\": [\r\n\t   {\r\n\t\t  \"document_type_id\": \"111\",\r\n\t\t  \"reference_number\": \"15\",\r\n\t\t  \"reference_code\": \"01\",\r\n\t\t  \"description\": \"Anulacion solicitada por el emisor\",\r\n\t\t  \"reference_branch_office_code\": 12,\r\n\t\t  \"reference_date\": \"2025-10-24\"\r\n\t   }\r\n   ],\r\n   \"totals\":{\r\n      \"net_amount\":5000,\r\n      \"total_amount\":5000\r\n   }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api-billing.koywe.com/V1/documents",
+							"protocol": "https",
+							"host": [
+								"api-billing",
+								"koywe",
+								"com"
+							],
+							"path": [
+								"V1",
+								"documents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create new documents - Debit Note B with reference to reference_document_id (Nota de débito B con referencia de reference_document_id)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var template = `\r",
+									"<canvas id=\"myChart\" height=\"75\"></canvas>\r",
+									"\r",
+									"<script src=\"https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js\"></script> \r",
+									"\r",
+									"<script>\r",
+									"    var ctx = document.getElementById(\"myChart\");\r",
+									"\r",
+									"    var myChart = new Chart(ctx, {\r",
+									"        type: \"bar\",\r",
+									"        data: {\r",
+									"            labels: [\"Net Amount\", \"Taxes Amount\", \"Total Amount\"],\r",
+									"            datasets: [{\r",
+									"                data: [],\r",
+									"                // Change these colours to customize the chart\r",
+									"                backgroundColor: [\"#003f5c\", \"#58508d\", \"#bc5090\"],\r",
+									"            }]\r",
+									"        },\r",
+									"        options: {\r",
+									"            legend: { display: false },\r",
+									"            title: {\r",
+									"                display: true,\r",
+									"                text: 'Document Totals'\r",
+									"            },\r",
+									"            scales: {\r",
+									"                xAxes: [{\r",
+									"                    display: true,\r",
+									"                    scaleLabel: {\r",
+									"                        display: true,\r",
+									"                        labelString: 'Categories'\r",
+									"                    }\r",
+									"                }],\r",
+									"                yAxes: [{\r",
+									"                    display: true,\r",
+									"                    scaleLabel: {\r",
+									"                        display: true,\r",
+									"                        labelString: 'Amount'\r",
+									"                    }\r",
+									"                }]\r",
+									"            }\r",
+									"        }\r",
+									"\r",
+									"    });\r",
+									"\r",
+									"    // Access the data passed to pm.visualizer.set() from the JavaScript\r",
+									"    pm.getData(function (err, value) {\r",
+									"        myChart.data.datasets[0].data = [value.response.totals.net_amount, value.response.totals.taxes_amount, value.response.totals.total_amount];\r",
+									"        myChart.update();\r",
+									"    });\r",
+									"\r",
+									"</script>`;\r",
+									"\r",
+									"function constructVisualizerPayload() {\r",
+									"    var res = pm.response.json();\r",
+									"    \r",
+									"    var visualizerData = {\r",
+									"        totals: res.totals\r",
+									"    };\r",
+									"\r",
+									"    return {response: visualizerData};\r",
+									"}\r",
+									"\r",
+									"pm.visualizer.set(template, constructVisualizerPayload());"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{session_token_argentina}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"header\":{\r\n      \"account_id\": 29240,\r\n      \"document_type_id\":\"117\",\r\n      \"received_issued_flag\":0,\r\n      \"issue_date\":\"2025-10-24\",\r\n      \"issuer_tax_id_code\":\"20610383727\",\r\n      \"issuer_tax_id_type\":\"AR-CUIT\",\r\n      \"issuer_legal_name\":\"<string>\",\r\n      \"issuer_address\":\"<string>\",\r\n      \"issuer_district\":\"<string>\",\r\n      \"issuer_city\":\"<string>\",\r\n      \"issuer_department\":\"<string>\",\r\n      \"issuer_country_id\":\"88\",\r\n      \"issuer_phone\":\"<string>\",\r\n      \"issuer_activity\":\"<string>\",\r\n\t  \"issuer_postalcode\":\"12345456\",\r\n      \"receiver_tax_id_code\":\"20111111112\",\r\n      \"receiver_tax_id_type\":\"AR-CUIT\",\r\n      \"receiver_legal_name\":\"ESCUELA KEMPER URGATES\",\r\n      \"receiver_address\":\"string\",\r\n      \"receiver_district\":\"string\",\r\n      \"receiver_city\":\"string\",\r\n      \"receiver_department\":\"string\",\r\n      \"receiver_country_id\":\"83\",\r\n      \"receiver_phone\":\"<string>\",\r\n      \"receiver_activity\":\"<string>\",\r\n\t \"receiver_postalcode\":\"12343456\",\r\n      \"payment_conditions\":\"0\",\r\n      \"currency_id\":1,\r\n      \"branch_office_code\": 12,\r\n      \"additional\":{\r\n         \"ar_header\":{\r\n            \"invoice_concept\": 1,\r\n            \"items_quantity\": 1,\r\n            \"service_date_from\": \"2025-10-24\",\r\n            \"service_date_to\": \"2025-10-24\",\r\n            \"service_payment_due_date\": \"2025-10-24\",\r\n            \"receiver_vat_condition_id\": 9,\r\n            \"existing_permission\": \"N\",\r\n            \"language_code\": 1\r\n         }\r\n      }\r\n   },\r\n   \"details\": [\r\n    {\r\n      \"quantity\": 1,\r\n      \"line_description\": \"Prueba Koywe\",\r\n      \"unit_measure\": \"UN\",\r\n      \"unit_price\": 5000,\r\n      \"long_description\": \"Test descripcion\",\r\n      \"modifier_amount\": 0,\r\n      \"total_taxes\": 0,\r\n      \"modifier_percentage\": 0,\r\n      \"total_amount_line\": 5000,\r\n      \"sku\": \"3245\"\r\n    }\r\n  ],\r\n  \"references\": [\r\n\t   {\r\n\t\t  \"document_type_id\": \"115\",\r\n\t\t  \"reference_number\": \"15\",\r\n\t\t  \"reference_code\": \"01\",\r\n\t\t  \"description\": \"Anulacion solicitada por el emisor\",\r\n\t\t  \"reference_branch_office_code\": 12,\r\n\t\t  \"reference_date\": \"2025-10-24\"\r\n\t   }\r\n   ],\r\n   \"totals\":{\r\n      \"net_amount\":5000,\r\n      \"total_amount\":5000\r\n   }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api-billing.koywe.com/V1/documents",
+							"protocol": "https",
+							"host": [
+								"api-billing",
+								"koywe",
+								"com"
+							],
+							"path": [
+								"V1",
+								"documents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create new documents - Debit Note C with reference to reference_document_id (Nota de débito C con referencia de reference_document_id)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var template = `\r",
+									"<canvas id=\"myChart\" height=\"75\"></canvas>\r",
+									"\r",
+									"<script src=\"https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js\"></script> \r",
+									"\r",
+									"<script>\r",
+									"    var ctx = document.getElementById(\"myChart\");\r",
+									"\r",
+									"    var myChart = new Chart(ctx, {\r",
+									"        type: \"bar\",\r",
+									"        data: {\r",
+									"            labels: [\"Net Amount\", \"Taxes Amount\", \"Total Amount\"],\r",
+									"            datasets: [{\r",
+									"                data: [],\r",
+									"                // Change these colours to customize the chart\r",
+									"                backgroundColor: [\"#003f5c\", \"#58508d\", \"#bc5090\"],\r",
+									"            }]\r",
+									"        },\r",
+									"        options: {\r",
+									"            legend: { display: false },\r",
+									"            title: {\r",
+									"                display: true,\r",
+									"                text: 'Document Totals'\r",
+									"            },\r",
+									"            scales: {\r",
+									"                xAxes: [{\r",
+									"                    display: true,\r",
+									"                    scaleLabel: {\r",
+									"                        display: true,\r",
+									"                        labelString: 'Categories'\r",
+									"                    }\r",
+									"                }],\r",
+									"                yAxes: [{\r",
+									"                    display: true,\r",
+									"                    scaleLabel: {\r",
+									"                        display: true,\r",
+									"                        labelString: 'Amount'\r",
+									"                    }\r",
+									"                }]\r",
+									"            }\r",
+									"        }\r",
+									"\r",
+									"    });\r",
+									"\r",
+									"    // Access the data passed to pm.visualizer.set() from the JavaScript\r",
+									"    pm.getData(function (err, value) {\r",
+									"        myChart.data.datasets[0].data = [value.response.totals.net_amount, value.response.totals.taxes_amount, value.response.totals.total_amount];\r",
+									"        myChart.update();\r",
+									"    });\r",
+									"\r",
+									"</script>`;\r",
+									"\r",
+									"function constructVisualizerPayload() {\r",
+									"    var res = pm.response.json();\r",
+									"    \r",
+									"    var visualizerData = {\r",
+									"        totals: res.totals\r",
+									"    };\r",
+									"\r",
+									"    return {response: visualizerData};\r",
+									"}\r",
+									"\r",
+									"pm.visualizer.set(template, constructVisualizerPayload());"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{session_token_argentina}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"header\":{\r\n      \"account_id\": 29240,\r\n      \"document_type_id\":\"121\",\r\n      \"issue_date\": \"2025-10-24\",\r\n      \"issuer_tax_id_code\": \"20357265992\",\r\n      \"issuer_tax_id_type\": \"AR-CUIT\",\r\n      \"issuer_legal_name\": \"Tecnologias Avanzadas S.A.\",\r\n      \"issuer_address\": \"Av. Corrientes 1234\",\r\n      \"issuer_district\": \"San Nicolas\",\r\n      \"issuer_city\": \"Ciudad Autonoma de Buenos Aires\",\r\n      \"issuer_department\": \"Buenos Aires\",\r\n      \"issuer_country_id\": \"88\",\r\n      \"issuer_phone\": \"011-4321-5678\",\r\n      \"issuer_activity\": \"Servicios de desarrollo de software\",\r\n      \"issuer_postalcode\": \"1043\",\r\n      \"receiver_tax_id_code\": \"30274688781\",\r\n      \"receiver_tax_id_type\": \"AR-CUIT\",\r\n      \"receiver_legal_name\": \"ESCUELA KEMPER URGATES\",\r\n      \"receiver_address\": \"Calle Belgrano 456\",\r\n      \"receiver_district\": \"Centro\",\r\n      \"receiver_city\": \"Cordoba\",\r\n      \"receiver_department\": \"Cordoba\",\r\n      \"receiver_country_id\": \"88\",\r\n      \"receiver_phone\": \"0351-487-2233\",\r\n      \"receiver_activity\": \"Servicios educativos\",\r\n      \"receiver_postalcode\": \"5000\",\r\n      \"payment_conditions\": \"0\",\r\n      \"currency_id\": 1,\r\n      \"branch_office_code\": 12,\r\n      \"additional\":{\r\n         \"ar_header\":{\r\n            \"invoice_concept\": 1,\r\n            \"items_quantity\": 1,\r\n            \"service_date_from\": \"2025-10-14\",\r\n            \"service_date_to\": \"2025-10-14\",\r\n            \"service_payment_due_date\": \"2025-10-14\",\r\n            \"receiver_vat_condition_id\": 1\r\n         }\r\n      }\r\n   },\r\n   \"details\": [\r\n    {\r\n      \"quantity\": 1,\r\n      \"line_description\": \"Prueba Koywe\",\r\n      \"unit_measure\": \"NIU\",\r\n      \"unit_price\": 150,\r\n      \"long_description\": \"Test descripcion\",\r\n      \"modifier_amount\": 0,\r\n      \"total_taxes\": 34.05,\r\n      \"modifier_percentage\": 0,\r\n      \"total_amount_line\": 184.05,\r\n      \"sku\": \"3245\",\r\n      \"taxes\": [\r\n        {\r\n               \"tax_type_id\":\"474\",\r\n               \"tax_percentage\":21,\r\n               \"tax_amount\":21,\r\n               \"tax_base_amount\": 100\r\n            },\r\n            {\r\n               \"tax_type_id\":\"475\",\r\n               \"tax_percentage\":10.5,\r\n               \"tax_amount\":5.25,\r\n               \"tax_base_amount\": 50\r\n            },\r\n            {\r\n               \"tax_type_id\":\"484\",\r\n               \"tax_percentage\":5.2,\r\n               \"tax_amount\":7.8,\r\n               \"tax_base_amount\": 150\r\n            }\r\n      ]\r\n    }\r\n  ],\r\n   \"references\": [\r\n\t   {\r\n\t\t  \"document_type_id\": \"119\",\r\n\t\t  \"reference_document_id\": 1544,\r\n\t\t  \"reference_code\": \"01\",\r\n\t\t  \"description\": \"Anulacion solicitada por el emisor\",\r\n\t\t  \"reference_branch_office_code\": 12,\r\n\t\t  \"reference_date\": \"2025-10-17\"\r\n\t   }\r\n   ],\r\n   \"totals\":{\r\n      \"net_amount\":150,\r\n      \"vat_amount\":34.05,\r\n      \"total_amount\":184.05\r\n   }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api-billing.koywe.com/V1/documents",
+							"protocol": "https",
+							"host": [
+								"api-billing",
+								"koywe",
+								"com"
+							],
+							"path": [
+								"V1",
+								"documents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create new documents - Debit Note E with reference to reference_document_id (Nota de débito E con referencia de reference_document_id)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var template = `\r",
+									"<canvas id=\"myChart\" height=\"75\"></canvas>\r",
+									"\r",
+									"<script src=\"https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js\"></script> \r",
+									"\r",
+									"<script>\r",
+									"    var ctx = document.getElementById(\"myChart\");\r",
+									"\r",
+									"    var myChart = new Chart(ctx, {\r",
+									"        type: \"bar\",\r",
+									"        data: {\r",
+									"            labels: [\"Net Amount\", \"Taxes Amount\", \"Total Amount\"],\r",
+									"            datasets: [{\r",
+									"                data: [],\r",
+									"                // Change these colours to customize the chart\r",
+									"                backgroundColor: [\"#003f5c\", \"#58508d\", \"#bc5090\"],\r",
+									"            }]\r",
+									"        },\r",
+									"        options: {\r",
+									"            legend: { display: false },\r",
+									"            title: {\r",
+									"                display: true,\r",
+									"                text: 'Document Totals'\r",
+									"            },\r",
+									"            scales: {\r",
+									"                xAxes: [{\r",
+									"                    display: true,\r",
+									"                    scaleLabel: {\r",
+									"                        display: true,\r",
+									"                        labelString: 'Categories'\r",
+									"                    }\r",
+									"                }],\r",
+									"                yAxes: [{\r",
+									"                    display: true,\r",
+									"                    scaleLabel: {\r",
+									"                        display: true,\r",
+									"                        labelString: 'Amount'\r",
+									"                    }\r",
+									"                }]\r",
+									"            }\r",
+									"        }\r",
+									"\r",
+									"    });\r",
+									"\r",
+									"    // Access the data passed to pm.visualizer.set() from the JavaScript\r",
+									"    pm.getData(function (err, value) {\r",
+									"        myChart.data.datasets[0].data = [value.response.totals.net_amount, value.response.totals.taxes_amount, value.response.totals.total_amount];\r",
+									"        myChart.update();\r",
+									"    });\r",
+									"\r",
+									"</script>`;\r",
+									"\r",
+									"function constructVisualizerPayload() {\r",
+									"    var res = pm.response.json();\r",
+									"    \r",
+									"    var visualizerData = {\r",
+									"        totals: res.totals\r",
+									"    };\r",
+									"\r",
+									"    return {response: visualizerData};\r",
+									"}\r",
+									"\r",
+									"pm.visualizer.set(template, constructVisualizerPayload());"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{session_token_argentina}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"header\":{\r\n      \"account_id\": 29240,\r\n      \"document_type_id\":\"125\",\r\n      \"received_issued_flag\":0,\r\n      \"issue_date\": \"2025-10-24\",\r\n      \"issuer_tax_id_code\": \"20357265992\",\r\n      \"issuer_tax_id_type\": \"AR-CUIT\",\r\n      \"issuer_legal_name\": \"Tecnologias Avanzadas S.A.\",\r\n      \"issuer_address\": \"Av. Corrientes 1234\",\r\n      \"issuer_district\": \"San Nicolas\",\r\n      \"issuer_city\": \"Ciudad Autonoma de Buenos Aires\",\r\n      \"issuer_department\": \"Buenos Aires\",\r\n      \"issuer_country_id\": \"88\",\r\n      \"issuer_phone\": \"011-4321-5678\",\r\n      \"issuer_activity\": \"Servicios de desarrollo de software\",\r\n      \"issuer_postalcode\": \"1043\",\r\n      \"receiver_tax_id_code\": \"30274688781\",\r\n      \"receiver_tax_id_type\": \"AR-CUIT\",\r\n      \"receiver_legal_name\": \"ESCUELA KEMPER URGATES\",\r\n      \"receiver_address\": \"Calle Belgrano 456\",\r\n      \"receiver_district\": \"Centro\",\r\n      \"receiver_city\": \"Cordoba\",\r\n      \"receiver_department\": \"Cordoba\",\r\n      \"receiver_country_id\": \"88\",\r\n      \"receiver_phone\": \"0351-487-2233\",\r\n      \"receiver_activity\": \"Servicios educativos\",\r\n      \"receiver_postalcode\": \"5000\",\r\n      \"payment_conditions\":\"0\",\r\n      \"currency_id\":1,\r\n      \"branch_office_code\": 12,\r\n      \"additional\":{\r\n         \"ar_header\":{\r\n            \"invoice_concept\": 1,\r\n            \"items_quantity\": 1,\r\n            \"service_date_from\": \"2025-10-24\",\r\n            \"service_date_to\": \"2025-10-24\",\r\n            \"service_payment_due_date\": \"2025-10-24\",\r\n            \"receiver_vat_condition_id\": 9,\r\n            \"existing_permission\": \"N\",\r\n            \"language_code\": 1\r\n         }\r\n      }\r\n   },\r\n   \"details\": [\r\n    {\r\n      \"quantity\": 1,\r\n      \"line_description\": \"Prueba Koywe\",\r\n      \"unit_measure\": \"UN\",\r\n      \"unit_price\": 5000,\r\n      \"long_description\": \"Test descripcion\",\r\n      \"modifier_amount\": 0,\r\n      \"total_taxes\": 0,\r\n      \"modifier_percentage\": 0,\r\n      \"total_amount_line\": 5000,\r\n      \"sku\": \"3245\"\r\n    }\r\n  ],\r\n  \"references\": [\r\n\t   {\r\n\t\t  \"document_type_id\": \"123\",\r\n\t\t  \"reference_document_id\": 1545,\r\n\t\t  \"reference_code\": \"01\",\r\n\t\t  \"description\": \"Anulacion solicitada por el emisor\",\r\n\t\t  \"reference_branch_office_code\": 12,\r\n\t\t  \"reference_date\": \"2025-10-24\"\r\n\t   }\r\n   ],\r\n   \"totals\":{\r\n      \"net_amount\":5000,\r\n      \"total_amount\":5000\r\n   }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api-billing.koywe.com/V1/documents",
+							"protocol": "https",
+							"host": [
+								"api-billing",
+								"koywe",
+								"com"
+							],
+							"path": [
+								"V1",
+								"documents"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}
