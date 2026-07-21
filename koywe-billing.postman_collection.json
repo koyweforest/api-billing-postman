@@ -74,7 +74,7 @@
               }
             },
             "url": {
-              "raw": "https://api-billing.koywe.com/V1/auth",
+              "raw": "https://apifacto.com/v1/auth",
               "protocol": "https",
               "host": [
                 "api-billing",
@@ -114,7 +114,7 @@
               }
             },
             "url": {
-              "raw": "https://api-billing.koywe.com/V1/accounts",
+              "raw": "https://apifacto.com/v1/accounts",
               "protocol": "https",
               "host": [
                 "api-billing",
@@ -228,7 +228,7 @@
               }
             },
             "url": {
-              "raw": "https://api-billing.koywe.com/V1/documents",
+              "raw": "https://apifacto.com/v1/documents",
               "protocol": "https",
               "host": [
                 "api-billing",
@@ -342,7 +342,7 @@
               }
             },
             "url": {
-              "raw": "https://api-billing.koywe.com/V1/documents",
+              "raw": "https://apifacto.com/v1/documents",
               "protocol": "https",
               "host": [
                 "api-billing",
@@ -456,7 +456,7 @@
               }
             },
             "url": {
-              "raw": "https://api-billing.koywe.com/V1/documents",
+              "raw": "https://apifacto.com/v1/documents",
               "protocol": "https",
               "host": [
                 "api-billing",
@@ -570,7 +570,7 @@
               }
             },
             "url": {
-              "raw": "https://api-billing.koywe.com/V1/documents",
+              "raw": "https://apifacto.com/v1/documents",
               "protocol": "https",
               "host": [
                 "api-billing",
@@ -610,7 +610,7 @@
               }
             },
             "url": {
-              "raw": "https://api-billing.koywe.com/V1/documents",
+              "raw": "https://apifacto.com/v1/documents",
               "protocol": "https",
               "host": [
                 "api-billing",
@@ -650,7 +650,7 @@
               }
             },
             "url": {
-              "raw": "https://api-billing.koywe.com/V1/documents",
+              "raw": "https://apifacto.com/v1/documents",
               "protocol": "https",
               "host": [
                 "api-billing",
@@ -690,7 +690,7 @@
               }
             },
             "url": {
-              "raw": "https://api-billing.koywe.com/V1/documents",
+              "raw": "https://apifacto.com/v1/documents",
               "protocol": "https",
               "host": [
                 "api-billing",
@@ -730,7 +730,7 @@
               }
             },
             "url": {
-              "raw": "https://api-billing.koywe.com/V1/documents",
+              "raw": "https://apifacto.com/v1/documents",
               "protocol": "https",
               "host": [
                 "api-billing",
@@ -762,7 +762,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n   \"document_id\": 377,\r\n   \"header\":    {\r\n      \"account_id\": 14540,\r\n      \"document_type_id\": 82,\r\n      \"document_type_taxbureau\": \"01\",\r\n      \"document_number\": 1040447,\r\n      \"received_issued_flag\": 1,\r\n      \"taxbureau_validation_status\": null,\r\n      \"issue_date\": \"2025-04-15\",\r\n      \"issuer_tax_id_code\": \"860517022-2\",\r\n      \"issuer_tax_id_type\": \"CO-NIT\",\r\n      \"issuer_legal_name\": \"Demo Colombia\",\r\n      \"issuer_address\": \"\",\r\n      \"issuer_district\": \"\",\r\n      \"issuer_city\": \"\",\r\n      \"issuer_country_id\": 253,\r\n      \"issuer_phone\": \"442020550\",\r\n      \"issuer_activity\": \"\",\r\n      \"receiver_tax_id_code\": \"1097491385-1\",\r\n      \"receiver_tax_id_type\": \"CO-NIT\",\r\n      \"receiver_legal_name\": \"ESCUELAa KEMPER URGATE\",\r\n      \"receiver_address\": \"\",\r\n      \"receiver_district\": \"\",\r\n      \"receiver_city\": \"\",\r\n      \"receiver_country_id\": 66,\r\n      \"receiver_phone\": \"<string>\",\r\n      \"receiver_activity\": \"<string>\",\r\n      \"document_status\": 1,\r\n      \"payment_conditions\": \"0\",\r\n      \"currency_id\": 28\r\n   },\r\n   \"details\": [   {\r\n      \"quantity\": \"1.000000\",\r\n      \"line_description\": \"Prueba Koywe\",\r\n      \"long_description\": \"Esta es una linea de prueba\",\r\n      \"unit_measure\": \"70\",\r\n      \"unit_price\": \"3660.000000\",\r\n      \"vat_status\": \"0\"\r\n   }],\r\n   \"references\": null,\r\n   \"global_modifiers\": null,\r\n   \"totals\":    {\r\n      \"net_amount\": 3660,\r\n      \"taxes_amount\": 695.4,\r\n      \"total_amount\": \"4355.40\"\r\n   },\r\n   \"electronic_document\":    {\r\n      \"document_xml\": \"PD94bWwgdmVyc2lvbj0iMS4wIiB...\",\r\n      \"document_pdf\": \"JVBERi0xLjMKMyAwIG9iago8PC9...\"\r\n   },\r\n   \"payment_link\": null,\r\n   \"result\":    {\r\n      \"status\": 0,\r\n      \"error_message\": \"\"\r\n   },\r\n   \"_links\": {\"self\": {\"href\": \"https://api-billing.koywe.com/V1/documents\"}}\r\n}\r\n",
+              "raw": "{\r\n   \"document_id\": 377,\r\n   \"header\":    {\r\n      \"account_id\": 14540,\r\n      \"document_type_id\": 82,\r\n      \"document_type_taxbureau\": \"01\",\r\n      \"document_number\": 1040447,\r\n      \"received_issued_flag\": 1,\r\n      \"taxbureau_validation_status\": null,\r\n      \"issue_date\": \"2025-04-15\",\r\n      \"issuer_tax_id_code\": \"860517022-2\",\r\n      \"issuer_tax_id_type\": \"CO-NIT\",\r\n      \"issuer_legal_name\": \"Demo Colombia\",\r\n      \"issuer_address\": \"\",\r\n      \"issuer_district\": \"\",\r\n      \"issuer_city\": \"\",\r\n      \"issuer_country_id\": 253,\r\n      \"issuer_phone\": \"442020550\",\r\n      \"issuer_activity\": \"\",\r\n      \"receiver_tax_id_code\": \"1097491385-1\",\r\n      \"receiver_tax_id_type\": \"CO-NIT\",\r\n      \"receiver_legal_name\": \"ESCUELAa KEMPER URGATE\",\r\n      \"receiver_address\": \"\",\r\n      \"receiver_district\": \"\",\r\n      \"receiver_city\": \"\",\r\n      \"receiver_country_id\": 66,\r\n      \"receiver_phone\": \"<string>\",\r\n      \"receiver_activity\": \"<string>\",\r\n      \"document_status\": 1,\r\n      \"payment_conditions\": \"0\",\r\n      \"currency_id\": 28\r\n   },\r\n   \"details\": [   {\r\n      \"quantity\": \"1.000000\",\r\n      \"line_description\": \"Prueba Koywe\",\r\n      \"long_description\": \"Esta es una linea de prueba\",\r\n      \"unit_measure\": \"70\",\r\n      \"unit_price\": \"3660.000000\",\r\n      \"vat_status\": \"0\"\r\n   }],\r\n   \"references\": null,\r\n   \"global_modifiers\": null,\r\n   \"totals\":    {\r\n      \"net_amount\": 3660,\r\n      \"taxes_amount\": 695.4,\r\n      \"total_amount\": \"4355.40\"\r\n   },\r\n   \"electronic_document\":    {\r\n      \"document_xml\": \"PD94bWwgdmVyc2lvbj0iMS4wIiB...\",\r\n      \"document_pdf\": \"JVBERi0xLjMKMyAwIG9iago8PC9...\"\r\n   },\r\n   \"payment_link\": null,\r\n   \"result\":    {\r\n      \"status\": 0,\r\n      \"error_message\": \"\"\r\n   },\r\n   \"_links\": {\"self\": {\"href\": \"https://apifacto.com/v1/documents\"}}\r\n}\r\n",
               "options": {
                 "raw": {
                   "language": "json"
@@ -770,7 +770,7 @@
               }
             },
             "url": {
-              "raw": "https://api-billing.koywe.com/V1/documents",
+              "raw": "https://apifacto.com/v1/documents",
               "protocol": "https",
               "host": [
                 "api-billing",
@@ -801,7 +801,7 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "https://api-billing.koywe.com/V1/documents/:document_id",
+              "raw": "https://apifacto.com/v1/documents/:document_id",
               "protocol": "https",
               "host": [
                 "api-billing",
@@ -839,7 +839,7 @@
             "method": "DELETE",
             "header": [],
             "url": {
-              "raw": "https://api-billing.koywe.com/V1/documents/:document_id",
+              "raw": "https://apifacto.com/v1/documents/:document_id",
               "protocol": "https",
               "host": [
                 "api-billing",
@@ -886,7 +886,7 @@
               }
             },
             "url": {
-              "raw": "https://api-billing.koywe.com/V1/products",
+              "raw": "https://apifacto.com/v1/products",
               "protocol": "https",
               "host": [
                 "api-billing",
@@ -926,7 +926,7 @@
               }
             },
             "url": {
-              "raw": "https://api-billing.koywe.com/V1/product_categories",
+              "raw": "https://apifacto.com/v1/product_categories",
               "protocol": "https",
               "host": [
                 "api-billing",
@@ -966,7 +966,7 @@
               }
             },
             "url": {
-              "raw": "https://api-billing.koywe.com/V1/product_locations",
+              "raw": "https://apifacto.com/v1/product_locations",
               "protocol": "https",
               "host": [
                 "api-billing",
@@ -1006,7 +1006,7 @@
               }
             },
             "url": {
-              "raw": "https://api-billing.koywe.com/V1/product_price_lists",
+              "raw": "https://apifacto.com/v1/product_price_lists",
               "protocol": "https",
               "host": [
                 "api-billing",
@@ -1046,7 +1046,7 @@
               }
             },
             "url": {
-              "raw": "https://api-billing.koywe.com/V1/digital_certificate_issuance",
+              "raw": "https://apifacto.com/v1/digital_certificate_issuance",
               "protocol": "https",
               "host": [
                 "api-billing",
@@ -1086,7 +1086,7 @@
               }
             },
             "url": {
-              "raw": "https://api-billing.koywe.com/V1/document_transfers",
+              "raw": "https://apifacto.com/v1/document_transfers",
               "protocol": "https",
               "host": [
                 "api-billing",
@@ -1170,7 +1170,7 @@
               }
             },
             "url": {
-              "raw": "https://api-billing.koywe.com/V1/auth",
+              "raw": "https://apifacto.com/v1/auth",
               "protocol": "https",
               "host": [
                 "api-billing",
@@ -1210,7 +1210,7 @@
               }
             },
             "url": {
-              "raw": "https://api-billing.koywe.com/V1/accounts",
+              "raw": "https://apifacto.com/v1/accounts",
               "protocol": "https",
               "host": [
                 "api-billing",
@@ -1250,7 +1250,7 @@
               }
             },
             "url": {
-              "raw": "https://api-billing.koywe.com/V1/documents",
+              "raw": "https://apifacto.com/v1/documents",
               "protocol": "https",
               "host": [
                 "api-billing",
@@ -1290,7 +1290,7 @@
               }
             },
             "url": {
-              "raw": "https://api-billing.koywe.com/V1/documents",
+              "raw": "https://apifacto.com/v1/documents",
               "protocol": "https",
               "host": [
                 "api-billing",
@@ -1330,7 +1330,7 @@
               }
             },
             "url": {
-              "raw": "https://api-billing.koywe.com/V1/documents",
+              "raw": "https://apifacto.com/v1/documents",
               "protocol": "https",
               "host": [
                 "api-billing",
@@ -1370,7 +1370,7 @@
               }
             },
             "url": {
-              "raw": "https://api-billing.koywe.com/V1/documents",
+              "raw": "https://apifacto.com/v1/documents",
               "protocol": "https",
               "host": [
                 "api-billing",
@@ -1410,7 +1410,7 @@
               }
             },
             "url": {
-              "raw": "https://api-billing.koywe.com/V1/documents",
+              "raw": "https://apifacto.com/v1/documents",
               "protocol": "https",
               "host": [
                 "api-billing",
@@ -1450,7 +1450,7 @@
               }
             },
             "url": {
-              "raw": "https://api-billing.koywe.com/V1/documents",
+              "raw": "https://apifacto.com/v1/documents",
               "protocol": "https",
               "host": [
                 "api-billing",
@@ -1490,7 +1490,7 @@
               }
             },
             "url": {
-              "raw": "https://api-billing.koywe.com/V1/documents",
+              "raw": "https://apifacto.com/v1/documents",
               "protocol": "https",
               "host": [
                 "api-billing",
@@ -1521,7 +1521,7 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "https://api-billing.koywe.com/V1/documents/:document_id",
+              "raw": "https://apifacto.com/v1/documents/:document_id",
               "protocol": "https",
               "host": [
                 "api-billing",
@@ -1559,7 +1559,7 @@
             "method": "DELETE",
             "header": [],
             "url": {
-              "raw": "https://api-billing.koywe.com/V1/documents/:document_id",
+              "raw": "https://apifacto.com/v1/documents/:document_id",
               "protocol": "https",
               "host": [
                 "api-billing",
@@ -1650,7 +1650,7 @@
               }
             },
             "url": {
-              "raw": "https://api-billing.koywe.com/V1/auth",
+              "raw": "https://apifacto.com/v1/auth",
               "protocol": "https",
               "host": [
                 "api-billing",
@@ -1690,7 +1690,7 @@
               }
             },
             "url": {
-              "raw": "https://api-billing.koywe.com/V1/accounts",
+              "raw": "https://apifacto.com/v1/accounts",
               "protocol": "https",
               "host": [
                 "api-billing",
@@ -1730,7 +1730,7 @@
               }
             },
             "url": {
-              "raw": "https://api-billing.koywe.com/V1/documents",
+              "raw": "https://apifacto.com/v1/documents",
               "protocol": "https",
               "host": [
                 "api-billing",
@@ -1770,7 +1770,7 @@
               }
             },
             "url": {
-              "raw": "https://api-billing.koywe.com/V1/documents",
+              "raw": "https://apifacto.com/v1/documents",
               "protocol": "https",
               "host": [
                 "api-billing",
@@ -1810,7 +1810,7 @@
               }
             },
             "url": {
-              "raw": "https://api-billing.koywe.com/V1/documents",
+              "raw": "https://apifacto.com/v1/documents",
               "protocol": "https",
               "host": [
                 "api-billing",
@@ -1850,7 +1850,7 @@
               }
             },
             "url": {
-              "raw": "https://api-billing.koywe.com/V1/documents",
+              "raw": "https://apifacto.com/v1/documents",
               "protocol": "https",
               "host": [
                 "api-billing",
@@ -1890,7 +1890,7 @@
               }
             },
             "url": {
-              "raw": "https://api-billing.koywe.com/V1/documents",
+              "raw": "https://apifacto.com/v1/documents",
               "protocol": "https",
               "host": [
                 "api-billing",
@@ -1930,7 +1930,7 @@
               }
             },
             "url": {
-              "raw": "https://api-billing.koywe.com/V1/documents",
+              "raw": "https://apifacto.com/v1/documents",
               "protocol": "https",
               "host": [
                 "api-billing",
@@ -1970,7 +1970,7 @@
               }
             },
             "url": {
-              "raw": "https://api-billing.koywe.com/V1/documents",
+              "raw": "https://apifacto.com/v1/documents",
               "protocol": "https",
               "host": [
                 "api-billing",
@@ -2010,7 +2010,7 @@
               }
             },
             "url": {
-              "raw": "https://api-billing.koywe.com/V1/documents",
+              "raw": "https://apifacto.com/v1/documents",
               "protocol": "https",
               "host": [
                 "api-billing",
@@ -2050,7 +2050,7 @@
               }
             },
             "url": {
-              "raw": "https://api-billing.koywe.com/V1/documents",
+              "raw": "https://apifacto.com/v1/documents",
               "protocol": "https",
               "host": [
                 "api-billing",
@@ -2093,7 +2093,7 @@
               }
             },
             "url": {
-              "raw": "https://api-billing.koywe.com/V1/documents/:document_id",
+              "raw": "https://apifacto.com/v1/documents/:document_id",
               "protocol": "https",
               "host": [
                 "api-billing",
@@ -2140,7 +2140,7 @@
               }
             },
             "url": {
-              "raw": "https://api-billing.koywe.com/V1/payments",
+              "raw": "https://apifacto.com/v1/payments",
               "protocol": "https",
               "host": [
                 "api-billing",
@@ -2183,7 +2183,7 @@
               }
             },
             "url": {
-              "raw": "https://api-billing.koywe.com/V1/documents/:document_id",
+              "raw": "https://apifacto.com/v1/documents/:document_id",
               "protocol": "https",
               "host": [
                 "api-billing",
@@ -2230,7 +2230,7 @@
               }
             },
             "url": {
-              "raw": "https://api-billing.koywe.com/V1/documents/:document_id",
+              "raw": "https://apifacto.com/v1/documents/:document_id",
               "protocol": "https",
               "host": [
                 "api-billing",
@@ -2321,7 +2321,7 @@
               }
             },
             "url": {
-              "raw": "https://api-billing.koywe.com/V1/auth",
+              "raw": "https://apifacto.com/v1/auth",
               "protocol": "https",
               "host": [
                 "api-billing",
@@ -2361,7 +2361,7 @@
               }
             },
             "url": {
-              "raw": "https://api-billing.koywe.com/V1/accounts",
+              "raw": "https://apifacto.com/v1/accounts",
               "protocol": "https",
               "host": [
                 "api-billing",
@@ -2401,7 +2401,7 @@
               }
             },
             "url": {
-              "raw": "https://api-billing.koywe.com/V1/documents",
+              "raw": "https://apifacto.com/v1/documents",
               "protocol": "https",
               "host": [
                 "api-billing",
@@ -2441,7 +2441,7 @@
               }
             },
             "url": {
-              "raw": "https://api-billing.koywe.com/V1/documents",
+              "raw": "https://apifacto.com/v1/documents",
               "protocol": "https",
               "host": [
                 "api-billing",
@@ -2481,7 +2481,7 @@
               }
             },
             "url": {
-              "raw": "https://api-billing.koywe.com/V1/documents",
+              "raw": "https://apifacto.com/v1/documents",
               "protocol": "https",
               "host": [
                 "api-billing",
@@ -2521,7 +2521,7 @@
               }
             },
             "url": {
-              "raw": "https://api-billing.koywe.com/V1/documents",
+              "raw": "https://apifacto.com/v1/documents",
               "protocol": "https",
               "host": [
                 "api-billing",
@@ -2561,7 +2561,7 @@
               }
             },
             "url": {
-              "raw": "https://api-billing.koywe.com/V1/documents",
+              "raw": "https://apifacto.com/v1/documents",
               "protocol": "https",
               "host": [
                 "api-billing",
@@ -2601,7 +2601,7 @@
               }
             },
             "url": {
-              "raw": "https://api-billing.koywe.com/V1/documents",
+              "raw": "https://apifacto.com/v1/documents",
               "protocol": "https",
               "host": [
                 "api-billing",
@@ -2641,7 +2641,7 @@
               }
             },
             "url": {
-              "raw": "https://api-billing.koywe.com/V1/documents",
+              "raw": "https://apifacto.com/v1/documents",
               "protocol": "https",
               "host": [
                 "api-billing",
@@ -2681,7 +2681,7 @@
               }
             },
             "url": {
-              "raw": "https://api-billing.koywe.com/V1/documents",
+              "raw": "https://apifacto.com/v1/documents",
               "protocol": "https",
               "host": [
                 "api-billing",
@@ -2721,7 +2721,7 @@
               }
             },
             "url": {
-              "raw": "https://api-billing.koywe.com/V1/documents",
+              "raw": "https://apifacto.com/v1/documents",
               "protocol": "https",
               "host": [
                 "api-billing",
@@ -2761,7 +2761,7 @@
               }
             },
             "url": {
-              "raw": "https://api-billing.koywe.com/V1/documents",
+              "raw": "https://apifacto.com/v1/documents",
               "protocol": "https",
               "host": [
                 "api-billing",
@@ -2801,7 +2801,7 @@
               }
             },
             "url": {
-              "raw": "https://api-billing.koywe.com/V1/documents",
+              "raw": "https://apifacto.com/v1/documents",
               "protocol": "https",
               "host": [
                 "api-billing",
@@ -2841,7 +2841,7 @@
               }
             },
             "url": {
-              "raw": "https://api-billing.koywe.com/V1/documents",
+              "raw": "https://apifacto.com/v1/documents",
               "protocol": "https",
               "host": [
                 "api-billing",
@@ -2881,7 +2881,7 @@
               }
             },
             "url": {
-              "raw": "https://api-billing.koywe.com/V1/documents",
+              "raw": "https://apifacto.com/v1/documents",
               "protocol": "https",
               "host": [
                 "api-billing",
@@ -2921,7 +2921,7 @@
               }
             },
             "url": {
-              "raw": "https://api-billing.koywe.com/V1/documents",
+              "raw": "https://apifacto.com/v1/documents",
               "protocol": "https",
               "host": [
                 "api-billing",
@@ -2964,7 +2964,7 @@
               }
             },
             "url": {
-              "raw": "https://api-billing.koywe.com/V1/documents/:document_id",
+              "raw": "https://apifacto.com/v1/documents/:document_id",
               "protocol": "https",
               "host": [
                 "api-billing",
@@ -3011,7 +3011,7 @@
               }
             },
             "url": {
-              "raw": "https://api-billing.koywe.com/V1/documents/:document_id",
+              "raw": "https://apifacto.com/v1/documents/:document_id",
               "protocol": "https",
               "host": [
                 "api-billing",
@@ -3105,7 +3105,7 @@
                   }
                 },
                 "url": {
-                  "raw": "https://api-billing.koywe.com/V1/auth",
+                  "raw": "https://apifacto.com/v1/auth",
                   "protocol": "https",
                   "host": [
                     "api-billing",
@@ -3150,7 +3150,7 @@
                   }
                 },
                 "url": {
-                  "raw": "https://api-billing.koywe.com/V1/accounts",
+                  "raw": "https://apifacto.com/v1/accounts",
                   "protocol": "https",
                   "host": [
                     "api-billing",
@@ -3181,7 +3181,7 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": "https://api-billing.koywe.com/V1/accounts/:account_id",
+                  "raw": "https://apifacto.com/v1/accounts/:account_id",
                   "protocol": "https",
                   "host": [
                     "api-billing",
@@ -3214,7 +3214,7 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": "https://api-billing.koywe.com/V1/document_types",
+                  "raw": "https://apifacto.com/v1/document_types",
                   "protocol": "https",
                   "host": [
                     "api-billing",
@@ -3235,7 +3235,7 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": "https://api-billing.koywe.com/V1/document_types/:document_type_id",
+                  "raw": "https://apifacto.com/v1/document_types/:document_type_id",
                   "protocol": "https",
                   "host": [
                     "api-billing",
@@ -3281,7 +3281,7 @@
                   }
                 },
                 "url": {
-                  "raw": "https://api-billing.koywe.com/V1/document_types/:document_type_id",
+                  "raw": "https://apifacto.com/v1/document_types/:document_type_id",
                   "protocol": "https",
                   "host": [
                     "api-billing",
@@ -3324,7 +3324,7 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": "https://api-billing.koywe.com/V1/customers_suppliers",
+                  "raw": "https://apifacto.com/v1/customers_suppliers",
                   "protocol": "https",
                   "host": [
                     "api-billing",
@@ -3364,7 +3364,7 @@
                   }
                 },
                 "url": {
-                  "raw": "https://api-billing.koywe.com/V1/customers_suppliers",
+                  "raw": "https://apifacto.com/v1/customers_suppliers",
                   "protocol": "https",
                   "host": [
                     "api-billing",
@@ -3395,7 +3395,7 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": "https://api-billing.koywe.com/V1/customers_suppliers/:customer_supplier_id",
+                  "raw": "https://apifacto.com/v1/customers_suppliers/:customer_supplier_id",
                   "protocol": "https",
                   "host": [
                     "api-billing",
@@ -3442,7 +3442,7 @@
                   }
                 },
                 "url": {
-                  "raw": "https://api-billing.koywe.com/V1/customers_suppliers/:customer_supplier_id",
+                  "raw": "https://apifacto.com/v1/customers_suppliers/:customer_supplier_id",
                   "protocol": "https",
                   "host": [
                     "api-billing",
@@ -3480,7 +3480,7 @@
                 "method": "DELETE",
                 "header": [],
                 "url": {
-                  "raw": "https://api-billing.koywe.com/V1/customers_suppliers/:customer_supplier_id",
+                  "raw": "https://apifacto.com/v1/customers_suppliers/:customer_supplier_id",
                   "protocol": "https",
                   "host": [
                     "api-billing",
@@ -3523,7 +3523,7 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": "https://api-billing.koywe.com/V1/documents",
+                  "raw": "https://apifacto.com/v1/documents",
                   "protocol": "https",
                   "host": [
                     "api-billing",
@@ -3563,7 +3563,7 @@
                   }
                 },
                 "url": {
-                  "raw": "https://api-billing.koywe.com/V1/documents",
+                  "raw": "https://apifacto.com/v1/documents",
                   "protocol": "https",
                   "host": [
                     "api-billing",
@@ -3594,7 +3594,7 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": "https://api-billing.koywe.com/V1/documents/:document_id",
+                  "raw": "https://apifacto.com/v1/documents/:document_id",
                   "protocol": "https",
                   "host": [
                     "api-billing",
@@ -3641,7 +3641,7 @@
                   }
                 },
                 "url": {
-                  "raw": "https://api-billing.koywe.com/V1/documents/:document_id",
+                  "raw": "https://apifacto.com/v1/documents/:document_id",
                   "protocol": "https",
                   "host": [
                     "api-billing",
@@ -3679,7 +3679,7 @@
                 "method": "DELETE",
                 "header": [],
                 "url": {
-                  "raw": "https://api-billing.koywe.com/V1/documents/:document_id",
+                  "raw": "https://apifacto.com/v1/documents/:document_id",
                   "protocol": "https",
                   "host": [
                     "api-billing",
@@ -3722,7 +3722,7 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": "https://api-billing.koywe.com/V1/document_transfers",
+                  "raw": "https://apifacto.com/v1/document_transfers",
                   "protocol": "https",
                   "host": [
                     "api-billing",
@@ -3762,7 +3762,7 @@
                   }
                 },
                 "url": {
-                  "raw": "https://api-billing.koywe.com/V1/document_transfers",
+                  "raw": "https://apifacto.com/v1/document_transfers",
                   "protocol": "https",
                   "host": [
                     "api-billing",
@@ -3793,7 +3793,7 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": "https://api-billing.koywe.com/V1/document_transfers/:document_transfer_id",
+                  "raw": "https://apifacto.com/v1/document_transfers/:document_transfer_id",
                   "protocol": "https",
                   "host": [
                     "api-billing",
@@ -3836,7 +3836,7 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": "https://api-billing.koywe.com/V1/inbox_documents",
+                  "raw": "https://apifacto.com/v1/inbox_documents",
                   "protocol": "https",
                   "host": [
                     "api-billing",
@@ -3867,7 +3867,7 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": "https://api-billing.koywe.com/V1/inbox_documents/:inbox_document_id",
+                  "raw": "https://apifacto.com/v1/inbox_documents/:inbox_document_id",
                   "protocol": "https",
                   "host": [
                     "api-billing",
@@ -3914,7 +3914,7 @@
                   }
                 },
                 "url": {
-                  "raw": "https://api-billing.koywe.com/V1/inbox_documents/:inbox_document_id",
+                  "raw": "https://apifacto.com/v1/inbox_documents/:inbox_document_id",
                   "protocol": "https",
                   "host": [
                     "api-billing",
@@ -3957,7 +3957,7 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": "https://api-billing.koywe.com/V1/digital_certificates/:certificate_id",
+                  "raw": "https://apifacto.com/v1/digital_certificates/:certificate_id",
                   "protocol": "https",
                   "host": [
                     "api-billing",
@@ -3995,7 +3995,7 @@
                 "method": "DELETE",
                 "header": [],
                 "url": {
-                  "raw": "https://api-billing.koywe.com/V1/digital_certificates/:certificate_id",
+                  "raw": "https://apifacto.com/v1/digital_certificates/:certificate_id",
                   "protocol": "https",
                   "host": [
                     "api-billing",
@@ -4033,7 +4033,7 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": "https://api-billing.koywe.com/V1/digital_certificates",
+                  "raw": "https://apifacto.com/v1/digital_certificates",
                   "protocol": "https",
                   "host": [
                     "api-billing",
@@ -4073,7 +4073,7 @@
                   }
                 },
                 "url": {
-                  "raw": "https://api-billing.koywe.com/V1/digital_certificates",
+                  "raw": "https://apifacto.com/v1/digital_certificates",
                   "protocol": "https",
                   "host": [
                     "api-billing",
@@ -4109,7 +4109,7 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": "https://api-billing.koywe.com/V1/digital_certificate_issuance/:certificate_issuance_id",
+                  "raw": "https://apifacto.com/v1/digital_certificate_issuance/:certificate_issuance_id",
                   "protocol": "https",
                   "host": [
                     "api-billing",
@@ -4156,7 +4156,7 @@
                   }
                 },
                 "url": {
-                  "raw": "https://api-billing.koywe.com/V1/digital_certificate_issuance",
+                  "raw": "https://apifacto.com/v1/digital_certificate_issuance",
                   "protocol": "https",
                   "host": [
                     "api-billing",
@@ -4201,7 +4201,7 @@
                   }
                 },
                 "url": {
-                  "raw": "https://api-billing.koywe.com/V1/payments",
+                  "raw": "https://apifacto.com/v1/payments",
                   "protocol": "https",
                   "host": [
                     "api-billing",
@@ -4232,7 +4232,7 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": "https://api-billing.koywe.com/V1/payments/:payment_id",
+                  "raw": "https://apifacto.com/v1/payments/:payment_id",
                   "protocol": "https",
                   "host": [
                     "api-billing",
@@ -4275,7 +4275,7 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": "https://api-billing.koywe.com/V1/products",
+                  "raw": "https://apifacto.com/v1/products",
                   "protocol": "https",
                   "host": [
                     "api-billing",
@@ -4315,7 +4315,7 @@
                   }
                 },
                 "url": {
-                  "raw": "https://api-billing.koywe.com/V1/products",
+                  "raw": "https://apifacto.com/v1/products",
                   "protocol": "https",
                   "host": [
                     "api-billing",
@@ -4346,7 +4346,7 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": "https://api-billing.koywe.com/V1/products/:product_id",
+                  "raw": "https://apifacto.com/v1/products/:product_id",
                   "protocol": "https",
                   "host": [
                     "api-billing",
@@ -4393,7 +4393,7 @@
                   }
                 },
                 "url": {
-                  "raw": "https://api-billing.koywe.com/V1/products/:product_id",
+                  "raw": "https://apifacto.com/v1/products/:product_id",
                   "protocol": "https",
                   "host": [
                     "api-billing",
@@ -4431,7 +4431,7 @@
                 "method": "DELETE",
                 "header": [],
                 "url": {
-                  "raw": "https://api-billing.koywe.com/V1/products/:product_id",
+                  "raw": "https://apifacto.com/v1/products/:product_id",
                   "protocol": "https",
                   "host": [
                     "api-billing",
@@ -4474,7 +4474,7 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": "https://api-billing.koywe.com/V1/product_price_lists",
+                  "raw": "https://apifacto.com/v1/product_price_lists",
                   "protocol": "https",
                   "host": [
                     "api-billing",
@@ -4514,7 +4514,7 @@
                   }
                 },
                 "url": {
-                  "raw": "https://api-billing.koywe.com/V1/product_price_lists",
+                  "raw": "https://apifacto.com/v1/product_price_lists",
                   "protocol": "https",
                   "host": [
                     "api-billing",
@@ -4545,7 +4545,7 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": "https://api-billing.koywe.com/V1/product_price_lists/:product_price_list_id",
+                  "raw": "https://apifacto.com/v1/product_price_lists/:product_price_list_id",
                   "protocol": "https",
                   "host": [
                     "api-billing",
@@ -4592,7 +4592,7 @@
                   }
                 },
                 "url": {
-                  "raw": "https://api-billing.koywe.com/V1/product_price_lists/:product_price_list_id",
+                  "raw": "https://apifacto.com/v1/product_price_lists/:product_price_list_id",
                   "protocol": "https",
                   "host": [
                     "api-billing",
@@ -4630,7 +4630,7 @@
                 "method": "DELETE",
                 "header": [],
                 "url": {
-                  "raw": "https://api-billing.koywe.com/V1/product_price_lists/:product_price_list_id",
+                  "raw": "https://apifacto.com/v1/product_price_lists/:product_price_list_id",
                   "protocol": "https",
                   "host": [
                     "api-billing",
@@ -4673,7 +4673,7 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": "https://api-billing.koywe.com/V1/product_locations",
+                  "raw": "https://apifacto.com/v1/product_locations",
                   "protocol": "https",
                   "host": [
                     "api-billing",
@@ -4713,7 +4713,7 @@
                   }
                 },
                 "url": {
-                  "raw": "https://api-billing.koywe.com/V1/product_locations",
+                  "raw": "https://apifacto.com/v1/product_locations",
                   "protocol": "https",
                   "host": [
                     "api-billing",
@@ -4744,7 +4744,7 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": "https://api-billing.koywe.com/V1/product_locations/:product_location_id",
+                  "raw": "https://apifacto.com/v1/product_locations/:product_location_id",
                   "protocol": "https",
                   "host": [
                     "api-billing",
@@ -4791,7 +4791,7 @@
                   }
                 },
                 "url": {
-                  "raw": "https://api-billing.koywe.com/V1/product_locations/:product_location_id",
+                  "raw": "https://apifacto.com/v1/product_locations/:product_location_id",
                   "protocol": "https",
                   "host": [
                     "api-billing",
@@ -4829,7 +4829,7 @@
                 "method": "DELETE",
                 "header": [],
                 "url": {
-                  "raw": "https://api-billing.koywe.com/V1/product_locations/:product_location_id",
+                  "raw": "https://apifacto.com/v1/product_locations/:product_location_id",
                   "protocol": "https",
                   "host": [
                     "api-billing",
@@ -4872,7 +4872,7 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": "https://api-billing.koywe.com/V1/product_categories",
+                  "raw": "https://apifacto.com/v1/product_categories",
                   "protocol": "https",
                   "host": [
                     "api-billing",
@@ -4912,7 +4912,7 @@
                   }
                 },
                 "url": {
-                  "raw": "https://api-billing.koywe.com/V1/product_categories",
+                  "raw": "https://apifacto.com/v1/product_categories",
                   "protocol": "https",
                   "host": [
                     "api-billing",
@@ -4943,7 +4943,7 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": "https://api-billing.koywe.com/V1/product_categories/:product_category_id",
+                  "raw": "https://apifacto.com/v1/product_categories/:product_category_id",
                   "protocol": "https",
                   "host": [
                     "api-billing",
@@ -4990,7 +4990,7 @@
                   }
                 },
                 "url": {
-                  "raw": "https://api-billing.koywe.com/V1/product_categories/:product_category_id",
+                  "raw": "https://apifacto.com/v1/product_categories/:product_category_id",
                   "protocol": "https",
                   "host": [
                     "api-billing",
@@ -5028,7 +5028,7 @@
                 "method": "DELETE",
                 "header": [],
                 "url": {
-                  "raw": "https://api-billing.koywe.com/V1/product_categories/:product_category_id",
+                  "raw": "https://apifacto.com/v1/product_categories/:product_category_id",
                   "protocol": "https",
                   "host": [
                     "api-billing",
@@ -5071,7 +5071,7 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": "https://api-billing.koywe.com/V1/webhook_subscriptions/:webhook_subscription_id",
+                  "raw": "https://apifacto.com/v1/webhook_subscriptions/:webhook_subscription_id",
                   "protocol": "https",
                   "host": [
                     "api-billing",
@@ -5109,7 +5109,7 @@
                 "method": "DELETE",
                 "header": [],
                 "url": {
-                  "raw": "https://api-billing.koywe.com/V1/webhook_subscriptions/:webhook_subscription_id",
+                  "raw": "https://apifacto.com/v1/webhook_subscriptions/:webhook_subscription_id",
                   "protocol": "https",
                   "host": [
                     "api-billing",
@@ -5147,7 +5147,7 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": "https://api-billing.koywe.com/V1/webhook_subscriptions",
+                  "raw": "https://apifacto.com/v1/webhook_subscriptions",
                   "protocol": "https",
                   "host": [
                     "api-billing",
@@ -5187,7 +5187,7 @@
                   }
                 },
                 "url": {
-                  "raw": "https://api-billing.koywe.com/V1/webhook_subscriptions",
+                  "raw": "https://apifacto.com/v1/webhook_subscriptions",
                   "protocol": "https",
                   "host": [
                     "api-billing",
@@ -5223,7 +5223,7 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": "https://api-billing.koywe.com/V1/company_branches",
+                  "raw": "https://apifacto.com/v1/company_branches",
                   "protocol": "https",
                   "host": [
                     "api-billing",
@@ -5254,7 +5254,7 @@
                 "method": "POST",
                 "header": [],
                 "url": {
-                  "raw": "https://api-billing.koywe.com/V1/company_branches",
+                  "raw": "https://apifacto.com/v1/company_branches",
                   "protocol": "https",
                   "host": [
                     "api-billing",
@@ -5285,7 +5285,7 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": "https://api-billing.koywe.com/V1/company_branches/:company_branch_id",
+                  "raw": "https://apifacto.com/v1/company_branches/:company_branch_id",
                   "protocol": "https",
                   "host": [
                     "api-billing",
@@ -5332,7 +5332,7 @@
                   }
                 },
                 "url": {
-                  "raw": "https://api-billing.koywe.com/V1/company_branches/:company_branch_id",
+                  "raw": "https://apifacto.com/v1/company_branches/:company_branch_id",
                   "protocol": "https",
                   "host": [
                     "api-billing",
@@ -5370,7 +5370,7 @@
                 "method": "DELETE",
                 "header": [],
                 "url": {
-                  "raw": "https://api-billing.koywe.com/V1/company_branches/:company_branch_id",
+                  "raw": "https://apifacto.com/v1/company_branches/:company_branch_id",
                   "protocol": "https",
                   "host": [
                     "api-billing",
@@ -5464,7 +5464,7 @@
               }
             },
             "url": {
-              "raw": "https://api-billing.koywe.com/V1/auth",
+              "raw": "https://apifacto.com/v1/auth",
               "protocol": "https",
               "host": [
                 "api-billing",
@@ -5504,7 +5504,7 @@
               }
             },
             "url": {
-              "raw": "https://api-billing.koywe.com/V1/accounts",
+              "raw": "https://apifacto.com/v1/accounts",
               "protocol": "https",
               "host": [
                 "api-billing",
@@ -5619,7 +5619,7 @@
               }
             },
             "url": {
-              "raw": "https://api-billing.koywe.com/V1/documents",
+              "raw": "https://apifacto.com/v1/documents",
               "protocol": "https",
               "host": [
                 "api-billing",
@@ -5734,7 +5734,7 @@
               }
             },
             "url": {
-              "raw": "https://api-billing.koywe.com/V1/documents",
+              "raw": "https://apifacto.com/v1/documents",
               "protocol": "https",
               "host": [
                 "api-billing",
@@ -5849,7 +5849,7 @@
               }
             },
             "url": {
-              "raw": "https://api-billing.koywe.com/V1/documents",
+              "raw": "https://apifacto.com/v1/documents",
               "protocol": "https",
               "host": [
                 "api-billing",
@@ -5964,7 +5964,7 @@
               }
             },
             "url": {
-              "raw": "https://api-billing.koywe.com/V1/documents",
+              "raw": "https://apifacto.com/v1/documents",
               "protocol": "https",
               "host": [
                 "api-billing",
@@ -6079,7 +6079,7 @@
               }
             },
             "url": {
-              "raw": "https://api-billing.koywe.com/V1/documents",
+              "raw": "https://apifacto.com/v1/documents",
               "protocol": "https",
               "host": [
                 "api-billing",
@@ -6194,7 +6194,7 @@
               }
             },
             "url": {
-              "raw": "https://api-billing.koywe.com/V1/documents",
+              "raw": "https://apifacto.com/v1/documents",
               "protocol": "https",
               "host": [
                 "api-billing",
@@ -6309,7 +6309,7 @@
               }
             },
             "url": {
-              "raw": "https://api-billing.koywe.com/V1/documents",
+              "raw": "https://apifacto.com/v1/documents",
               "protocol": "https",
               "host": [
                 "api-billing",
@@ -6424,7 +6424,7 @@
               }
             },
             "url": {
-              "raw": "https://api-billing.koywe.com/V1/documents",
+              "raw": "https://apifacto.com/v1/documents",
               "protocol": "https",
               "host": [
                 "api-billing",
@@ -6539,7 +6539,7 @@
               }
             },
             "url": {
-              "raw": "https://api-billing.koywe.com/V1/documents",
+              "raw": "https://apifacto.com/v1/documents",
               "protocol": "https",
               "host": [
                 "api-billing",
@@ -6654,7 +6654,7 @@
               }
             },
             "url": {
-              "raw": "https://api-billing.koywe.com/V1/documents",
+              "raw": "https://apifacto.com/v1/documents",
               "protocol": "https",
               "host": [
                 "api-billing",
@@ -6769,7 +6769,7 @@
               }
             },
             "url": {
-              "raw": "https://api-billing.koywe.com/V1/documents",
+              "raw": "https://apifacto.com/v1/documents",
               "protocol": "https",
               "host": [
                 "api-billing",
@@ -6884,7 +6884,7 @@
               }
             },
             "url": {
-              "raw": "https://api-billing.koywe.com/V1/documents",
+              "raw": "https://apifacto.com/v1/documents",
               "protocol": "https",
               "host": [
                 "api-billing",
@@ -6999,7 +6999,7 @@
               }
             },
             "url": {
-              "raw": "https://api-billing.koywe.com/V1/documents",
+              "raw": "https://apifacto.com/v1/documents",
               "protocol": "https",
               "host": [
                 "api-billing",
@@ -7114,7 +7114,7 @@
               }
             },
             "url": {
-              "raw": "https://api-billing.koywe.com/V1/documents",
+              "raw": "https://apifacto.com/v1/documents",
               "protocol": "https",
               "host": [
                 "api-billing",
