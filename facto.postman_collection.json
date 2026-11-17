@@ -3237,6 +3237,221 @@
           ]
         },
         {
+          "name": "Document Sequences",
+          "description": "Document sequences (Argentina: point of sale; Peru: SUNAT series). Only available for Argentina and Peru accounts.",
+          "item": [
+            {
+              "name": "Get a paginated list of document sequences",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://apifacto.com/v1/document_sequences",
+                  "protocol": "https",
+                  "host": [
+                    "apifacto",
+                    "com"
+                  ],
+                  "path": [
+                    "v1",
+                    "document_sequences"
+                  ],
+                  "query": [
+                    {
+                      "key": "document_type_id",
+                      "value": "",
+                      "description": "Optional filter by document type ID",
+                      "disabled": true
+                    },
+                    {
+                      "key": "document_sequence_code",
+                      "value": "",
+                      "description": "Optional filter by sequence code",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get a specific document sequence",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://apifacto.com/v1/document_sequences/:document_sequence_code?document_type_id=96",
+                  "protocol": "https",
+                  "host": [
+                    "apifacto",
+                    "com"
+                  ],
+                  "path": [
+                    "v1",
+                    "document_sequences",
+                    ":document_sequence_code"
+                  ],
+                  "query": [
+                    {
+                      "key": "document_type_id",
+                      "value": "96"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "key": "document_sequence_code",
+                      "value": "F001"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Create a document sequence (Argentina)",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"document_type_id\": 111,\n  \"document_sequence_code\": \"3\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "https://apifacto.com/v1/document_sequences",
+                  "protocol": "https",
+                  "host": [
+                    "apifacto",
+                    "com"
+                  ],
+                  "path": [
+                    "v1",
+                    "document_sequences"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Create a document sequence (Peru)",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"document_type_id\": 96,\n  \"document_sequence_code\": \"F002\",\n  \"last_sequence_number\": 0\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "https://apifacto.com/v1/document_sequences",
+                  "protocol": "https",
+                  "host": [
+                    "apifacto",
+                    "com"
+                  ],
+                  "path": [
+                    "v1",
+                    "document_sequences"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Update the last sequence number",
+              "request": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"document_type_id\": 96,\n  \"last_sequence_number\": 350\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "https://apifacto.com/v1/document_sequences/:document_sequence_code",
+                  "protocol": "https",
+                  "host": [
+                    "apifacto",
+                    "com"
+                  ],
+                  "path": [
+                    "v1",
+                    "document_sequences",
+                    ":document_sequence_code"
+                  ],
+                  "variable": [
+                    {
+                      "key": "document_sequence_code",
+                      "value": "F001"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Delete a document sequence",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "https://apifacto.com/v1/document_sequences/:document_sequence_code?document_type_id=96",
+                  "protocol": "https",
+                  "host": [
+                    "apifacto",
+                    "com"
+                  ],
+                  "path": [
+                    "v1",
+                    "document_sequences",
+                    ":document_sequence_code"
+                  ],
+                  "query": [
+                    {
+                      "key": "document_type_id",
+                      "value": "96"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "key": "document_sequence_code",
+                      "value": "F002"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
           "name": "Customers Suppliers",
           "item": [
             {
