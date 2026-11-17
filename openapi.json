@@ -29,6 +29,10 @@
       "description": "Operations related to your document types."
     },
     {
+      "name": "\uD83D\uDD22 Document sequences",
+      "description": "Operations related to your document sequences (point of sale in Argentina, SUNAT series in Peru)."
+    },
+    {
       "name": "\uD83C\uDFE2 Company branches",
       "description": "Operations related to your document authorizations."
     },
@@ -614,6 +618,518 @@
                       "example": "Internal server error"
                     }
                   }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/document_sequences": {
+      "get": {
+        "summary": "Get a paginated list of document sequences",
+        "tags": [
+          "🔢 Document sequences"
+        ],
+        "description": "Retrieves the document sequences of the account: the point of sale (punto de venta) in Argentina and the SUNAT series in Peru. Only available for Argentina and Peru accounts; Chile, Mexico and Colombia do not use document sequences.",
+        "parameters": [
+          {
+            "name": "document_type_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "description": "Filter by document type ID"
+            }
+          },
+          {
+            "name": "document_sequence_code",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Filter by sequence code. In Argentina leading zeros are ignored (0001 = 1); in Peru it is case insensitive."
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "_links": {
+                      "type": "object",
+                      "properties": {
+                        "self": {
+                          "type": "string"
+                        },
+                        "first": {
+                          "type": "string"
+                        },
+                        "last": {
+                          "type": "string"
+                        },
+                        "next": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "_embedded": {
+                      "type": "object",
+                      "properties": {
+                        "document_sequences": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/Document_sequencesResponse"
+                          }
+                        }
+                      }
+                    },
+                    "page_count": {
+                      "type": "integer"
+                    },
+                    "page_size": {
+                      "type": "integer"
+                    },
+                    "total_items": {
+                      "type": "integer"
+                    },
+                    "page": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The account country does not use document sequences",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Document_sequencesError"
+                },
+                "example": {
+                  "type": "http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html",
+                  "title": "Bad Request",
+                  "status": 400,
+                  "detail": "Document sequences are not available for this country."
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "post": {
+        "summary": "Create a document sequence",
+        "tags": [
+          "🔢 Document sequences"
+        ],
+        "description": "Creates a sequence for an active electronic issued document type of the account country. Argentina: document_sequence_code is the ARCA point of sale, a number from 1 to 99998, stored without leading zeros. Peru: document_sequence_code is the SUNAT series, 4 alphanumeric characters whose first letter depends on the document type (F invoice, B boleta, F or B credit/debit notes, T shipping guide, V carrier shipping guide, R retention, P perception). The sequence code cannot be repeated for the same document type.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Document_sequencesCreate"
+              },
+              "examples": {
+                "argentina_point_of_sale": {
+                  "summary": "Argentina - Factura A, point of sale 3",
+                  "value": {
+                    "document_type_id": 111,
+                    "document_sequence_code": "3"
+                  }
+                },
+                "argentina_with_last_number": {
+                  "summary": "Argentina - Factura B, point of sale 00002 starting after number 150",
+                  "value": {
+                    "document_type_id": 115,
+                    "document_sequence_code": "00002",
+                    "last_sequence_number": 150
+                  }
+                },
+                "peru_invoice": {
+                  "summary": "Peru - Factura, series F002",
+                  "value": {
+                    "document_type_id": 96,
+                    "document_sequence_code": "F002"
+                  }
+                },
+                "peru_boleta_with_last_number": {
+                  "summary": "Peru - Boleta, series B002 starting after number 500",
+                  "value": {
+                    "document_type_id": 97,
+                    "document_sequence_code": "B002",
+                    "last_sequence_number": 500
+                  }
+                },
+                "peru_credit_note": {
+                  "summary": "Peru - Credit note, series FC02",
+                  "value": {
+                    "document_type_id": 98,
+                    "document_sequence_code": "FC02"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "The document sequence was created.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Document_sequencesResponse"
+                },
+                "examples": {
+                  "argentina": {
+                    "summary": "Argentina - leading zeros removed",
+                    "value": {
+                      "document_type_id": 115,
+                      "document_type_name": "Factura B emitida",
+                      "document_sequence_code": "2",
+                      "last_sequence_number": 150
+                    }
+                  },
+                  "peru": {
+                    "summary": "Peru",
+                    "value": {
+                      "document_type_id": 96,
+                      "document_type_name": "Factura emitida",
+                      "document_sequence_code": "F002",
+                      "last_sequence_number": null
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - invalid input or validation error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Document_sequencesError"
+                },
+                "examples": {
+                  "required_fields": {
+                    "summary": "Missing fields",
+                    "value": {
+                      "type": "http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html",
+                      "title": "Bad Request",
+                      "status": 400,
+                      "detail": "document_type_id and document_sequence_code are required."
+                    }
+                  },
+                  "argentina_point_of_sale": {
+                    "summary": "Argentina - invalid point of sale",
+                    "value": {
+                      "type": "http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html",
+                      "title": "Bad Request",
+                      "status": 400,
+                      "detail": "document_sequence_code must be a numeric point of sale between 1 and 99998."
+                    }
+                  },
+                  "peru_series": {
+                    "summary": "Peru - invalid SUNAT series",
+                    "value": {
+                      "type": "http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html",
+                      "title": "Bad Request",
+                      "status": 400,
+                      "detail": "document_sequence_code B001 is not a valid SUNAT series for document_type_id 96: it must have 4 alphanumeric characters starting with F."
+                    }
+                  },
+                  "document_type": {
+                    "summary": "Document type not allowed",
+                    "value": {
+                      "type": "http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html",
+                      "title": "Bad Request",
+                      "status": 400,
+                      "detail": "document_type_id must be an active electronic issued document type of the account country."
+                    }
+                  },
+                  "last_sequence_number": {
+                    "summary": "Invalid last_sequence_number",
+                    "value": {
+                      "type": "http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html",
+                      "title": "Bad Request",
+                      "status": 400,
+                      "detail": "last_sequence_number must be an integer greater than or equal to 0."
+                    }
+                  },
+                  "country": {
+                    "summary": "Country without document sequences",
+                    "value": {
+                      "type": "http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html",
+                      "title": "Bad Request",
+                      "status": 400,
+                      "detail": "Document sequences are not available for this country."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "The sequence code already exists for the document type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Document_sequencesError"
+                },
+                "example": {
+                  "type": "http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html",
+                  "title": "Conflict",
+                  "status": 409,
+                  "detail": "The document_sequence_code F001 already exists for document_type_id 96."
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/document_sequences/{document_sequence_code}": {
+      "get": {
+        "summary": "Get a specific document sequence",
+        "tags": [
+          "🔢 Document sequences"
+        ],
+        "description": "A sequence is identified by its code and its document type, because the same code can exist for several document types.",
+        "parameters": [
+          {
+            "name": "document_sequence_code",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Sequence code: point of sale in Argentina (e.g. 1), SUNAT series in Peru (e.g. F001)"
+            }
+          },
+          {
+            "name": "document_type_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "Document type ID of the sequence"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Document_sequencesResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - missing document_type_id or country without document sequences",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Document_sequencesError"
+                },
+                "example": {
+                  "type": "http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html",
+                  "title": "Bad Request",
+                  "status": 400,
+                  "detail": "document_type_id must be a valid number"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The sequence does not exist for the document type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Document_sequencesError"
+                },
+                "example": {
+                  "type": "http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html",
+                  "title": "Not Found",
+                  "status": 404,
+                  "detail": "The document_sequence_code F009 does not exist for document_type_id 96."
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "patch": {
+        "summary": "Update the last sequence number of a document sequence",
+        "tags": [
+          "🔢 Document sequences"
+        ],
+        "description": "Updates last_sequence_number; the next document issued without document_number uses last_sequence_number + 1. If the sequence already has issued documents, last_sequence_number can only be lowered to N when number N+1 has not been issued.",
+        "parameters": [
+          {
+            "name": "document_sequence_code",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Sequence code: point of sale in Argentina (e.g. 1), SUNAT series in Peru (e.g. F001)"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Document_sequencesPatch"
+              },
+              "examples": {
+                "argentina": {
+                  "summary": "Argentina - Factura A, point of sale 1",
+                  "value": {
+                    "document_type_id": 111,
+                    "last_sequence_number": 1200
+                  }
+                },
+                "peru": {
+                  "summary": "Peru - Factura, series F001",
+                  "value": {
+                    "document_type_id": 96,
+                    "last_sequence_number": 350
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The last sequence number was updated.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Document_sequencesResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - invalid input or validation error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Document_sequencesError"
+                },
+                "example": {
+                  "type": "http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html",
+                  "title": "Bad Request",
+                  "status": 400,
+                  "detail": "last_sequence_number must be an integer greater than or equal to 0."
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The sequence does not exist for the document type"
+          },
+          "409": {
+            "description": "The next number is already issued",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Document_sequencesError"
+                },
+                "example": {
+                  "type": "http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html",
+                  "title": "Conflict",
+                  "status": 409,
+                  "detail": "The number 101 was already issued with document_sequence_code F001, so last_sequence_number cannot be set to 100."
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "delete": {
+        "summary": "Delete a document sequence",
+        "tags": [
+          "🔢 Document sequences"
+        ],
+        "description": "Deletes a sequence that has not issued documents yet.",
+        "parameters": [
+          {
+            "name": "document_sequence_code",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Sequence code: point of sale in Argentina (e.g. 1), SUNAT series in Peru (e.g. F001)"
+            }
+          },
+          {
+            "name": "document_type_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "Document type ID of the sequence"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "The document sequence was deleted."
+          },
+          "400": {
+            "description": "Bad request - missing document_type_id or country without document sequences"
+          },
+          "404": {
+            "description": "The sequence does not exist for the document type"
+          },
+          "409": {
+            "description": "The sequence already has issued documents",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Document_sequencesError"
+                },
+                "example": {
+                  "type": "http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html",
+                  "title": "Conflict",
+                  "status": 409,
+                  "detail": "The document_sequence_code F001 already has issued documents and cannot be deleted."
                 }
               }
             }
@@ -5254,6 +5770,83 @@
             "type": "integer",
             "description": "Returns the ID of the created account.",
             "example": "638"
+          }
+        }
+      },
+      "Document_sequencesCreate": {
+        "type": "object",
+        "properties": {
+          "document_type_id": {
+            "type": "integer",
+            "description": "Document type ID (active, electronic and issued, of the account country)."
+          },
+          "document_sequence_code": {
+            "type": "string",
+            "description": "Argentina: ARCA point of sale from 1 to 99998 (leading zeros are removed). Peru: SUNAT series of 4 alphanumeric characters (e.g. F001, B001, FC01, T001)."
+          },
+          "last_sequence_number": {
+            "type": "integer",
+            "description": "Optional. Last number already used; the next document is issued with this number + 1. Without it the sequence starts with number 1."
+          }
+        },
+        "required": [
+          "document_type_id",
+          "document_sequence_code"
+        ]
+      },
+      "Document_sequencesPatch": {
+        "type": "object",
+        "properties": {
+          "document_type_id": {
+            "type": "integer",
+            "description": "Document type ID of the sequence."
+          },
+          "last_sequence_number": {
+            "type": "integer",
+            "description": "New last number used (integer greater than or equal to 0)."
+          }
+        },
+        "required": [
+          "document_type_id",
+          "last_sequence_number"
+        ]
+      },
+      "Document_sequencesResponse": {
+        "type": "object",
+        "properties": {
+          "document_type_id": {
+            "type": "integer",
+            "description": "Document type ID."
+          },
+          "document_type_name": {
+            "type": "string",
+            "description": "Document type name."
+          },
+          "document_sequence_code": {
+            "type": "string",
+            "description": "Sequence code: point of sale in Argentina, SUNAT series in Peru."
+          },
+          "last_sequence_number": {
+            "type": "integer",
+            "nullable": true,
+            "description": "Last number used; null if the sequence has not issued documents."
+          }
+        }
+      },
+      "Document_sequencesError": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "status": {
+            "type": "integer"
+          },
+          "detail": {
+            "type": "string"
           }
         }
       },
