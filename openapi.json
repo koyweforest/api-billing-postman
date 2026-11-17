@@ -1087,7 +1087,7 @@
         "tags": [
           "🔢 Document sequences"
         ],
-        "description": "Deletes a sequence that has not issued documents yet.",
+        "description": "Deletes a sequence that has not issued documents yet. In Argentina a sequence with last_sequence_number greater than 0 is also considered in use: if it has not issued documents, set last_sequence_number to 0 with PATCH before deleting it.",
         "parameters": [
           {
             "name": "document_sequence_code",
