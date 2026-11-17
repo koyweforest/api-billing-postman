@@ -5831,7 +5831,7 @@
           "last_sequence_number": {
             "type": "integer",
             "nullable": true,
-            "description": "Current sequence counter: the last number used, or the initial value given when the sequence was created; the next document is issued with this number + 1. null when no number has been set yet. A non-null value does not prove that documents were issued."
+            "description": "Current sequence counter: the last number used, the initial value given when the sequence was created, or the value set with PATCH; the next document issued without document_number is issued with this number + 1. null when no number has been set yet. A non-null value does not prove that documents were issued."
           }
         }
       },
