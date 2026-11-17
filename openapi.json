@@ -1119,7 +1119,7 @@
             "description": "The sequence does not exist for the document type"
           },
           "409": {
-            "description": "The sequence already has issued documents",
+            "description": "The sequence already has issued documents, or (Argentina) its last_sequence_number is greater than 0. In Argentina the detail is: The document_sequence_code 12 already has issued documents or a last_sequence_number greater than 0 and cannot be deleted. If it has not issued documents, set last_sequence_number to 0 first.",
             "content": {
               "application/json": {
                 "schema": {
@@ -5831,7 +5831,7 @@
           "last_sequence_number": {
             "type": "integer",
             "nullable": true,
-            "description": "Current sequence counter: the last number used, the initial value given when the sequence was created, or the value set with PATCH; the next document issued without document_number is issued with this number + 1. null when no number has been set yet. A non-null value does not prove that documents were issued."
+            "description": "Current sequence counter: the last number used, the initial value given when the sequence was created, or the value set with PATCH; the next document issued without document_number is issued with this number + 1. null when no number has been set yet; in that case the next document issued without document_number is issued with number 1. A non-null value does not prove that documents were issued."
           }
         }
       },
