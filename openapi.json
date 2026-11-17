@@ -5786,6 +5786,7 @@
           },
           "last_sequence_number": {
             "type": "integer",
+            "minimum": 0,
             "description": "Optional. Last number already used; the next document is issued with this number + 1. Without it the sequence starts with number 1."
           }
         },
@@ -5803,6 +5804,7 @@
           },
           "last_sequence_number": {
             "type": "integer",
+            "minimum": 0,
             "description": "New last number used (integer greater than or equal to 0)."
           }
         },
@@ -5829,7 +5831,7 @@
           "last_sequence_number": {
             "type": "integer",
             "nullable": true,
-            "description": "Last number used; null if the sequence has not issued documents."
+            "description": "Current sequence counter: the last number used, or the initial value given when the sequence was created; the next document is issued with this number + 1. null when no number has been set yet. A non-null value does not prove that documents were issued."
           }
         }
       },
