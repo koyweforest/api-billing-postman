@@ -4230,7 +4230,7 @@
               "company_email": {
                 "type": "string",
                 "description": "You can enter an email, which will replace the one registered in the Koywe account data and will be reflected in the automatic email sent to the document recipient.",
-                "example": "email@email.com"
+                "example": "email@example.com"
               }
             }
           },
@@ -4629,7 +4629,7 @@
                           },
                           "address_street": {
                             "type": "string",
-                            "example": "2470 SW 19th"
+                            "example": "123 Example St"
                           },
                           "address_state_id": {
                             "type": "string",
@@ -5417,7 +5417,7 @@
           "certificate_id": {
             "type": "string",
             "description": "ID of the digital certificate loaded",
-            "example": "7y5wvL7tZ3aGEMnxeSF1"
+            "example": "EXAMPLE0000000000000"
           },
           "certificate_valid_from": {
             "type": "string",
@@ -5561,12 +5561,12 @@
           "certificate_issuance_id": {
             "type": "string",
             "description": "ID of the digital certificate link.",
-            "example": "7y5wvL7tZ3aGEMnxeSF1"
+            "example": "EXAMPLE0000000000000"
           },
           "certificate_generation_link": {
             "type": "string",
             "description": "Link to generate the digital certificate.",
-            "example": "https://certificado.facto.cl/certificado/registro/7y5wvL7tZ3aGEMnxeSF1"
+            "example": "https://certificado.facto.cl/certificado/registro/EXAMPLE0000000000000"
           }
         }
       },
@@ -6239,7 +6239,7 @@
         "certificate_issuance_id": {
           "type": "string",
           "description": "ID of the digital certificate link.",
-          "example": "7y5wvL7tZ3aGEMnxeSF1"
+          "example": "EXAMPLE0000000000000"
         },
         "certificate_status": {
           "type": "string",

@@ -26,7 +26,7 @@ This is the first API in each file.
 
 ![image.png](assets/image%203.png)
 
-You already have the Body to send and the API version configured is V1.
+You already have the Body to send and the API version configured is V1. Replace `YOUR_CLIENT_SECRET` and `YOUR_PASSWORD` (and, where present, `YOUR_CLIENT_ID` / `YOUR_USERNAME`) with the sandbox credentials provided to you.
 
 You can automatically obtain the access token in a script.
 
@@ -45,3 +45,7 @@ You get the access token in a variable
 Finally, you have the list of all APIs with a generic access token variable, so you can configure it for any country you need.
 
 ![image.png](assets/image%207.png)
+
+## Contributing
+
+Examples must use fictitious placeholder values only. See [CONTRIBUTING.md](CONTRIBUTING.md).
